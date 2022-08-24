@@ -26,4 +26,20 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('profile', [Api\UserController::class, 'profile']);
         Route::post('logout', [Api\UserController::class, 'logout']);
     });
+
+    Route::prefix('historical-contract')->group( function () {
+        Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
+    });
+
+    Route::prefix('family')->group( function () {
+        Route::get('/', [Api\FamilyController::class, 'index']);
+    });
+
+    Route::prefix('job-history')->group( function () {
+        Route::get('/', [Api\JobHistoryController::class, 'index']);
+    });
+
+    Route::prefix('education')->group( function () {
+        Route::get('/', [Api\EducationController::class, 'index']);
+    });
 });
