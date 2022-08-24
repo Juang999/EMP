@@ -22,5 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', [Api\UserController::class, 'login']);
 
 Route::middleware('jwt.verify')->group( function () {
-    Route::get('user', [Api\UserController::class, 'user']);
+    Route::prefix('user')->group( function () {
+        Route::get('profile', [Api\UserController::class, 'profile']);
+        Route::post('logout', [Api\UserController::class, 'logout']);
+    });
 });

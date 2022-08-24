@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -43,14 +44,40 @@ class UserController extends Controller
         }
     }
 
-    public function user()
+    public function profile()
     {
         try {
-            $user = User::get();
+            $user = Auth::user();
 
-            return response()->json($user);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'success to get profile',
+                'profile' => $user
+            ], 200);
         } catch (\Throwable $th) {
-            return response()->json($th->getMessage());
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'failed to get profile',
+                'error' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::parseToken()->invalidate(true);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'logged out!'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'failed to logout',
+                'error' => $th->getMessage()
+            ], 400);
         }
     }
 }
