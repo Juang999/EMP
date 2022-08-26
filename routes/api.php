@@ -42,4 +42,13 @@ Route::middleware('jwt.verify')->group( function () {
     Route::prefix('education')->group( function () {
         Route::get('/', [Api\EducationController::class, 'index']);
     });
+
+    Route::apiResources([
+        'pangkat' => Api\PangkatController::class,
+        'organisasi' => Api\OrganisasiController::class,
+        'code' => Api\CodeController::class,
+        'hrGol' => Api\HRGolController::class,
+        'hrKotaUmk' => Api\HRKotaUmkController::class,
+        'hubKel' => Api\HubunganKeluargaController::class
+    ]);
 });
