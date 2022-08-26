@@ -9,7 +9,7 @@ class PangkatMaster extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.pangkat_mstr';
+    protected $table = 'hris.pangkat_mstr';
 
     protected $primaryKey = 'pangkat_id';
 }

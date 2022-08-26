@@ -9,7 +9,7 @@ class HRKotaUmk extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_kota_umk';
+    protected $table = 'hris.hr_kota_umk';
 
     protected $keyType = 'string';
 

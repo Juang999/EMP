@@ -9,7 +9,7 @@ class HRHubKel extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_hub_kel';
+    protected $table = 'hris.hr_hub_kel';
 
     protected $keyType = 'string';
 

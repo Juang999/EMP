@@ -9,7 +9,7 @@ class HRGolMaster extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hrgol_mstr';
+    protected $table = 'hris.hrgol_mstr';
 
     protected $primaryKey = 'hrgol_id';
 }
