@@ -13,35 +13,40 @@ class MasterHistoricalContractController extends Controller
         try {
             $data = [
                 [
-                    "kontrak_ke" => mt_rand(),
-                    "tanggal_awal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
-                    "nomor_kontrak" => mt_rand(),
-                    "keterangan" => "-"
+                    "___id" => mt_rand(),
+                    "kontrakKe" => mt_rand(),
+                    "tglAwal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
+                    "noKontrak" => mt_rand(),
+                    "ket" => "-"
                 ],[
-                    "kontrak_ke" => mt_rand(),
-                    "tanggal_awal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
-                    "nomor_kontrak" => mt_rand(),
-                    "keterangan" => "-"
+                    "___id" => mt_rand(),
+                    "kontrakKe" => mt_rand(),
+                    "tglAwal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
+                    "noKontrak" => mt_rand(),
+                    "ket" => "-"
                 ],[
-                    "kontrak_ke" => mt_rand(),
-                    "tanggal_awal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
-                    "nomor_kontrak" => mt_rand(),
-                    "keterangan" => "-"
+                    "___id" => mt_rand(),
+                    "kontrakKe" => mt_rand(),
+                    "tglAwal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
+                    "noKontrak" => mt_rand(),
+                    "ket" => "-"
                 ],[
-                    "kontrak_ke" => mt_rand(),
-                    "tanggal_awal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
-                    "nomor_kontrak" => mt_rand(),
-                    "keterangan" => "-"
+                    "___id" => mt_rand(),
+                    "kontrakKe" => mt_rand(),
+                    "tglAwal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
+                    "noKontrak" => mt_rand(),
+                    "ket" => "-"
                 ],[
-                    "kontrak_ke" => mt_rand(),
-                    "tanggal_awal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
-                    "nomor_kontrak" => mt_rand(),
-                    "keterangan" => "-"
+                    "___id" => mt_rand(),
+                    "kontrakKe" => mt_rand(),
+                    "tglAwal" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->addDay(mt_rand(1, 365))->format('y-m-d'),
+                    "noKontrak" => mt_rand(),
+                    "ket" => "-"
                 ]
             ];
 

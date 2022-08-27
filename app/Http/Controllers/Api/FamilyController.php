@@ -13,20 +13,23 @@ class FamilyController extends Controller
         try {
             $data = [
                 [
-                    "hubungan" => "istri",
+                    "___id" => mt_rand(),
+                    "hub" => "istri",
                     "nama" => "emily",
-                    "tanggal_lahir" => Carbon::now()->subDay(7300)->format('y-m-d'),
-                    "keterangan" => '-'
+                    "tglLahir" => Carbon::now()->subDay(7300)->format('y-m-d'),
+                    "ket" => '-'
                 ],[
-                    "hubungan" => "anak",
-                    "nama" => "bily",
-                    "tanggal_lahir" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "keterangan" => '-'
+                    "___id" => mt_rand(),
+                    "hub" => "anak",
+                    "nama" => "joyboy",
+                    "tglLahir" => Carbon::now()->subDay(7300)->format('y-m-d'),
+                    "ket" => '-'
                 ],[
-                    "hubungan" => "anak",
-                    "nama" => "krixy",
-                    "tanggal_lahir" => Carbon::now()->subDay(mt_rand(1, 365))->format('y-m-d'),
-                    "keterangan" => '-'
+                    "___id" => mt_rand(),
+                    "hub" => "anak",
+                    "nama" => "krixi",
+                    "tglLahir" => Carbon::now()->subDay(7300)->format('y-m-d'),
+                    "ket" => '-'
                 ]
             ];
 

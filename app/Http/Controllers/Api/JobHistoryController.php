@@ -13,10 +13,11 @@ class JobHistoryController extends Controller
         try {
             $data = [
                 [
+                    "___id" => mt_rand(),
                     "posisi" => "Human Resource",
-                    "tanggal_awal" => Carbon::now()->subDay(730)->format('y-m-d'),
-                    "tanggal_akhir" => Carbon::now()->subDay(365)->format('y-m-d'),
-                    "keterangan" => "-"
+                    "tglAwal" => Carbon::now()->subDay(730)->format('y-m-d'),
+                    "tglAkhir" => Carbon::now()->subDay(365)->format('y-m-d'),
+                    "ket" => "-"
                 ]
             ];
 

@@ -15,11 +15,12 @@ class EducationController extends Controller
         try {
             $data = [
                 [
+                    "___id" => mt_rand(),
                     "jenjang" => "SMA",
                     "lembaga" => "Yayasan Fajrussalam Bina Umat",
                     "jurusan" => "Agama",
-                    "tahun awal" => Carbon::createFromFormat('Y-m-d', '2020-08-12'),
-                    "tahun akhir" => Carbon::createFromFormat('Y-m-d', '2021-08-12')
+                    "thnAwal" => Carbon::createFromFormat('Y-m-d', '2020-08-12'),
+                    "thnAkhir" => Carbon::createFromFormat('Y-m-d', '2021-08-12')
                 ]
             ];
 

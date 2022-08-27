@@ -27,19 +27,19 @@ Route::middleware('jwt.verify')->group( function () {
         Route::post('logout', [Api\UserController::class, 'logout']);
     });
 
-    Route::prefix('historical-contract')->group( function () {
+    Route::prefix('sejarahKontrak')->group( function () {
         Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
     });
 
-    Route::prefix('family')->group( function () {
+    Route::prefix('anggotaKeluarga')->group( function () {
         Route::get('/', [Api\FamilyController::class, 'index']);
     });
 
-    Route::prefix('job-history')->group( function () {
+    Route::prefix('sejarahPosisiJabatan')->group( function () {
         Route::get('/', [Api\JobHistoryController::class, 'index']);
     });
 
-    Route::prefix('education')->group( function () {
+    Route::prefix('pendidikanFormal')->group( function () {
         Route::get('/', [Api\EducationController::class, 'index']);
     });
 
