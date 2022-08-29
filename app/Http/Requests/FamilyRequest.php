@@ -24,7 +24,11 @@ class FamilyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'hubungan' => 'required',
+            'nama' => 'required',
+            'remarks' => 'required',
+            'tglLahir' => 'required',
+            'tmptLahir' => 'required'
         ];
     }
 }

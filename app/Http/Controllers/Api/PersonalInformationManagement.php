@@ -17,7 +17,7 @@ class PersonalInformationManagement extends Controller
     public function __invoke(PersonalInformationManagementRequest $PIMRequest)
     {
         try {
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
