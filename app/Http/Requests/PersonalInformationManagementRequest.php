@@ -26,7 +26,6 @@ class PersonalInformationManagementRequest extends FormRequest
         return [
             "namaLengkap" => "required",
             "gender" => "required",
-            "dt" => "required",
             "birthDate" => "required",
             "birthPlace" => "required",
             "relation" => "required",
@@ -80,6 +79,18 @@ class PersonalInformationManagementRequest extends FormRequest
             "bank" => "required",
             "tJabatan" => "required",
             "kotaUmk" => "required",
+            "hub_id" => "required",
+            "nama" => "required",
+            "remarks" => "required",
+            // ""
+            'organisasi' => 'required',
+            'jabatan' => 'required',
+            'status' => 'required',
+            'jnsOrganisasi' => 'required',
+            'masaJabatan' => 'required',
+            'orgStart' => 'required',
+            'orgEnd' => 'required',
+
         ];
     }
 }
