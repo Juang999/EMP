@@ -51,4 +51,6 @@ Route::middleware('jwt.verify')->group( function () {
         'hrKotaUmk' => Api\HRKotaUmkController::class,
         'hubKel' => Api\HubunganKeluargaController::class
     ]);
+
+    Route::get('entitas', Api\En::class);
 });
