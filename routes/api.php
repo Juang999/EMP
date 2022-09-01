@@ -22,5 +22,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', [Api\UserController::class, 'login']);
 
 Route::middleware('jwt.verify')->group( function () {
-    Route::get('user', [Api\UserController::class, 'user']);
+    Route::prefix('user')->group( function () {
+        Route::get('profile', [Api\UserController::class, 'profile']);
+        Route::post('logout', [Api\UserController::class, 'logout']);
+    });
+
+    Route::prefix('sejarahKontrak')->group( function () {
+        Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
+    });
+
+    Route::prefix('anggotaKeluarga')->group( function () {
+        Route::get('/', [Api\FamilyController::class, 'index']);
+    });
+
+    Route::prefix('sejarahPosisiJabatan')->group( function () {
+        Route::get('/', [Api\JobHistoryController::class, 'index']);
+    });
+
+    Route::prefix('pendidikanFormal')->group( function () {
+        Route::get('/', [Api\EducationController::class, 'index']);
+    });
+
+    Route::apiResources([
+        'pangkat' => Api\PangkatController::class,
+        'organisasi' => Api\OrganisasiController::class,
+        'code' => Api\CodeController::class,
+        'hrGol' => Api\HRGolController::class,
+        'hrKotaUmk' => Api\HRKotaUmkController::class,
+        'hubKel' => Api\HubunganKeluargaController::class
+    ]);
+
+    Route::get('entitas', Api\En::class);
 });

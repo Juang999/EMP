@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use JWTAuth;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use JWTAuth;
-use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use PHPOpenSourceSaver\JWTAuth\Token;
+// use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 class UserController extends Controller
 {
@@ -43,14 +42,42 @@ class UserController extends Controller
         }
     }
 
-    public function user()
+    public function profile()
     {
         try {
-            $user = User::get();
+            // dd(JWTAuth::parseToken());
 
-            return response()->json($user);
+            $user = Auth::user();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'success to get profile',
+                'profile' => $user
+            ], 200);
         } catch (\Throwable $th) {
-            return response()->json($th->getMessage());
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'failed to get profile',
+                'error' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::parseToken()->invalidate(true);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'logged out!'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'failed to logout',
+                'error' => $th->getMessage()
+            ], 400);
         }
     }
 }
