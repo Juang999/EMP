@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserLoginRequest;
 use Illuminate\Support\Facades\Auth;
 use PHPOpenSourceSaver\JWTAuth\Token;
 // use PHPOpenSourceSaver\JWTAuth\JWTAuth;
@@ -78,6 +79,15 @@ class UserController extends Controller
                 'message' => 'failed to logout',
                 'error' => $th->getMessage()
             ], 400);
+        }
+    }
+
+    public function userLogin(UserLoginRequest $request)
+    {
+        try {
+            
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }

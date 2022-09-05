@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [Api\UserController::class, 'login']);
+Route::post('user/login', [Api\UserController::class, 'userLogin']);
 
 Route::middleware('jwt.verify')->group( function () {
     Route::prefix('user')->group( function () {
@@ -43,14 +44,20 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('/', [Api\EducationController::class, 'index']);
     });
 
+
     Route::apiResources([
         'pangkat' => Api\PangkatController::class,
         'organisasi' => Api\OrganisasiController::class,
-        'code' => Api\CodeController::class,
         'hrGol' => Api\HRGolController::class,
         'hrKotaUmk' => Api\HRKotaUmkController::class,
         'hubKel' => Api\HubunganKeluargaController::class
     ]);
 
+    // singleRoute
     Route::get('entitas', Api\En::class);
+    Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
+    Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
+    Route::get('status', [Api\CodeMasterController::class, 'getStatusId']);
+    Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
+    Route::post('/daftarkanKaryawan', Api\PersonalInformationManagement::class);
 });
