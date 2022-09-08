@@ -201,6 +201,8 @@ class CodeMasterController extends Controller
 
             return response()->json([
                 'code' => 200,
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
                 'pendidikan' => $pendidikan
             ], 200);
         } catch (\Throwable $th) {
