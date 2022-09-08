@@ -19,12 +19,14 @@ class PangkatController extends Controller
             $pangkat = PangkatMaster::get();
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data pangkat',
                 'pengkat' => $pangkat
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data pangkat',
                 'galat' => $th->getMessage()

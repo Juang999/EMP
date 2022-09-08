@@ -21,12 +21,14 @@ class HRGolController extends Controller
             $data = HRGolMaster::get();
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data gol',
                 'data' => $data
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data gol',
                 'galat' => $th->getMessage()

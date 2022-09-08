@@ -20,12 +20,14 @@ class En extends Controller
             $entitas = EnMaster::get();
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data entitas',
                 'entitas' => $entitas
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data entitas',
                 'galat' => $th->getMessage()
