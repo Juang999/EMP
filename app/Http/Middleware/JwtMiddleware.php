@@ -22,11 +22,20 @@ class JwtMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['status' => 'Token is Invalid'], 403);
+                return response()->json([
+                    'code' => 403,
+                    'status' => 'Token is Invalid'
+                ], 403);
             }else if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['status' => 'Token is Expired'], 419);
+                return response()->json([
+                    'code' => 419,
+                    'status' => 'Token is Expired'
+                ], 419);
             }else{
-                return response()->json(['status' => 'Authorization Token not found'], 401);
+                return response()->json([
+                    'code' => 401,
+                    'status' => 'Authorization Token not found'
+                ], 401);
             }
         }
         return $next($request);
