@@ -14,4 +14,6 @@ class EmpMaster extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'emp_oid';
+
+    protected $guarded = [];
 }

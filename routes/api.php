@@ -53,13 +53,18 @@ Route::middleware('jwt.verify')->group( function () {
         'hubKel' => Api\HubunganKeluargaController::class
     ]);
 
-    // singleRoute
+    // masterRoute
     Route::get('entitas', Api\En::class);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
+    Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatusId']);
+    Route::get('hirarki', [Api\CodeMasterController::class, 'getHirarki']);
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
-    Route::post('/daftarkanKaryawan', Api\PersonalInformationManagement::class);
+    Route::get('kota', [Api\CodeMasterController::class, 'getKota']);
+
+    // singleRoute
+    Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
 });

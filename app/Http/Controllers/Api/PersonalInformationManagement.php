@@ -21,6 +21,8 @@ class PersonalInformationManagement extends Controller
      */
     public function __invoke(Request $request)
     {
+        dd($request->all());
+
         try {
             DB::beginTransaction();
 
@@ -35,7 +37,6 @@ class PersonalInformationManagement extends Controller
             }
 
             $photo = base64_encode(file_get_contents($request->file('photo')));
-            // dd($photo);
 
             $employee = EmpMaster::create([
                 'emp_add_by' => Auth::user()->usernama,
@@ -47,8 +48,8 @@ class PersonalInformationManagement extends Controller
                 'emp_gender' => $request->gender,
                 // 'emp_pos_id' => $request->PosId,
                 'emp_dt' => Carbon::now(),
-                'emp_birth_date' => $request->birthDate,
-                'emp_birth_place' => $request->birthPlace,
+                'emp_birth_date' => $request->tglLahir,
+                'emp_birth_place' => $request->tmptLahir,
                 'emp_relation' => $request->relation, //relasi keluarga
                 'emp_area_id' => $request->areaId,
                 'emp_no_ktp' => $request->noKtp,
@@ -67,10 +68,10 @@ class PersonalInformationManagement extends Controller
                 'emp_hrgol_id' => $request->hrGolId,
                 'emp_hrstatus_id' => $request->hrStatusId,
                 'emp_hrpos_id' => $request->hrPosId,
-                'emp_hrpangkat_id' => $request->hrPangkatId,
+                'emp_pangkat_id' => $request->PangkatId,
                 'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
-                'emp_finger' => $request->finger,
+                // 'emp_finger' => $request->finger,
                 'emp_nik_new' => $request->nikNew,
                 'emp_tgl_keluar' => $request->tglKeluar,
                 'emp_alasan_keluar' => $request->alasanKeluar,
@@ -113,6 +114,8 @@ class PersonalInformationManagement extends Controller
                 'emp_pot_zakat' => $request->potZakat,
                 'emp_zis' => $request->zis
             ]);
+
+        DB::commit();
 
             return response()->json([
                 'status' => 'berhasil',
