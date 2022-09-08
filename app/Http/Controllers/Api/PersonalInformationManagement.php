@@ -45,7 +45,7 @@ class PersonalInformationManagement extends Controller
                 'emp_mname' => ($name[1]) ? $name[1] : '-',
                 'emp_lname' => ($name[2]) ? $name[2] : '-',
                 'emp_gender' => $request->gender,
-                'emp_pos_id' => $request->PosId,
+                // 'emp_pos_id' => $request->PosId,
                 'emp_dt' => Carbon::now(),
                 'emp_birth_date' => $request->birthDate,
                 'emp_birth_place' => $request->birthPlace,
@@ -66,7 +66,7 @@ class PersonalInformationManagement extends Controller
                 'emp_tgl_masuk' => $request->tglMasuk,
                 'emp_hrgol_id' => $request->hrGolId,
                 'emp_hrstatus_id' => $request->hrStatusId,
-                // 'emp_hrpos_id' => $request->hrPosId,
+                'emp_hrpos_id' => $request->hrPosId,
                 'emp_hrpangkat_id' => $request->hrPangkatId,
                 'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
@@ -84,8 +84,8 @@ class PersonalInformationManagement extends Controller
                 'emp_en_id' => $request->enId,
                 'emp_status_marital' => $request->statMarital,
                 'emp_no_rek' => $request->noRek,
-                // 'emp_id_finger' => $request->idFinger,
-                // 'emp_work_group' => $request->workGroup,
+                'emp_id_finger' => $request->idFinger,
+                'emp_work_group' => $request->workGroup,
                 'emp_gaji_pokok' => $request->gajiPokok,
                 'emp_t_transport' => $request->tTransport,
                 'emp_t_perumahan' => $request->tPerumahan,
@@ -94,8 +94,8 @@ class PersonalInformationManagement extends Controller
                 'emp_t_makan' => $request->tMakan,
                 'emp_t_fungsional' => $request->tFungsional,
                 'emp_upah_perjam_borongan' => $request->upahKerjaBorongan,
-                // 'emp_privilege_finger' => $request->privilegeFInger,
-                // 'emp_password_finger' => $request->passwordFinger,
+                'emp_privilege_finger' => $request->privilegeFInger,
+                'emp_password_finger' => $request->passwordFinger,
                 // 'emp_no_urut' => $request->noUrut,
                 'emp_hirarki' => $request->hirarki,
                 'emp_npwp' => $request->npwp,
@@ -114,24 +114,10 @@ class PersonalInformationManagement extends Controller
                 'emp_zis' => $request->zis
             ]);
 
-            $keluarga = DB::table('hris.hr_keluarga')->insert([
-                'hrkel_emp_id' => $employee['emp_oid'],
-                'hrkel_hub_id' => $request->hub_id,
-                'hrkel_nama' => $request->nama,
-                'hrkel_remarks' => $request->remarks,
-                'hrkel_tgl_lahir' => $request->tglLahir,
-                'hrkel_tempat_lahir' => $request->tempatLahir
-            ]);
-
-            $keahlian = DB::table('hris.hr_keahlian')->insert([
-                'hrahli_emp_id' => $employee['emp_oid'],
-                'hrahli_jenis_keahlian' => $request->jenisKeahlian,
-                'hrahli_tingkat' => $request->tingkat,
-                ''
-            ]);
-
-            $useraset = DB::table('use_aset')->insert([
-                //
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil membuat data baru karyawan',
+                'data' => $employee
             ]);
         } catch (\Throwable $th) {
             //throw $th;

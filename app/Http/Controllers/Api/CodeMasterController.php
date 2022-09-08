@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
+use App\Models\HrJenisKeahlian;
 use Illuminate\Http\Request;
 
 class CodeMasterController extends Controller
@@ -79,6 +80,23 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data id status',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getKeahlian()
+    {
+        try {
+            $keahlian = HrJenisKeahlian::get();
+
+            return response()->json([
+                'keahlian' => $keahlian
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data jenis keahlian',
                 'galat' => $th->getMessage()
             ], 400);
         }
