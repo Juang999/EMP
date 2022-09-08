@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
+use App\Models\EmpMaster;
+use App\Models\HRGolMaster;
 use App\Models\HrJenisKeahlian;
+use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
+use App\Models\PosMaster;
 use Illuminate\Http\Request;
 
 class CodeMasterController extends Controller
@@ -119,4 +123,57 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getPosMaster()
+    {
+        try {
+            $posisi = PosMaster::get();
+
+            return response()->json([
+                'posisi' => $posisi
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getStatus()
+    {
+        try {
+            $status = HrStatusMaster::get();
+
+            return response()->json([
+                'status' => $status
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getHirarki()
+    {
+        try {
+            $hirarki = EmpMaster::get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id']);
+
+            return response()->json([
+                'hirarki' => $hirarki
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data hirarki',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    // Route::get()
 }
