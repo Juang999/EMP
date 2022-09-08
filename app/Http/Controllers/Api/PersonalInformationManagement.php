@@ -24,19 +24,33 @@ class PersonalInformationManagement extends Controller
         try {
             DB::beginTransaction();
 
-            $employee = DB::table('public.emp_mstr')->insert([
+            $name = explode(' ', $request->namaLengkap);
+
+            $emp_id = EmpMaster::orderBy('emp_add_date', 'DESC')->first('emp_id');
+
+            if (!$emp_id) {
+                $emp_id = 1;
+            } else {
+                $emp_id++;
+            }
+
+            $photo = base64_encode(file_get_contents($request->file('photo')));
+            // dd($photo);
+
+            $employee = EmpMaster::create([
                 'emp_add_by' => Auth::user()->usernama,
                 'emp_add_date' => Carbon::now(),
-                'emp_fname' => $request->fname,
-                'emp_mname' => $request->mname,
-                'emp_lname' => $request->lname,
+                'emp_id' => $emp_id,
+                'emp_fname' => $name[0],
+                'emp_mname' => ($name[1]) ? $name[1] : '-',
+                'emp_lname' => ($name[2]) ? $name[2] : '-',
                 'emp_gender' => $request->gender,
-                // 'emp_pos_id' => $request->PosId,
+                'emp_pos_id' => $request->PosId,
                 'emp_dt' => Carbon::now(),
                 'emp_birth_date' => $request->birthDate,
                 'emp_birth_place' => $request->birthPlace,
-                'emp_relation' => $request->relation,
-                // 'emp_area_id' => $request->areaId,
+                'emp_relation' => $request->relation, //relasi keluarga
+                'emp_area_id' => $request->areaId,
                 'emp_no_ktp' => $request->noKtp,
                 'emp_pin' => $request->pin,
                 'emp_tinggi_badan' => $request->tinggiBadan,
@@ -51,18 +65,18 @@ class PersonalInformationManagement extends Controller
                 'emp_inisial' => $request->inisial,
                 'emp_tgl_masuk' => $request->tglMasuk,
                 'emp_hrgol_id' => $request->hrGolId,
-                // 'emp_hrstatus_id' => $request->hrStatusId,
+                'emp_hrstatus_id' => $request->hrStatusId,
                 // 'emp_hrpos_id' => $request->hrPosId,
                 'emp_hrpangkat_id' => $request->hrPangkatId,
                 'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
-                // 'emp_finger' => $request->finger,
+                'emp_finger' => $request->finger,
                 'emp_nik_new' => $request->nikNew,
                 'emp_tgl_keluar' => $request->tglKeluar,
                 'emp_alasan_keluar' => $request->alasanKeluar,
                 'emp_nik_old' => $request->nikOld,
                 'emp_address' => $request->address,
-                // 'emp_photo' => json_decode($request->),
+                'emp_photo' => $photo,
                 'emp_type' => $request->type,
                 'emp_kota' => $request->kota,
                 'emp_propinsi' => $request->propinsi,

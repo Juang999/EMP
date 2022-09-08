@@ -14,4 +14,6 @@ class CodeMaster extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'code_oid';
+
+    public $timestamps = false;
 }
