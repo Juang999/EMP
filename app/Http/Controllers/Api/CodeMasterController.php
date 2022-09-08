@@ -20,12 +20,14 @@ class CodeMasterController extends Controller
             $golDarah = CodeMaster::where('code_field', 'gol_darah')->get(['code_id', 'code_name']);
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data golongan darah',
                 'golongan_darah' => $golDarah
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data golongan darah',
                 'galat' => $th->getMessage()
@@ -39,12 +41,14 @@ class CodeMasterController extends Controller
             $gender = CodeMaster::where('code_field', 'Jenis_Kelamin')->get(['code_id', 'code_name']);
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data gender',
                 'gender' => $gender
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data gender',
                 'galat' => $th->getMessage()
@@ -58,12 +62,14 @@ class CodeMasterController extends Controller
             $area_id = codeMaster::where('code_field', 'area_id')->get(['code_id', 'code_name']);
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data area',
                 'area' => $area_id
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data area',
                 'galat' => $th->getMessage()
@@ -77,12 +83,14 @@ class CodeMasterController extends Controller
             $statusId = CodeMaster::where('code_field', 'emp_hrstatus_id')->get(['code_id', 'code_name']);
 
             return response()->json([
+                'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data id status',
                 'status_id' => $statusId
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data id status',
                 'galat' => $th->getMessage()
@@ -96,10 +104,12 @@ class CodeMasterController extends Controller
             $keahlian = HrJenisKeahlian::get();
 
             return response()->json([
+                'code' => 200,
                 'keahlian' => $keahlian
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data jenis keahlian',
                 'galat' => $th->getMessage()
@@ -113,10 +123,12 @@ class CodeMasterController extends Controller
             $workGroup = HrWorkGroup::get();
 
             return response()->json([
+                'code' => 200,
                 'workGroup' => $workGroup
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage()
@@ -130,10 +142,12 @@ class CodeMasterController extends Controller
             $posisi = PosMaster::get();
 
             return response()->json([
+                'code' => 200,
                 'posisi' => $posisi
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage()
@@ -147,10 +161,12 @@ class CodeMasterController extends Controller
             $status = HrStatusMaster::get();
 
             return response()->json([
+                'code' => 200,
                 'status' => $status
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage()
@@ -164,10 +180,12 @@ class CodeMasterController extends Controller
             $hirarki = EmpMaster::get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id']);
 
             return response()->json([
+                'code' => 200,
                 'hirarki' => $hirarki
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data hirarki',
                 'galat' => $th->getMessage()

@@ -63,7 +63,6 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
-    Route::get('kota', [Api\CodeMasterController::class, 'getKota']);
 
     // singleRoute
     Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
