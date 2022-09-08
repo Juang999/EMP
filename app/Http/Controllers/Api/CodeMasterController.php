@@ -7,6 +7,7 @@ use App\Models\CodeMaster;
 use App\Models\EmpMaster;
 use App\Models\HRGolMaster;
 use App\Models\HrJenisKeahlian;
+use App\Models\HRPendidikan;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\PosMaster;
@@ -193,5 +194,22 @@ class CodeMasterController extends Controller
         }
     }
 
-    // Route::get()
+    public function getPendidikan()
+    {
+        try {
+            $pendidikan = HRPendidikan::get();
+
+            return response()->json([
+                'code' => 200,
+                'pendidikan' => $pendidikan
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 400,
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data pendidikan',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
 }
