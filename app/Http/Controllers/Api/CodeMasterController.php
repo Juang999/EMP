@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
 use App\Models\EmpMaster;
 use App\Models\HRGolMaster;
+use App\Models\HrJabatanMaster;
 use App\Models\HrJenisKeahlian;
 use App\Models\HRPendidikan;
 use App\Models\HrStatusMaster;
@@ -232,6 +233,25 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data nama karyawan',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getJabatan()
+    {
+        try {
+            $jabatan = HrJabatanMaster::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data jabatan',
+                'jabatan' => $jabatan
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data jabatan',
                 'galat' => $th->getMessage()
             ], 400);
         }
