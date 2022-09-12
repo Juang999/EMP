@@ -64,7 +64,9 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
+    Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
 
     // singleRoute
     Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
+
 });

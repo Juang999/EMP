@@ -12,6 +12,7 @@ use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\PosMaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CodeMasterController extends Controller
 {
@@ -210,6 +211,27 @@ class CodeMasterController extends Controller
                 'code' => 400,
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data pendidikan',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getAllKaryawan()
+    {
+        try {
+            $karyawan = DB::table('public.emp_mstr')
+            ->select(DB::raw("CONCAT(emp_fname, ' ', emp_mname, ' ', emp_lname) AS name"))
+            ->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil nama karyawan',
+                'data' => $karyawan
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data nama karyawan',
                 'galat' => $th->getMessage()
             ], 400);
         }
