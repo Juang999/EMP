@@ -33,7 +33,8 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     Route::prefix('anggotaKeluarga')->group( function () {
-        Route::get('/', [Api\FamilyController::class, 'index']);
+        Route::get('/{emp_id}', [Api\FamilyController::class, 'index']);
+        Route::post('/', [Api\FamilyController::class, 'store']);
     });
 
     Route::prefix('sejarahPosisiJabatan')->group( function () {
@@ -42,6 +43,11 @@ Route::middleware('jwt.verify')->group( function () {
 
     Route::prefix('pendidikanFormal')->group( function () {
         Route::get('/', [Api\EducationController::class, 'index']);
+    });
+
+    Route::prefix('organisasi')->group( function () {
+        Route::get('/{emp_id}', [Api\OrganizationController::class, 'index']);
+        Route::post('/', [Api\OrganizationController::class, 'store']);
     });
 
 
@@ -58,17 +64,18 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
-    Route::get('hrstatus', [Api\CodeMasterController::class, 'getStatusId']);
+    Route::get('jabatan', [Api\CodeMasterController::class, 'getJabatan']);
     Route::get('hirarki', [Api\CodeMasterController::class, 'getHirarki']);
+    Route::get('hrstatus', [Api\CodeMasterController::class, 'getStatusId']);
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
-    Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
-    Route::get('jabatan', [Api\CodeMasterController::class, 'getJabatan']);
+    Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
 
     // singleRoute
+    // POST EMPLOYEE
     Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
 
 });

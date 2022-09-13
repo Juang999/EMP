@@ -14,4 +14,9 @@ class HRHubKel extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrhub_id';
+
+    public function HRKeluarga()
+    {
+        return $this->hasMany(HRKeluarga::class, 'hrhub_id', 'hrkel_hub_id');
+    }
 }
