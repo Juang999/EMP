@@ -14,4 +14,13 @@ class HRKeluarga extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrkel_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
+
+    public function HRHubKel()
+    {
+        return $this->belongsTo(HRHubKel::class, 'hrkel_hub_id', 'hrhub_id');
+    }
 }
