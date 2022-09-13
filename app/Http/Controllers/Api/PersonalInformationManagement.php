@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonalInformationManagementRequest;
 use App\Models\EmpMaster;
 use App\Models\HRKeluarga;
+use App\Models\UseAset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -29,12 +30,12 @@ class PersonalInformationManagement extends Controller
 
             $name = explode(' ', $request->namaLengkap);
 
-            $emp_id = EmpMaster::orderBy('emp_add_date', 'DESC')->first('emp_id');
+            $emp_id_and_finger = EmpMaster::orderBy('emp_add_date', 'DESC')->first('emp_id');
 
-            if (!$emp_id) {
-                $emp_id = 1;
+            if (!$emp_id_and_finger) {
+                $emp_id_and_finger = 1;
             } else {
-                $emp_id++;
+                $emp_id_and_finger++;
             }
 
             // dd($request->all());
@@ -45,23 +46,20 @@ class PersonalInformationManagement extends Controller
                 'emp_oid' => Str::uuid(),
                 'emp_add_by' => Auth::user()->usernama, //done
                 'emp_add_date' => Carbon::now(), //done
-                'emp_id' => $emp_id, //done
+                'emp_id' => $emp_id_and_finger, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
-                'emp_lname' => ($name[1]) ? $name[1].$name[2] : '-', //done
+                'emp_lname' => ($name[1]) ? $name[1].' '.$name[2] : '-', //done
                 'emp_gender' => $request->gender, //done
-                // 'emp_pos_id' => $request->PosId,
+                'emp_pos_id' => $request->PosId, // done
                 'emp_dt' => Carbon::now(), //done
                 'emp_birth_date' => $request->tglLahir, //done
                 'emp_birth_place' => $request->tmptLahir, //done
-                'emp_relation' => $request->relation, //relasi keluarga
                 'emp_area_id' => $request->areaId, //done
                 'emp_no_ktp' => $request->noKtp, //done
                 'emp_pin' => $request->pin, //done
                 'emp_tinggi_badan' => $request->tinggiBadan, //done
                 'emp_berat_badan' => $request->beratBadan, //done
-                'emp_penyakit' => $request->penyakit, //done
-                'emp_cacat' => $request->cacat, //done
                 'emp_telp_rumah' => $request->tlpRumah, //done
                 'emp_telp_alt' => $request->telpAlt, //done
                 'emp_hp' => $request->hp, //done
@@ -88,17 +86,21 @@ class PersonalInformationManagement extends Controller
                 'emp_en_id' => $request->enId,
                 'emp_status_marital' => $request->statMarital,
                 'emp_no_rek' => $request->noRek,
-                // 'emp_id_finger' => $request->idFinger,
+                'emp_id_finger' => $emp_id_and_finger,
                 'emp_work_group' => $request->workGroup,
                 'emp_privilege_finger' => $request->privilegeFInger,
                 'emp_password_finger' => $request->passwordFinger,
-                // 'emp_no_urut' => $request->noUrut,
+                'emp_no_urut' => $request->noUrut,
                 'emp_hirarki' => $request->hirarki,
                 'emp_npwp' => $request->npwp,
-                'emp_nama_klrg_dekat' => $request->namaKlrgDekat,
-                'emp_klrg_dekat_hub' => $request->klrgDekatHub,
                 'emp_email_alt' => $request->emailAlt,
                 'emp_jabatan' => $request->jabatan
+            ]);
+
+            UseAset::create([
+                'use_aset_emp_id' => $employee->emp_id,
+                'use_aset_add_by' => Auth::user()->usernama,
+                'use_aset_add_date' => Carbon::translateTimeString(now())
             ]);
 
         DB::commit();
@@ -109,6 +111,7 @@ class PersonalInformationManagement extends Controller
                 'data' => $employee
             ]);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal menginputkan data karyawan',

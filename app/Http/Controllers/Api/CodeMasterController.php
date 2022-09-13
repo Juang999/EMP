@@ -80,7 +80,7 @@ class CodeMasterController extends Controller
         }
     }
 
-    public function getStatusId()
+    public function getHrStatusId()
     {
         try {
             $statusId = CodeMaster::where('code_field', 'emp_hrstatus_id')->get(['code_id', 'code_name']);
@@ -252,6 +252,25 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data jabatan',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getStatusMarital()
+    {
+        try {
+            $statusMarital = CodeMaster::where('code_field', 'emp_status_marital')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data status marital',
+                'statusMarital' => $statusMarital
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data status marital',
                 'galat' => $th->getMessage()
             ], 400);
         }
