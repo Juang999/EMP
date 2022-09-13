@@ -28,27 +28,47 @@ Route::middleware('jwt.verify')->group( function () {
         Route::post('logout', [Api\UserController::class, 'logout']);
     });
 
-    Route::prefix('sejarahKontrak')->group( function () {
-        Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
-    });
+    // firstScreen
+    Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
 
+    // secondScreen
     Route::prefix('anggotaKeluarga')->group( function () {
         Route::get('/{emp_id}', [Api\FamilyController::class, 'index']);
         Route::post('/', [Api\FamilyController::class, 'store']);
     });
+    Route::prefix('organisasi')->group( function () {
+        Route::get('/{emp_id}', [Api\OrganizationController::class, 'index']);
+        Route::post('/', [Api\OrganizationController::class, 'store']);
+    });
+
+    // thirdScreen
+    Route::prefix('pengalamanKerja')->group( function () {
+        Route::get('/{emp_id}', [Api\ExperienceController::class, 'index']);
+        Route::post('/', [Api\ExperienceController::class, 'store']);
+    });
+    Route::prefix('pendidikanFormal')->group( function () {
+        Route::get('/{emp_id}', [Api\FormalEducationController::class, 'index']);
+        Route::post('/', [Api\FormalEducationController::class, 'store']);
+    });
+    Route::prefix('pendidikanNonFormal')->group( function () {
+        Route::get('/{emp_id}', [Api\NonFormalEducationController::class, 'index']);
+        Route::post('/', [Api\NonFormalEducationController::class, 'store']);
+    });
+    Route::prefix('keahlian')->group( function () {
+        Route::get('/{emp_id}', [Api\SkillController::class, 'index']);
+        Route::post('/', [Api\SkillController::class, 'store']);
+    });
+
+    Route::prefix('sejarahKontrak')->group( function () {
+        Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
+    });
+
 
     Route::prefix('sejarahPosisiJabatan')->group( function () {
         Route::get('/', [Api\JobHistoryController::class, 'index']);
     });
 
-    Route::prefix('pendidikanFormal')->group( function () {
-        Route::get('/', [Api\EducationController::class, 'index']);
-    });
 
-    Route::prefix('organisasi')->group( function () {
-        Route::get('/{emp_id}', [Api\OrganizationController::class, 'index']);
-        Route::post('/', [Api\OrganizationController::class, 'store']);
-    });
 
 
     Route::apiResources([
@@ -76,6 +96,6 @@ Route::middleware('jwt.verify')->group( function () {
 
     // singleRoute
     // POST EMPLOYEE
-    Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
+
 
 });

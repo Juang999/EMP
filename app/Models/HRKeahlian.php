@@ -9,9 +9,13 @@ class HRKeahlian extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_keahlian';
+    protected $table = 'hris.hr_keahlian';
 
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrahli_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
