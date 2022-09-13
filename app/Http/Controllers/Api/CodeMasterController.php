@@ -221,7 +221,7 @@ class CodeMasterController extends Controller
     {
         try {
             $karyawan = DB::table('public.emp_mstr')
-            ->select(DB::raw("CONCAT(emp_fname, ' ', emp_lname) AS name, emp_id"))
+            ->select(DB::raw("CONCAT(emp_fname, ' ', emp_lname) AS label, emp_id AS value"))
             ->get();
 
             return response()->json([
