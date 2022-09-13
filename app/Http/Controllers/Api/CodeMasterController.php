@@ -9,6 +9,7 @@ use App\Models\HRGolMaster;
 use App\Models\HrJabatanMaster;
 use App\Models\HrJenisKeahlian;
 use App\Models\HRPendidikan;
+use App\Models\HRPendidikanMaster;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\PosMaster;
@@ -199,7 +200,7 @@ class CodeMasterController extends Controller
     public function getPendidikan()
     {
         try {
-            $pendidikan = HRPendidikan::get();
+            $pendidikan = HRPendidikanMaster::get();
 
             return response()->json([
                 'code' => 200,

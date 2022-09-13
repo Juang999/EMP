@@ -9,7 +9,7 @@ class HRPendidikanNon extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_pendidikan_non';
+    protected $table = 'hris.hr_pendidikan_non';
 
     protected $keyType = 'string';
 
