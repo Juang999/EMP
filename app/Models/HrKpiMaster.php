@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmpMaster extends Model
+class HrKpiMaster extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.emp_mstr';
+    protected $table = 'hris.kpi_mstr';
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'emp_oid';
-
-    protected $guarded = [];
-
-    public $timestamps = false;
+    protected $primaryKey = 'kpi_oid';
 }
