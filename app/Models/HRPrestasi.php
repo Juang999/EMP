@@ -14,4 +14,8 @@ class HRPrestasi extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrpres_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
