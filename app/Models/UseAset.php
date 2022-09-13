@@ -9,9 +9,13 @@ class UseAset extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.use_aset';
+    protected $table = 'akses.use_aset';
 
     protected $keyType = 'string';
 
     protected $primaryKey = 'use_aset_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
