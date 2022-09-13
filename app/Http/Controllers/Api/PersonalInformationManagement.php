@@ -35,10 +35,10 @@ class PersonalInformationManagement extends Controller
             if (!$emp_id_and_finger) {
                 $emp_id_and_finger = 1;
             } else {
-                $emp_id_and_finger++;
+                $emp_id_and_finger->emp_id++;
             }
 
-            // dd($request->all());
+            // dd($emp_id_and_finger->emp_id);
 
             $photo = base64_encode(file_get_contents($request->file('photo')));
 
@@ -46,12 +46,11 @@ class PersonalInformationManagement extends Controller
                 'emp_oid' => Str::uuid(),
                 'emp_add_by' => Auth::user()->usernama, //done
                 'emp_add_date' => Carbon::now(), //done
-                'emp_id' => $emp_id_and_finger, //done
+                'emp_id' => $emp_id_and_finger->emp_id, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
                 'emp_lname' => ($name[1]) ? $name[1].' '.$name[2] : '-', //done
                 'emp_gender' => $request->gender, //done
-                'emp_pos_id' => $request->PosId, // done
                 'emp_dt' => Carbon::now(), //done
                 'emp_birth_date' => $request->tglLahir, //done
                 'emp_birth_place' => $request->tmptLahir, //done
@@ -61,7 +60,7 @@ class PersonalInformationManagement extends Controller
                 'emp_tinggi_badan' => $request->tinggiBadan, //done
                 'emp_berat_badan' => $request->beratBadan, //done
                 'emp_telp_rumah' => $request->tlpRumah, //done
-                'emp_telp_alt' => $request->telpAlt, //done
+                'emp_telp_alt' => $request->telp2, //done
                 'emp_hp' => $request->hp, //done
                 'emp_email' => $request->email, //done
                 'emp_website' => $request->web, //done
@@ -70,7 +69,7 @@ class PersonalInformationManagement extends Controller
                 'emp_hrgol_id' => $request->hrGolId,
                 'emp_hrstatus_id' => $request->hrStatusId,
                 'emp_pangkat_id' => $request->PangkatId,
-                // 'emp_status_koperasi' => $request->statKoperasi,
+                'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
                 'emp_finger' => $request->finger,
                 'emp_nik_new' => $request->nikNew,
@@ -86,7 +85,7 @@ class PersonalInformationManagement extends Controller
                 'emp_en_id' => $request->enId,
                 'emp_status_marital' => $request->statMarital,
                 'emp_no_rek' => $request->noRek,
-                'emp_id_finger' => $emp_id_and_finger,
+                'emp_id_finger' => $request->idFinger,
                 'emp_work_group' => $request->workGroup,
                 'emp_privilege_finger' => $request->privilegeFInger,
                 'emp_password_finger' => $request->passwordFinger,
@@ -98,6 +97,7 @@ class PersonalInformationManagement extends Controller
             ]);
 
             UseAset::create([
+                'use_aset_oid' => Str::uuid(),
                 'use_aset_emp_id' => $employee->emp_id,
                 'use_aset_add_by' => Auth::user()->usernama,
                 'use_aset_add_date' => Carbon::translateTimeString(now())
