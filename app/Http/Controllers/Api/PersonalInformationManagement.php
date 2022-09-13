@@ -85,7 +85,7 @@ class PersonalInformationManagement extends Controller
                 'emp_en_id' => $request->enId,
                 'emp_status_marital' => $request->statMarital,
                 'emp_no_rek' => $request->noRek,
-                'emp_id_finger' => $emp_id_and_finger->emp_id,
+                'emp_id_finger' => $request->idFinger,
                 'emp_work_group' => $request->workGroup,
                 'emp_privilege_finger' => $request->privilegeFInger,
                 'emp_password_finger' => $request->passwordFinger,
