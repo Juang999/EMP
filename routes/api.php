@@ -88,7 +88,7 @@ Route::middleware('jwt.verify')->group( function () {
 
 
     Route::apiResources([
-        'pangkat' => Api\PangkatController::class,
+        'getPangkat' => Api\PangkatController::class,
         'hrGol' => Api\HRGolController::class,
         'hrKotaUmk' => Api\HRKotaUmkController::class,
         'hubKel' => Api\HubunganKeluargaController::class
