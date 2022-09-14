@@ -12,7 +12,7 @@ class FormalEducationController extends Controller
     public function index($emp_id)
     {
         try {
-            $data = HRPendidikan::where('hrpend_emp_id', $emp_id)->get();
+            $data = HRPendidikan::where('hrpend_emp_id', $emp_id)->orderBy('hrpend_seq', 'ASC')->get();
 
             return response()->json([
                 'status' => 'berhasil',
@@ -31,10 +31,16 @@ class FormalEducationController extends Controller
     public function store(Request $request)
     {
         try {
-            $sequence = HRPendidikan::where('hrkel_emp_id', $request->emp_id)->count();
+            $sequence = HRPendidikan::where('hrpend_emp_id', $request->emp_id)->count();
 
             if (!$sequence) {
                 $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
             } else {
                 $sequence++;
             }

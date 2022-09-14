@@ -12,7 +12,7 @@ class OrganizationController extends Controller
     public function index($emp_id)
     {
         try {
-            $data = HROrganisasi::where('hrorg_emp_id', $emp_id)->get();
+            $data = HROrganisasi::where('hrorg_emp_id', $emp_id)->orderBy('hrorg_seq', 'ASC')->get();
 
             return response()->json([
                 'status' => 'berhasil',
@@ -30,10 +30,16 @@ class OrganizationController extends Controller
 
     public function store(Request $request)
     {
-        $sequence = HROrganisasi::where('hrkel_emp_id', $request->emp_id)->count();
+        $sequence = HROrganisasi::where('hrorg_emp_id', $request->emp_id)->count();
 
             if (!$sequence) {
                 $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
             } else {
                 $sequence++;
             }

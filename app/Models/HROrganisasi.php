@@ -9,9 +9,13 @@ class HROrganisasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_organisasi';
+    protected $table = 'hris.hr_organisasi';
 
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrorg_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
