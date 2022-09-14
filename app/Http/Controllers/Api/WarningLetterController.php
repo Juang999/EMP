@@ -11,7 +11,21 @@ class WarningLetterController extends Controller
 {
     public function index($emp_id)
     {
-        //
+        try {
+            $data = HRMasaSP::where('hrsp_emp_id', $emp_id)->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
     }
 
     public function store(Request $request)
@@ -26,6 +40,7 @@ class WarningLetterController extends Controller
             ], 300);
         }
 
+        // dd($request->all());
         try {
             $data = HRMasaSP::create([
                 'hrsp_oid' => Str::uuid(),
