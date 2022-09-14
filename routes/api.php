@@ -84,9 +84,6 @@ Route::middleware('jwt.verify')->group( function () {
         Route::post('/', [Api\WarningLetterController::class, 'store']);
     });
 
-
-
-
     Route::apiResources([
         'getPangkat' => Api\PangkatController::class,
         'hrGol' => Api\HRGolController::class,
@@ -96,6 +93,7 @@ Route::middleware('jwt.verify')->group( function () {
 
     // masterRoute
     Route::get('entitas', Api\En::class);
+    Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);

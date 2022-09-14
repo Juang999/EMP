@@ -10,6 +10,7 @@ use App\Models\HrJabatanMaster;
 use App\Models\HrJenisKeahlian;
 use App\Models\HRPendidikan;
 use App\Models\HRPendidikanMaster;
+use App\Models\HRPeriodeMaster;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\PosMaster;
@@ -272,6 +273,25 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data status marital',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getPeriode()
+    {
+        try {
+            $data = HRPeriodeMaster::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage()
             ], 400);
         }
