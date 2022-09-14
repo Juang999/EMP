@@ -9,9 +9,13 @@ class HRPosisi extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_posisi';
+    protected $table = 'hris.hr_posisi';
 
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrpos_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }

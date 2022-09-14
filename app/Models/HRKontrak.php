@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HRPengalaman extends Model
+class HRKontrak extends Model
 {
     use HasFactory;
 
-    protected $table = 'hris.hr_pengalaman';
+    protected $table = 'hris.hr_kontrak';
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'hrpeng_oid';
+    protected $primaryKey = 'hrkontrak_oid';
 
     protected $guarded = [];
 

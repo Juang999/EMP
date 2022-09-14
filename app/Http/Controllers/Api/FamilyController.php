@@ -13,7 +13,7 @@ class FamilyController extends Controller
     public function index($emp_id)
     {
         try {
-            $data = HRKeluarga::where('hrkel_emp_id', $emp_id)->get();
+            $data = HRKeluarga::where('hrkel_emp_id', $emp_id)->orderBy('hrkel_seq', 'ASC')->get();
 
             return response()->json([
                 'status' => 'success',
@@ -36,6 +36,12 @@ class FamilyController extends Controller
 
             if (!$sequence) {
                 $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
             } else {
                 $sequence++;
             }

@@ -12,7 +12,7 @@ class ExperienceController extends Controller
     public function index($emp_id)
     {
         try {
-            $data = HRPengalaman::where('hrpeng_emp_id', $emp_id)->get();
+            $data = HRPengalaman::where('hrpeng_emp_id', $emp_id)->orderBy('hrpeng_seq', 'ASC')->get();
 
             return response()->json([
                 'status' => 'berhasil',
@@ -31,10 +31,16 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         try {
-            $sequence = HRPengalaman::where('hrkel_emp_id', $request->emp_id)->count();
+            $sequence = HRPengalaman::where('hrpeng_emp_id', $request->emp_id)->count();
 
             if (!$sequence) {
                 $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
             } else {
                 $sequence++;
             }
@@ -50,6 +56,7 @@ class ExperienceController extends Controller
                 'hrpeng_end' => $request->end,
                 'hrpeng_jns_bisnis' => $request->jnsBisnis,
                 'hrpeng_masa_jabatan' => $request->masaJabatan,
+                'hrpeng_jabatan_atasan' => $request->jabatanAtasan,
                 'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsg,
                 'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotal
             ]);
