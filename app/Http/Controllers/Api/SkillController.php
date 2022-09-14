@@ -31,10 +31,20 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         try {
+            $total = HRKeahlian::where('hrahli_emp_id', $request->emp_id)->count();
+
+            if ($total == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
+            }
+
             $skill = HRKeahlian::create([
                 'hrahli_oid' => Str::uuid(),
                 'hrahli_emp_id' => $request->emp_id,
-                'hrahli_keahlian' => $request->keahlian,
+                'hrahli_jenis_keahlian' => $request->keahlian,
                 'hrahli_tingkat' => $request->tingkat,
                 'hrahli_prestasi' => $request->prestasi
             ]);

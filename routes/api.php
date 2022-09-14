@@ -40,6 +40,14 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('/{emp_id}', [Api\OrganizationController::class, 'index']);
         Route::post('/', [Api\OrganizationController::class, 'store']);
     });
+    Route::prefix('prestasi')->group( function () {
+        Route::get('/{emp_id}', [Api\AchievmentController::class, 'index']);
+        Route::post('/', [Api\AchievmentController::class, 'store']);
+    });
+    Route::prefix('disease')->group( function () {
+        Route::get('/{emp_id}', [Api\DiseaseController::class, 'index']);
+        Route::post('/', [Api\DiseaseController::class, 'store']);
+    });
 
     // thirdScreen
     Route::prefix('pengalamanKerja')->group( function () {
@@ -59,21 +67,28 @@ Route::middleware('jwt.verify')->group( function () {
         Route::post('/', [Api\SkillController::class, 'store']);
     });
 
-    Route::prefix('sejarahKontrak')->group( function () {
-        Route::get('/', [Api\MasterHistoricalContractController::class, 'index']);
+    // fourthScreen
+    Route::prefix('pangkat')->group( function () {
+        //
     });
-
-
-    Route::prefix('sejarahPosisiJabatan')->group( function () {
-        Route::get('/', [Api\JobHistoryController::class, 'index']);
+    Route::prefix('sejarahKontrak')->group( function () {
+        Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'index']);
+        Route::post('/', [Api\MasterHistoricalContractController::class, 'store']);
+    });
+    Route::prefix('posisi')->group( function () {
+        Route::get('/{emp_id}', [Api\JobHistoryController::class, 'index']);
+        Route::post('/', [Api\JobHistoryController::class, 'store']);
+    });
+    Route::prefix('suratPeringatan')->group( function () {
+        Route::get('/{emp_id}', [Api\WarningLetterController::class, 'index']);
+        Route::post('/', [Api\WarningLetterController::class, 'store']);
     });
 
 
 
 
     Route::apiResources([
-        'pangkat' => Api\PangkatController::class,
-        'organisasi' => Api\OrganisasiController::class,
+        'getPangkat' => Api\PangkatController::class,
         'hrGol' => Api\HRGolController::class,
         'hrKotaUmk' => Api\HRKotaUmkController::class,
         'hubKel' => Api\HubunganKeluargaController::class
@@ -93,9 +108,4 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
-
-    // singleRoute
-    // POST EMPLOYEE
-
-
 });

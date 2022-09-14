@@ -14,4 +14,8 @@ class HRPendidikanNon extends Model
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrpendn_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }

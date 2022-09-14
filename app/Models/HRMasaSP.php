@@ -9,9 +9,13 @@ class HRMasaSP extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_masa_sp';
+    protected $table = 'hris.hr_masa_sp';
 
     protected $keyType = 'string';
 
     protected $primaryKey = 'hrsp_oid';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }

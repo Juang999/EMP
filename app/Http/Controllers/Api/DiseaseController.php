@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\HRPrestasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class AchievmentController extends Controller
+class DiseaseController extends Controller
 {
-    public function index()
+    public function index($emp_id)
     {
         //
     }
 
     public function store(Request $request)
     {
-        // 
+        //
     }
 }

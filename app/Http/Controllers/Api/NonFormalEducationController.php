@@ -12,7 +12,7 @@ class NonFormalEducationController extends Controller
     public function index($emp_id)
     {
         try {
-            $data = HRPendidikanNon::where('hrpendn_emp_id', $emp_id)->get();
+            $data = HRPendidikanNon::where('hrpendn_emp_id', $emp_id)->orderBy('hrpendn_seq')->get();
 
             return response()->json([
                 'status' => 'berhasil',
@@ -31,10 +31,16 @@ class NonFormalEducationController extends Controller
     public function store(Request $request)
     {
         try {
-            $sequence = HRPendidikanNon::where('hrkel_emp_id', $request->emp_id)->count();
+            $sequence = HRPendidikanNon::where('hrpendn_emp_id', $request->emp_id)->count();
 
             if (!$sequence) {
                 $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'input sudah melebihi limit!',
+                    'limit' => 5
+                ], 300);
             } else {
                 $sequence++;
             }
