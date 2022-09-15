@@ -108,14 +108,16 @@ class PersonalInformationManagement extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil membuat data baru karyawan',
-                'data' => $employee
+                'data' => $employee,
+                'code' => 200
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal menginputkan data karyawan',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
