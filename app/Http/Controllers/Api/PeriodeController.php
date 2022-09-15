@@ -1,17 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\HRPeriodeMaster;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\HRPeriodeMaster;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PeriodeController extends Controller
 {
     public function index()
     {
-        //
+        try {
+            $data = HRPeriodeMaster::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
     }
 
     public function store(Request $request)
