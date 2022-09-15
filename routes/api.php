@@ -84,6 +84,12 @@ Route::middleware('jwt.verify')->group( function () {
         Route::post('/', [Api\WarningLetterController::class, 'store']);
     });
 
+
+    // otther
+    Route::prefix('periode')->group( function () {
+        Route::get('/', [Api\PeriodeController::class, 'index']);
+        Route::post('/', [Api\PeriodeController::class, 'store']);
+    });
     Route::apiResources([
         'getPangkat' => Api\PangkatController::class,
         'hrGol' => Api\HRGolController::class,
@@ -106,4 +112,5 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
+    Route::get('getMonth', [Api\CodeMasterController::class, 'getMonth']);
 });

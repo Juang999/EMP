@@ -13,6 +13,7 @@ use App\Models\HRPendidikanMaster;
 use App\Models\HRPeriodeMaster;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
+use App\Models\MntMaster;
 use App\Models\PosMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -293,6 +294,25 @@ class CodeMasterController extends Controller
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getMonth()
+    {
+        try {
+            $month = DB::table('hris.mnt_mstr')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data bulan',
+                'month' => $month
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data bulan',
+                'galat' => $month
             ], 400);
         }
     }
