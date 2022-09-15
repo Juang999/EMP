@@ -71,7 +71,8 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'logged out!'
+                'message' => 'logged out!',
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -85,7 +86,7 @@ class UserController extends Controller
     public function userLogin(UserLoginRequest $request)
     {
         try {
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }

@@ -18,4 +18,9 @@ class EmpMaster extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function PangkatMaster()
+    {
+        return $this->belongsTo(PangkatMaster::class, 'emp_pangkat_id', 'pangkat_id');
+    }
 }

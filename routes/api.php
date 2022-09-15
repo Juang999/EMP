@@ -69,7 +69,8 @@ Route::middleware('jwt.verify')->group( function () {
 
     // fourthScreen
     Route::prefix('pangkat')->group( function () {
-        //
+        Route::get('/{emp_id}', [Api\PangkatController::class, 'index']);
+        Route::post('/', [Api\PangkatController::class, 'store']);
     });
     Route::prefix('sejarahKontrak')->group( function () {
         Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'index']);
@@ -90,27 +91,25 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('/', [Api\PeriodeController::class, 'index']);
         Route::post('/', [Api\PeriodeController::class, 'store']);
     });
-    Route::apiResources([
-        'getPangkat' => Api\PangkatController::class,
-        'hrGol' => Api\HRGolController::class,
-        'hrKotaUmk' => Api\HRKotaUmkController::class,
-        'hubKel' => Api\HubunganKeluargaController::class
-    ]);
 
     // masterRoute
     Route::get('entitas', Api\En::class);
+    Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
+    Route::get('hubKel', [Api\CodeMasterController::class, 'getHubKel']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
+    Route::get('getMonth', [Api\CodeMasterController::class, 'getMonth']);
     Route::get('jabatan', [Api\CodeMasterController::class, 'getJabatan']);
     Route::get('hirarki', [Api\CodeMasterController::class, 'getHirarki']);
     Route::get('hrstatus', [Api\CodeMasterController::class, 'getStatusId']);
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
+    Route::get('getPangkat', [Api\CodeMasterController::class, 'getPangkat']);
+    Route::get('hrKotaUmk', [Api\CodeMasterController::class, 'getHrKotaUmk']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
-    Route::get('getMonth', [Api\CodeMasterController::class, 'getMonth']);
 });
