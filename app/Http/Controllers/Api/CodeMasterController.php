@@ -6,14 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
 use App\Models\EmpMaster;
 use App\Models\HRGolMaster;
+use App\Models\HRHubKel;
 use App\Models\HrJabatanMaster;
 use App\Models\HrJenisKeahlian;
+use App\Models\HRKotaUmk;
 use App\Models\HRPendidikan;
 use App\Models\HRPendidikanMaster;
 use App\Models\HRPeriodeMaster;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\MntMaster;
+use App\Models\PangkatMaster;
 use App\Models\PosMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -313,6 +316,82 @@ class CodeMasterController extends Controller
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data bulan',
                 'galat' => $month
+            ], 400);
+        }
+    }
+
+    public function getPangkat()
+    {
+        try {
+            $data = PangkatMaster::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data pangkat',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data pangkat',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getHrGol()
+    {
+        try {
+            $data = HRGolMaster::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getHrKotaUmk()
+    {
+        try {
+            $data = HRKotaUmk::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getHubKel()
+    {
+        try {
+            $data = HRHubKel::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil pesan',
+                'galat' => $th->getMessage()
             ], 400);
         }
     }
