@@ -17,13 +17,15 @@ class SkillController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -37,7 +39,8 @@ class SkillController extends Controller
                 return response()->json([
                     'status' => 'redirected',
                     'pesan' => 'input sudah melebihi limit!',
-                    'limit' => 5
+                    'limit' => 5,
+                    'code' => 300
                 ], 300);
             }
 
@@ -52,13 +55,15 @@ class SkillController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil inputkan data',
-                'skill' => $skill
+                'skill' => $skill,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal inputkan data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
