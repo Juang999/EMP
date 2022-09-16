@@ -271,7 +271,7 @@ class CodeMasterController extends Controller
     public function getStatusMarital()
     {
         try {
-            $statusMarital = CodeMaster::where('code_field', 'emp_status_marital')->get();
+            $statusMarital = CodeMaster::where('code_field', 'emp_status_marital')->get(['code_id', 'code_code', 'code_name']);
 
             return response()->json([
                 'status' => 'berhasil',
