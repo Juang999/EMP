@@ -25,20 +25,22 @@ class UserController extends Controller
             if(!$user){
                 return response()->json([
                     'status' => 'failed',
-                    'message' => 'user '.$request->usernama.' not found!'
+                    'message' => 'user '.$request->usernama.' not found!',
+                    'code' => 404
                 ], 404);
             }
 
             $token = JWTAuth::fromUser($user);
 
             return response()->json([
-                'token' => $token
+                'token' => $token, 200
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'failed to login',
-                'error' => $th->getMessage()
+                'error' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -53,13 +55,15 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'success to get profile',
-                'profile' => $user
+                'profile' => $user,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'failed to get profile',
-                'error' => $th->getMessage()
+                'error' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }

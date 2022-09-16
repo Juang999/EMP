@@ -17,13 +17,15 @@ class OrganizationController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data organisasi',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data organisasi',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -38,7 +40,8 @@ class OrganizationController extends Controller
                 return response()->json([
                     'status' => 'redirected',
                     'pesan' => 'input sudah melebihi limit!',
-                    'limit' => 5
+                    'limit' => 5,
+                    'code' => 300
                 ], 300);
             } else {
                 $sequence++;
@@ -61,13 +64,15 @@ class OrganizationController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil membuat data organisasi',
-                'organization' => $organization
+                'organization' => $organization,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal membuat data organisasi',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }

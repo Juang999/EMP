@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
 use App\Models\EmpMaster;
+use App\Models\EnMaster;
 use App\Models\HRGolMaster;
 use App\Models\HRHubKel;
 use App\Models\HrJabatanMaster;
@@ -32,7 +33,7 @@ class CodeMasterController extends Controller
                 'code' => 200,
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data golongan darah',
-                'golongan_darah' => $golDarah
+                'golongan_darah' => $golDarah,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -233,13 +234,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil nama karyawan',
-                'data' => $karyawan
+                'data' => $karyawan,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data nama karyawan',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -252,13 +255,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data jabatan',
-                'jabatan' => $jabatan
+                'jabatan' => $jabatan,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data jabatan',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -271,13 +276,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data status marital',
-                'statusMarital' => $statusMarital
+                'statusMarital' => $statusMarital,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data status marital',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -290,13 +297,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -309,13 +318,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data bulan',
-                'month' => $month
+                'month' => $month,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data bulan',
-                'galat' => $month
+                'galat' => $month,
+                'code' => 400
             ], 400);
         }
     }
@@ -328,13 +339,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data pangkat',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data pangkat',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -347,13 +360,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -366,13 +381,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -385,12 +402,35 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil pesan',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
+
+    public function getEntity()
+    {
+        try {
+            $entitas = EnMaster::get();
+
+            return response()->json([
+                'code' => 200,
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data entitas',
+                'entitas' => $entitas
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 400,
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data entitas',
                 'galat' => $th->getMessage()
             ], 400);
         }

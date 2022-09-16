@@ -18,13 +18,15 @@ class FamilyController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'success to get data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'failed to get data',
-                'error' => $th->getMessage()
+                'error' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -40,7 +42,8 @@ class FamilyController extends Controller
                 return response()->json([
                     'status' => 'redirected',
                     'pesan' => 'input sudah melebihi limit!',
-                    'limit' => 5
+                    'limit' => 5,
+                    'code' => 300
                 ], 300);
             } else {
                 $sequence++;
@@ -59,13 +62,15 @@ class FamilyController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil membuat data keluarga',
-                'data' => $family
+                'data' => $family,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal membuat data keluarga',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }

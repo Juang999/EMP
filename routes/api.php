@@ -29,7 +29,7 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     // firstScreen
-    Route::post('daftarkanKaryawan', Api\PersonalInformationManagement::class);
+    Route::post('daftarkanKaryawan', [Api\EmployeeController::class, 'store']);
 
     // secondScreen
     Route::prefix('anggotaKeluarga')->group( function () {
@@ -86,20 +86,20 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
 
-    // otther
+    // other
     Route::prefix('periode')->group( function () {
         Route::get('/', [Api\PeriodeController::class, 'index']);
         Route::post('/', [Api\PeriodeController::class, 'store']);
     });
 
     // masterRoute
-    Route::get('entitas', Api\En::class);
     Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
     Route::get('hubKel', [Api\CodeMasterController::class, 'getHubKel']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
+    Route::get('entitas', [Api\CodeMasterController::class, 'getEntity']);
     Route::get('getMonth', [Api\CodeMasterController::class, 'getMonth']);
     Route::get('jabatan', [Api\CodeMasterController::class, 'getJabatan']);
     Route::get('hirarki', [Api\CodeMasterController::class, 'getHirarki']);

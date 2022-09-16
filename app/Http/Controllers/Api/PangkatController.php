@@ -17,13 +17,15 @@ class PangkatController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data pangkat',
-                'pangkat' => $pangkat
+                'pangkat' => $pangkat,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data pangkat',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -40,13 +42,15 @@ class PangkatController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil menambahkan pangkat',
-                'pangkat' => $pangkat
+                'pangkat' => $pangkat,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal menambahkan pangkat',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
