@@ -33,55 +33,55 @@ Route::middleware('jwt.verify')->group( function () {
 
     // secondScreen
     Route::prefix('anggotaKeluarga')->group( function () {
-        Route::get('/{emp_id}', [Api\FamilyController::class, 'index']);
+        Route::get('/{emp_id}', [Api\FamilyController::class, 'show']);
         Route::post('/', [Api\FamilyController::class, 'store']);
     });
     Route::prefix('organisasi')->group( function () {
-        Route::get('/{emp_id}', [Api\OrganizationController::class, 'index']);
+        Route::get('/{emp_id}', [Api\OrganizationController::class, 'show']);
         Route::post('/', [Api\OrganizationController::class, 'store']);
     });
     Route::prefix('prestasi')->group( function () {
-        Route::get('/{emp_id}', [Api\AchievmentController::class, 'index']);
+        Route::get('/{emp_id}', [Api\AchievmentController::class, 'show']);
         Route::post('/', [Api\AchievmentController::class, 'store']);
     });
     Route::prefix('disease')->group( function () {
-        Route::get('/{emp_id}', [Api\DiseaseController::class, 'index']);
+        Route::get('/{emp_id}', [Api\DiseaseController::class, 'show']);
         Route::post('/', [Api\DiseaseController::class, 'store']);
     });
 
     // thirdScreen
     Route::prefix('pengalamanKerja')->group( function () {
-        Route::get('/{emp_id}', [Api\ExperienceController::class, 'index']);
+        Route::get('/{emp_id}', [Api\ExperienceController::class, 'show']);
         Route::post('/', [Api\ExperienceController::class, 'store']);
     });
     Route::prefix('pendidikanFormal')->group( function () {
-        Route::get('/{emp_id}', [Api\FormalEducationController::class, 'index']);
+        Route::get('/{emp_id}', [Api\FormalEducationController::class, 'show']);
         Route::post('/', [Api\FormalEducationController::class, 'store']);
     });
     Route::prefix('pendidikanNonFormal')->group( function () {
-        Route::get('/{emp_id}', [Api\NonFormalEducationController::class, 'index']);
+        Route::get('/{emp_id}', [Api\NonFormalEducationController::class, 'show']);
         Route::post('/', [Api\NonFormalEducationController::class, 'store']);
     });
     Route::prefix('keahlian')->group( function () {
-        Route::get('/{emp_id}', [Api\SkillController::class, 'index']);
+        Route::get('/{emp_id}', [Api\SkillController::class, 'show']);
         Route::post('/', [Api\SkillController::class, 'store']);
     });
 
     // fourthScreen
     Route::prefix('pangkat')->group( function () {
-        Route::get('/{emp_id}', [Api\PangkatController::class, 'index']);
+        Route::get('/{emp_id}', [Api\PangkatController::class, 'show']);
         Route::post('/', [Api\PangkatController::class, 'store']);
     });
     Route::prefix('sejarahKontrak')->group( function () {
-        Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'index']);
+        Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'show']);
         Route::post('/', [Api\MasterHistoricalContractController::class, 'store']);
     });
     Route::prefix('posisi')->group( function () {
-        Route::get('/{emp_id}', [Api\JobHistoryController::class, 'index']);
+        Route::get('/{emp_id}', [Api\JobHistoryController::class, 'show']);
         Route::post('/', [Api\JobHistoryController::class, 'store']);
     });
     Route::prefix('suratPeringatan')->group( function () {
-        Route::get('/{emp_id}', [Api\WarningLetterController::class, 'index']);
+        Route::get('/{emp_id}', [Api\WarningLetterController::class, 'show']);
         Route::post('/', [Api\WarningLetterController::class, 'store']);
     });
 

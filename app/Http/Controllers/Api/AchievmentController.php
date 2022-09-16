@@ -9,13 +9,13 @@ use Illuminate\Support\Str;
 
 class AchievmentController extends Controller
 {
-    public function index()
+    public function show($emp_id)
     {
         //
     }
 
     public function store(Request $request)
     {
-        // 
+        //
     }
 }

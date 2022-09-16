@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class FamilyController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRKeluarga::where('hrkel_emp_id', $emp_id)->orderBy('hrkel_seq', 'ASC')->get();

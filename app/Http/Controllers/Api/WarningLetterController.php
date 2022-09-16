@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class WarningLetterController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRMasaSP::where('hrsp_emp_id', $emp_id)->get();

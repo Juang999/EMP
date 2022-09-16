@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DiseaseController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = EmpMaster::where('emp_id', $emp_id)->first(['emp_sakit', 'emp_cacat']);

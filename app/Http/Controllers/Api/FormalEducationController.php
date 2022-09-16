@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class FormalEducationController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRPendidikan::where('hrpend_emp_id', $emp_id)->orderBy('hrpend_seq', 'ASC')->get();

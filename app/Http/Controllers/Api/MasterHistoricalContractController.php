@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class MasterHistoricalContractController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRKontrak::where('hrkontrak_emp_id', $emp_id)->orderBy('hrkontrak_seq')->get();

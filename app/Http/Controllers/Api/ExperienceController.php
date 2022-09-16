@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class ExperienceController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRPengalaman::where('hrpeng_emp_id', $emp_id)->orderBy('hrpeng_seq', 'ASC')->get();
