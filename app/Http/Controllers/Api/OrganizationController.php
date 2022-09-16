@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class OrganizationController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HROrganisasi::where('hrorg_emp_id', $emp_id)->orderBy('hrorg_seq', 'ASC')->get();

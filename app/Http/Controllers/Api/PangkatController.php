@@ -9,7 +9,7 @@ use App\Models\PangkatMaster;
 
 class PangkatController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $pangkat = EmpMaster::where('emp_id', $emp_id)->with('PangkatMaster')->first(['emp_id', 'emp_pangkat_id']);

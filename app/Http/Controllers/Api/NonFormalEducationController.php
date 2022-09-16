@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class NonFormalEducationController extends Controller
 {
-    public function index($emp_id)
+    public function show($emp_id)
     {
         try {
             $data = HRPendidikanNon::where('hrpendn_emp_id', $emp_id)->orderBy('hrpendn_seq')->get();
