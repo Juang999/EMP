@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as Api;
+use App\Http\Controllers\Temporary as Temporary;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,4 +114,8 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
+    Route::get('tipeSakit', [Api\CodeMasterController::class, 'getTipeSakit']);
+
+    // temporaryInput
+    Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
 });
