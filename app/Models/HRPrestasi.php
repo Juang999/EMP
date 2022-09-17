@@ -9,7 +9,7 @@ class HRPrestasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.hr_prestasi';
+    protected $table = 'hris.hr_prestasi';
 
     protected $keyType = 'string';
 

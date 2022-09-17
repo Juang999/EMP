@@ -9,6 +9,7 @@ use App\Models\EnMaster;
 use App\Models\HRGolMaster;
 use App\Models\HRHubKel;
 use App\Models\HrJabatanMaster;
+use App\Models\HRJenisBisnis;
 use App\Models\HrJenisKeahlian;
 use App\Models\HRKotaUmk;
 use App\Models\HRPendidikan;
@@ -432,6 +433,27 @@ class CodeMasterController extends Controller
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data entitas',
                 'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getStatusPerusahaan()
+    {
+        try {
+            $data = HRJenisBisnis::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data tipe perusahaan',
+                'tipe_perusahaan' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data tipe perusahaan',
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
