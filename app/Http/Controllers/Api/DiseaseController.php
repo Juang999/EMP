@@ -11,7 +11,7 @@ class DiseaseController extends Controller
     public function show($emp_id)
     {
         try {
-            $data = EmpMaster::where('emp_id', $emp_id)->first(['emp_sakit', 'emp_cacat']);
+            $data = EmpMaster::where('emp_id', $emp_id)->first(['emp_penyakit', 'emp_cacat']);
 
             return response()->json([
                 'status' => 'berhasil',
@@ -33,11 +33,11 @@ class DiseaseController extends Controller
     {
         try {
             EmpMaster::where('emp_id', $request->emp_id)->update([
-                'emp_sakit' => $request->sakit,
+                'emp_penyakit' => $request->sakit,
                 'emp_cacat' => $request->cacat
             ]);
 
-            $data = EmpMaster::where('emp_id', $request->emp_id)->first(['emp_id', 'emp_sakit', 'emp_cacat']);
+            $data = EmpMaster::where('emp_id', $request->emp_id)->first(['emp_id', 'emp_penyakit', 'emp_cacat']);
 
             return response()->json([
                 'status' => 'berhasil',
