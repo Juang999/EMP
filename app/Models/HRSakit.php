@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CodeMaster extends Model
+class HRSakit extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.code_mstr';
+    protected $table = 'hris.hr_sakit';
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'code_oid';
+    protected $primaryKey = 'hrsakit_oid';
 
     protected $guarded = [];
 

@@ -457,4 +457,25 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getTipeSakit()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'tipe_sakit')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengabil data tipe sakit',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data tipe sakit',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
