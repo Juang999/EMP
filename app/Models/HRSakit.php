@@ -5,22 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HRPeriodeMaster extends Model
+class HRSakit extends Model
 {
     use HasFactory;
 
-    protected $table = 'hris.hrperiode_mstr';
+    protected $table = 'hris.hr_sakit';
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'hrperiode_code';
+    protected $primaryKey = 'hrsakit_oid';
 
     protected $guarded = [];
 
     public $timestamps = false;
-
-    public function HRMasaSP()
-    {
-        // return $this->hasMany(HRMasaSP::class, 'hrperiode_code', 'hrsp_')
-    }
 }

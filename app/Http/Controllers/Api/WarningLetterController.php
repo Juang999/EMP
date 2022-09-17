@@ -6,13 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\HRMasaSP;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class WarningLetterController extends Controller
 {
     public function show($emp_id)
     {
         try {
-            $data = HRMasaSP::where('hrsp_emp_id', $emp_id)->get();
+            // $data = HRMasaSP::where('hrsp_emp_id', $emp_id)->get();
+
+            $data = DB::table('hris.hr_masa_sp')
+                ->select(DB::raw('hris.hr_masa_sp.*, hris.hrperiode_mstr.*'))
+                ->join('hris.hrperiode_mstr', 'hris.hr_masa_sp.hrsp_start_periode', '=', 'hris.hrperiode_mstr.hrperiode_code')
+                ->get();
 
             return response()->json([
                 'status' => 'berhasil',
