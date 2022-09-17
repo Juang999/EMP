@@ -18,4 +18,9 @@ class HRMasaSP extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function HRPeriodeMaster()
+    {
+        // return $
+    }
 }

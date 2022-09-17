@@ -18,4 +18,9 @@ class HRPeriodeMaster extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function HRMasaSP()
+    {
+        // return $this->hasMany(HRMasaSP::class, 'hrperiode_code', 'hrsp_')
+    }
 }
