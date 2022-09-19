@@ -66,11 +66,11 @@ class FamilyController extends Controller
                 'hrkel_oid' => Str::uuid(),
                 'hrkel_emp_id' => $request->emp_id,
                 'hrkel_seq' => $sequence,
-                'hrkel_hub_id' => $request->hubId,
-                'hrkel_nama' => $request->nama,
-                'hrkel_tgl_lahir' => $request->tglLahir,
-                'hrkel_tempat_lahir' => $request->tmptLahir,
-                'hrkel_remarks' => $request->remarks
+                'hrkel_hub_id' => $request->jenisHubunganHubungan,
+                'hrkel_nama' => $request->namaHubungan,
+                'hrkel_tgl_lahir' => $request->tglLahirHubungan,
+                'hrkel_tempat_lahir' => $request->tmptLahirHubungan,
+                'hrkel_remarks' => $request->keteranganHubungan
             ]);
 
             return response()->json([

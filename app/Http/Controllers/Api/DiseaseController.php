@@ -53,7 +53,7 @@ class DiseaseController extends Controller
                 'hrsakit_jenis' => $request->jenisSakit,
                 'hrsakit_lama' => $request->lamaSakit,
                 'hrsakit_tahun' => $request->tahunSakit,
-                'hrsakit_kondisi' => $request->kondisiSakit,
+                'hrsakit_kondisi' => $request->kondisiSaatIniSakit,
                 'hrsakit_seq' => $sequence
             ]);
 
