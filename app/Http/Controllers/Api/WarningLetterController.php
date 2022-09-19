@@ -55,9 +55,9 @@ class WarningLetterController extends Controller
                 'hrsp_oid' => Str::uuid(),
                 'hrsp_emp_id' => $request->emp_id,
                 'hrsp_sp' => $request->sp,
-                'hrsp_desc' => $request->desc,
-                'hrsp_start_periode' => $request->start,
-                'hrsp_end_periode' => $request->end
+                'hrsp_desc' => $request->descSP,
+                'hrsp_start_periode' => $request->startSP,
+                'hrsp_end_periode' => $request->endSP
             ]);
 
             return response()->json([

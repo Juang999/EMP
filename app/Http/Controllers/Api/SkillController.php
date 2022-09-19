@@ -47,9 +47,9 @@ class SkillController extends Controller
             $skill = HRKeahlian::create([
                 'hrahli_oid' => Str::uuid(),
                 'hrahli_emp_id' => $request->emp_id,
-                'hrahli_jenis_keahlian' => $request->keahlian,
-                'hrahli_tingkat' => $request->tingkat,
-                'hrahli_prestasi' => $request->prestasi
+                'hrahli_jenis_keahlian' => $request->keahlianSkill,
+                'hrahli_tingkat' => $request->tingkatSkill,
+                'hrahli_prestasi' => $request->prestasiSkill
             ]);
 
             return response()->json([
