@@ -54,7 +54,7 @@ class AchievmentController extends Controller
                 'hrpres_seq' => $sequence,
                 'hrpres_lembaga' => $request->lembaga,
                 'hrpres_ket' => $request->keterangan,
-                'hrpres_tahun' => $request->tahun
+                'hrpres_tahun' => $request->tahunPrestasi
             ]);
 
             return response()->json([
