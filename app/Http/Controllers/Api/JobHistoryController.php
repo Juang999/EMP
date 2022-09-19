@@ -54,9 +54,9 @@ class JobHistoryController extends Controller
                 'hrpos_emp_id' => $request->emp_id,
                 'hrpos_seq' => $sequence,
                 'hrpos_posisi' => $request->posisiPosisi,
-                'hrpos_start' => $request->startPosisi,
-                'hrpos_end' => $request->endPosisi,
-                'hrpos_remarks' => $request->remarksPosisi
+                'hrpos_start' => $request->tglAwalPosisi,
+                'hrpos_end' => $request->tglAkhirPosisi,
+                'hrpos_remarks' => $request->keteranganPosisi
             ]);
 
             return response()->json([
