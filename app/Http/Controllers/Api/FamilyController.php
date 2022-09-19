@@ -7,6 +7,7 @@ use App\Models\HRKeluarga;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class FamilyController extends Controller
 {
@@ -33,6 +34,18 @@ class FamilyController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'emp_id' => 'required',
+            'hubId' => 'required',
+            'nama' => 'required',
+            'tglLahir' => 'required',
+            'tmptLahir' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
         try {
             $sequence = HRKeluarga::where('hrkel_emp_id', $request->emp_id)->count();
 
