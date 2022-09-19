@@ -52,13 +52,13 @@ class OrganizationController extends Controller
                 'hrorg_oid' => Str::uuid(),
                 'hrorg_emp_id' => $request->emp_id,
                 'hrorg_seq' => $sequence,
-                'hrorg_organisasi' => $request->namaOrganisasi,
+                'hrorg_organisasi' => $request->organisasiOrganisasi,
                 'hrorg_jabatan' => $request->jabatanOrganisasi,
                 'hrorg_status' => $request->statusOrganisasi,
-                'hrorg_jns_organisasi' => $request->jnsOrganisasi,
+                'hrorg_jns_organisasi' => $request->jenisOrganisasi,
                 'hrorg_masa_jabatan' => $request->masaJabatanOrganisasi,
-                'hrorg_start' => $request->startOrganisasi,
-                'hrorg_end' => $request->endOrganisasi
+                'hrorg_start' => $request->tglAwalOrganisasi,
+                'hrorg_end' => $request->tglAkhirOrganisasi
             ]);
 
             return response()->json([
