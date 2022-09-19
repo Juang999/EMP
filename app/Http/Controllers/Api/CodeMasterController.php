@@ -478,4 +478,25 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getStatusId()
+    {
+        try {
+            $data = CodeMaster::where('code_filed', 'emp_hrstatus_id')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil status',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data status',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
