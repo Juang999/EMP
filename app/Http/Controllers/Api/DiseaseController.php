@@ -50,10 +50,10 @@ class DiseaseController extends Controller
             $data = HRSakit::create([
                 'hrsakit_oid' => Str::uuid(),
                 'hrsakit_emp_id' => $request->emp_id,
-                'hrsakit_jenis' => $request->jenis,
-                'hrsakit_lama' => $request->lama,
-                'hrsakit_tahun' => $request->tahun,
-                'hrsakit_kondisi' => $request->kondisi,
+                'hrsakit_jenis' => $request->jenisSakit,
+                'hrsakit_lama' => $request->lamaSakit,
+                'hrsakit_tahun' => $request->tahunSakit,
+                'hrsakit_kondisi' => $request->kondisiSakit,
                 'hrsakit_seq' => $sequence
             ]);
 
