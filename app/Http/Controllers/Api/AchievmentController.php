@@ -52,7 +52,7 @@ class AchievmentController extends Controller
                 'hrpres_oid' => Str::uuid(),
                 'hrpres_emp_id' => $request->emp_id,
                 'hrpres_seq' => $sequence,
-                'hrpres_prestasi' => $request->namaPrestasi
+                'hrpres_prestasi' => $request->namaPrestasi,
                 'hrpres_lembaga' => $request->lembaga,
                 'hrpres_ket' => $request->keterangan,
                 'hrpres_tahun' => $request->tahunPrestasi
