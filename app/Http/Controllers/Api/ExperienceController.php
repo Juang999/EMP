@@ -52,16 +52,16 @@ class ExperienceController extends Controller
                 'hrpeng_oid' => Str::uuid(),
                 'hrpeng_emp_id' => $request->emp_id,
                 'hrpeng_seq' => $sequence,
-                'hrpeng_perusahaan' => $request->perusahaan,
-                'hrpeng_jabatan' => $request->jabatan,
-                'hrpeng_status' => $request->status,
-                'hrpeng_start' => $request->start,
-                'hrpeng_end' => $request->end,
-                'hrpeng_jns_bisnis' => $request->jnsBisnis,
-                'hrpeng_masa_jabatan' => $request->masaJabatan,
-                'hrpeng_jabatan_atasan' => $request->jabatanAtasan,
-                'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsg,
-                'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotal
+                'hrpeng_perusahaan' => $request->perusahaanPengalaman,
+                'hrpeng_jabatan' => $request->jabatanPengalaman,
+                'hrpeng_status' => $request->statusPengalaman,
+                'hrpeng_start' => $request->startPengalaman,
+                'hrpeng_end' => $request->endPengalaman,
+                'hrpeng_jns_bisnis' => $request->jnsBisnisPengalaman,
+                'hrpeng_masa_jabatan' => $request->masaJabatanPengalaman,
+                'hrpeng_jabatan_atasan' => $request->jabatanAtasanPengalaman,
+                'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsgPenglaman,
+                'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotalPengalaman
             ]);
 
             return response()->json([

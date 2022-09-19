@@ -54,10 +54,10 @@ class MasterHistoricalContractController extends Controller
                 'hrkontrak_oid' => Str::uuid(),
                 'hrkontrak_emp_id' => $request->emp_id,
                 'hrkontrak_seq' => $sequence,
-                'hrkontrak_start' => $request->start,
-                'hrkontrak_end' => $request->end,
-                'hrkontrak_remarks' => $request->remarks,
-                'hrkontrak_number' => $request->number
+                'hrkontrak_start' => $request->startKontrak,
+                'hrkontrak_end' => $request->endKontrak,
+                'hrkontrak_remarks' => $request->remarksKontrak,
+                'hrkontrak_number' => $request->numberKontrak
             ]);
 
             return response()->json([

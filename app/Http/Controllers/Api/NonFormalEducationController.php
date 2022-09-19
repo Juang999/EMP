@@ -52,12 +52,12 @@ class NonFormalEducationController extends Controller
                 'hrpendn_oid' => Str::uuid(),
                 'hrpendn_emp_id' => $request->emp_id,
                 'hrpendn_seq' => $sequence,
-                'hrpendn_lembaga' => $request->lembaga,
-                'hrpendn_keterangan' => $request->keterangan,
-                'hrpendn_start' => $request->start,
-                'hrpendn_end' => $request->end,
-                'hrpendn_jns_pendidikan' => $request->jnsPendidikan,
-                'hrpendn_prestasi' => $request->prestasi
+                'hrpendn_lembaga' => $request->lembagaPendidikanNon,
+                'hrpendn_keterangan' => $request->keteranganPendidikanNon,
+                'hrpendn_start' => $request->startPendidikanNon,
+                'hrpendn_end' => $request->endPendidikanNon,
+                'hrpendn_jns_pendidikan' => $request->jnsPendidikanNon,
+                'hrpendn_prestasi' => $request->prestasiPendidikanNon
             ]);
 
             return response()->json([
