@@ -69,7 +69,8 @@ class FamilyController extends Controller
                 'hrkel_hub_id' => $request->hubId,
                 'hrkel_nama' => $request->nama,
                 'hrkel_tgl_lahir' => $request->tglLahir,
-                'hrkel_tempat_lahir' => $request->tmptLahir
+                'hrkel_tempat_lahir' => $request->tmptLahir,
+                'hrkel_remarks' => $request->remarks
             ]);
 
             return response()->json([
