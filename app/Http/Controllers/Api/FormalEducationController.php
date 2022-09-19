@@ -52,12 +52,12 @@ class FormalEducationController extends Controller
                 'hrpend_oid' => Str::uuid(),
                 'hrpend_emp_id' => $request->emp_id,
                 'hrpend_seq' => $sequence,
-                'hrpend_jenjang' => $request->jenjangPendidikan,
-                'hrpend_lembaga' => $request->lembagaPendidikan,
-                'hrpend_jurusan' => $request->jurusanPendidikan,
-                'hrpend_start' => $request->startPendidikan,
-                'hrpend_end' => $request->endPendidikan,
-                'hrpend_prestasi' => $request->prestasiPendidikan
+                'hrpend_jenjang' => $request->jenjangPendidikanFormal,
+                'hrpend_lembaga' => $request->lembagaPendidikanFormal,
+                'hrpend_jurusan' => $request->jurusanPendidikanFormal,
+                'hrpend_start' => $request->thnAwalPendidikanFormal,
+                'hrpend_end' => $request->thnAkhirPendidikanFormal,
+                'hrpend_prestasi' => $request->prestasiPendidikanFormal
             ]);
 
             return response()->json([

@@ -52,16 +52,16 @@ class ExperienceController extends Controller
                 'hrpeng_oid' => Str::uuid(),
                 'hrpeng_emp_id' => $request->emp_id,
                 'hrpeng_seq' => $sequence,
-                'hrpeng_perusahaan' => $request->perusahaanPengalaman,
-                'hrpeng_jabatan' => $request->jabatanPengalaman,
-                'hrpeng_status' => $request->statusPengalaman,
-                'hrpeng_start' => $request->startPengalaman,
-                'hrpeng_end' => $request->endPengalaman,
-                'hrpeng_jns_bisnis' => $request->jnsBisnisPengalaman,
-                'hrpeng_masa_jabatan' => $request->masaJabatanPengalaman,
-                'hrpeng_jabatan_atasan' => $request->jabatanAtasanPengalaman,
-                'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsgPenglaman,
-                'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotalPengalaman
+                'hrpeng_perusahaan' => $request->namaPerusahaanPengalamanKerja,
+                'hrpeng_jabatan' => $request->jabatanPerusahaanPengalaman,
+                'hrpeng_status' => $request->statusPerusahaanPengalaman,
+                'hrpeng_start' => $request->thnAwalPerusahaanPengalamanKerja,
+                'hrpeng_end' => $request->thnAkhirPerusahaanPengalamanKerja,
+                'hrpeng_jns_bisnis' => $request->jenisPerusahaanPengalamanKerja,
+                'hrpeng_masa_jabatan' => $request->jabatanPerusahaanPengalamanKerja,
+                'hrpeng_jabatan_atasan' => $request->jabatanAtasanPerusahaanPengalamanKerja,
+                'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsgPerushaanPenglamanKerja,
+                'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotalPerusahaanPengalamanKerja
             ]);
 
             return response()->json([

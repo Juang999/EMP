@@ -54,10 +54,9 @@ class WarningLetterController extends Controller
             $data = HRMasaSP::create([
                 'hrsp_oid' => Str::uuid(),
                 'hrsp_emp_id' => $request->emp_id,
-                'hrsp_sp' => $request->sp,
+                'hrsp_sp' => $request->suratPeringatanSP,
                 'hrsp_desc' => $request->descSP,
-                'hrsp_start_periode' => $request->startSP,
-                'hrsp_end_periode' => $request->endSP
+                'hrsp_start_periode' => $request->periodeSP,
             ]);
 
             return response()->json([
