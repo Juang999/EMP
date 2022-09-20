@@ -499,4 +499,25 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getTIngkatAhli()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'tk_keahlian')->get(['code_id', 'code_name']);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil menampilkan data tingkat keahlian',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal menampilkan data tingkat ahli',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
