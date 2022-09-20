@@ -63,13 +63,15 @@ class FormalEducationController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil menginputkan data',
-                'data' => $pendidikanFormal
+                'data' => $pendidikanFormal,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal menginputkan data',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
