@@ -54,8 +54,8 @@ class NonFormalEducationController extends Controller
                 'hrpendn_seq' => $sequence,
                 'hrpendn_lembaga' => $request->lembagaPendidikanNonFormal,
                 'hrpendn_keterangan' => $request->keteranganPendidikanNonFormal,
-                'hrpendn_start' => $request->thnAkhirPendidikanNonFormal,
-                'hrpendn_end' => $request->thnAwalPendidikanNonFormal,
+                'hrpendn_start' => $request->thnAwalPendidikanNonFormal,
+                'hrpendn_end' => $request->thnAkhirPendidikanNonFormal,
                 'hrpendn_jns_pendidikan' => $request->jnsPendidikanNonFormal,
                 'hrpendn_prestasi' => $request->prestasiPendidikanNonFormal
             ]);
