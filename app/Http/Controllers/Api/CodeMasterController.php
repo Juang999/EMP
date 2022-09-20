@@ -520,4 +520,25 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getTypeContract()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'contract_type')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data tipe kontrak',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data tipe kontrak',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
