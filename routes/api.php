@@ -118,6 +118,7 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
     Route::get('tipeSP', [Api\CodeMasterController::class, 'getTypeSP']);
+    Route::get('tipePosisi', [Api\CodeMasterController::class, 'getPosType']);
 
     // temporaryInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
