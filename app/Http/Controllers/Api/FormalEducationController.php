@@ -6,13 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\HRPendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class FormalEducationController extends Controller
 {
     public function show($emp_id)
     {
         try {
-            $data = HRPendidikan::where('hrpend_emp_id', $emp_id)->orderBy('hrpend_seq', 'ASC')->get();
+            $data = DB::table('hris.hr_pendidikan')
+            ->select(DB::raw('hris.hr_pendidikan.*, hris.hr_pddk_mstr.*'))
+            ->join('hris.hr_pddk_mstr', 'hris.hr_pendidikan.hrpend_jenjang', '=', 'hris.hr_pddk_mstr.hrpddk_id')
+            ->where('hrpend_emp_id', '=', $emp_id)->orderBy('hrpend_seq', 'ASC')
+            ->get();
 
             return response()->json([
                 'status' => 'berhasil',
