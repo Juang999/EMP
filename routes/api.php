@@ -107,15 +107,15 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('hrstatus', [Api\CodeMasterController::class, 'getStatusId']);
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
+    Route::get('tkahli', [APi\CodeMasterController::class, 'getTingkatAhli']);
     Route::get('getPangkat', [Api\CodeMasterController::class, 'getPangkat']);
+    Route::get('tipeSakit', [Api\CodeMasterController::class, 'getTipeSakit']);
     Route::get('hrKotaUmk', [Api\CodeMasterController::class, 'getHrKotaUmk']);
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
-    Route::get('tipeSakit', [Api\CodeMasterController::class, 'getTipeSakit']);
-    Route::get('tkahli', [APi\CodeMasterController::class, 'getTingkatAhli']);
 
     // temporaryInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);

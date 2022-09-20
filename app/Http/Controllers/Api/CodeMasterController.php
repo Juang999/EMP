@@ -503,7 +503,7 @@ class CodeMasterController extends Controller
     public function getTIngkatAhli()
     {
         try {
-            $data = CodeMaster::where('code_field', 'tk_keahlian')->get(['code_id', 'code_name']);
+            $data = CodeMaster::where('code_field', 'tk_kemampuan')->get(['code_id', 'code_name']);
 
             return response()->json([
                 'status' => 'berhasil',
