@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\HRPrestasi;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -37,7 +38,7 @@ class AchievmentController extends Controller
 
             if (!$sequence) {
                 $sequence = 1;
-            } elseif ($sequence = 5) {
+            } elseif ($sequence == 5) {
                 return response()->json([
                     'status' => 'gagal',
                     'pesan' => 'jumlah input telah mencapai limit',
