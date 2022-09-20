@@ -53,15 +53,14 @@ class ExperienceController extends Controller
                 'hrpeng_emp_id' => $request->emp_id,
                 'hrpeng_seq' => $sequence,
                 'hrpeng_perusahaan' => $request->namaPerusahaanPengalamanKerja,
-                'hrpeng_jabatan' => $request->jabatanPerusahaanPengalaman,
-                'hrpeng_status' => $request->statusPerusahaanPengalaman,
+                'hrpeng_jabatan' => $request->jabatanPerusahaanPengalamanKerja,
+                // 'hrpeng_status' => $request->statusPerusahaanPengalamanKerja,
                 'hrpeng_start' => $request->thnAwalPerusahaanPengalamanKerja,
                 'hrpeng_end' => $request->thnAkhirPerusahaanPengalamanKerja,
                 'hrpeng_jns_bisnis' => $request->jenisPerusahaanPengalamanKerja,
-                'hrpeng_masa_jabatan' => $request->jabatanPerusahaanPengalamanKerja,
-                'hrpeng_jabatan_atasan' => $request->jabatanAtasanPerusahaanPengalamanKerja,
-                'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsgPerushaanPenglamanKerja,
-                'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotalPerusahaanPengalamanKerja
+                // 'hrpeng_jabatan_atasan' => $request->jabatanAtasanPerusahaanPengalamanKerja,
+                // 'hrpeng_jml_bawahan_lgsg' => $request->jmlBawahanLgsgPerushaanPenglamanKerja,
+                // 'hrpeng_jml_bawahan_total' => $request->jmlBawahanTotalPerusahaanPengalamanKerja
             ]);
 
             return response()->json([
