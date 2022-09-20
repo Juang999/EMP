@@ -114,9 +114,10 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
+    route::get('tipeKontrak', [Api\CodeMasterController::class, 'getTypeContract']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
-    route::get('tipeKontrak', [Api\CodeMasterController::class, 'getTypeContract']);
+    Route::get('tipeSP', [Api\CodeMasterController::class, 'getTypeSP']);
 
     // temporaryInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
