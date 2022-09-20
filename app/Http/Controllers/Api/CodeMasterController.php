@@ -15,6 +15,7 @@ use App\Models\HRKotaUmk;
 use App\Models\HRPendidikan;
 use App\Models\HRPendidikanMaster;
 use App\Models\HRPeriodeMaster;
+use App\Models\HRPosMaster;
 use App\Models\HrStatusMaster;
 use App\Models\HrWorkGroup;
 use App\Models\MntMaster;
@@ -546,6 +547,27 @@ class CodeMasterController extends Controller
     {
         try {
             $data = CodeMaster::where('code_field', 'hr_sp')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
+
+    public function getPosType()
+    {
+        try {
+            $data = HRPosMaster::get();
 
             return response()->json([
                 'status' => 'berhasil',
