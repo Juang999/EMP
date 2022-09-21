@@ -44,7 +44,7 @@ class EmployeeController extends Controller
                 $emp_id_and_finger->emp_id++;
             }
 
-            $photo = base64_encode(file_get_contents($request->file('photo')));
+            // $photo = base64_encode(file_get_contents($request->file('photo')));
 
             $employee = EmpMaster::create([
                 'emp_oid' => Str::uuid(),
@@ -81,7 +81,7 @@ class EmployeeController extends Controller
                 'emp_alasan_keluar' => $request->alasanKeluar,
                 'emp_nik_old' => $request->nikOld,
                 'emp_address' => $request->address,
-                'emp_photo' => $photo,
+                'emp_photo' => $request->photo,
                 // 'emp_type' => $request->type,
                 'emp_kota' => $request->kota,
                 'emp_propinsi' => $request->propinsi,
