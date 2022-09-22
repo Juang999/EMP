@@ -18,6 +18,7 @@ class WarningLetterController extends Controller
             $data = DB::table('hris.hr_masa_sp')
                 ->select(DB::raw('hris.hr_masa_sp.*, hris.hrperiode_mstr.*'))
                 ->join('hris.hrperiode_mstr', 'hris.hr_masa_sp.hrsp_start_periode', '=', 'hris.hrperiode_mstr.hrperiode_code')
+                ->where('hrsp_emp_id', '=', $emp_id)
                 ->get();
 
             return response()->json([

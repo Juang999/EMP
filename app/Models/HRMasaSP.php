@@ -21,6 +21,6 @@ class HRMasaSP extends Model
 
     public function HRPeriodeMaster()
     {
-        // return $
+        return $this->belongsTo(HRPeriodeMaster::class, 'hrsp_start_periode', 'hrperiode_code');
     }
 }
