@@ -36,6 +36,8 @@ class EmployeeController extends Controller
 
             $name = explode(' ', $request->namaLengkap);
 
+            $count = count($name) - 1;
+
             $emp_id_and_finger = EmpMaster::orderBy('emp_add_date', 'DESC')->first('emp_id');
 
             if (!$emp_id_and_finger) {
@@ -53,21 +55,21 @@ class EmployeeController extends Controller
                 'emp_id' => $emp_id_and_finger->emp_id, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
-                'emp_lname' => ($name[1]) ? $name[1].' '.$name[2] : '-', //done
-                'emp_gender' => $request->gender, //done
+                'emp_lname' => $name[$count], //done
+                'emp_gender' => $request->gender[0], //done
                 'emp_dt' => Carbon::now(), //done
                 'emp_birth_date' => $request->tglLahir, //done
                 'emp_birth_place' => $request->tmptLahir, //done
                 'emp_area_id' => $request->areaId, //done
                 'emp_no_ktp' => $request->noKtp, //done
                 'emp_pin' => $request->pin, //done
-                'emp_tinggi_badan' => $request->tinggiBadan, //done
-                'emp_berat_badan' => $request->beratBadan, //done
+                // 'emp_tinggi_badan' => $request->tinggiBadan, //done
+                // 'emp_berat_badan' => $request->beratBadan, //done
                 'emp_telp_rumah' => $request->tlpRumah, //done
                 'emp_telp_alt' => $request->telp2, //done
                 'emp_hp' => $request->hp, //done
                 'emp_email' => $request->email, //done
-                'emp_website' => $request->web, //done
+                // 'emp_website' => $request->web, //done
                 'emp_inisial' => $request->inisial, //done
                 'emp_tgl_masuk' => $request->tglMasuk,
                 'emp_hrgol_id' => $request->hrGolId,
@@ -81,7 +83,7 @@ class EmployeeController extends Controller
                 'emp_alasan_keluar' => $request->alasanKeluar,
                 'emp_nik_old' => $request->nikOld,
                 'emp_address' => $request->address,
-                'emp_photo' => $request->photo,
+                // 'emp_photo' => $photo,
                 // 'emp_type' => $request->type,
                 'emp_kota' => $request->kota,
                 'emp_propinsi' => $request->propinsi,
@@ -121,6 +123,7 @@ class EmployeeController extends Controller
                 'status' => 'gagal',
                 'pesan' => 'gagal menginputkan data karyawan',
                 'galat' => $th->getMessage(),
+                'baris' => $th->getLine(),
                 'code' => 400
             ], 400);
         }
