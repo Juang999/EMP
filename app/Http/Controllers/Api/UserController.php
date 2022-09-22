@@ -20,7 +20,7 @@ class UserController extends Controller
             $user = User::where([
                 'usernama' => $request->usernama,
                 'password' => $request->password
-                ])->first();
+            ])->first();
 
             if(!$user){
                 return response()->json([
