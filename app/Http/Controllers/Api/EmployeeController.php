@@ -56,7 +56,7 @@ class EmployeeController extends Controller
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
                 'emp_lname' => $name[$count], //done
-                'emp_gender' => $request->gender[0], //done
+                'emp_gender' => $request->gender, //done
                 'emp_dt' => Carbon::now(), //done
                 'emp_birth_date' => $request->tglLahir, //done
                 'emp_birth_place' => $request->tmptLahir, //done
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
                 'emp_alasan_keluar' => $request->alasanKeluar,
                 'emp_nik_old' => $request->nikOld,
                 'emp_address' => $request->address,
-                // 'emp_photo' => $photo,
+                'emp_photo' => $request->photo,
                 // 'emp_type' => $request->type,
                 'emp_kota' => $request->kota,
                 'emp_propinsi' => $request->propinsi,
