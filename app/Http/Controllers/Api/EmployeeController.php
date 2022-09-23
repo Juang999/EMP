@@ -55,7 +55,7 @@ class EmployeeController extends Controller
                 'emp_id' => $emp_id_and_finger->emp_id, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
-                'emp_lname' => ($count > 1) ? $name[$count] : NULL, //done
+                'emp_lname' => ($count > 0) ? $name[$count] : NULL, //done
                 'emp_gender' => $request->gender, //done
                 'emp_dt' => Carbon::now(), //done
                 'emp_birth_date' => $request->tglLahir, //done
