@@ -97,6 +97,7 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
+    Route::get('tipeSP', [Api\CodeMasterController::class, 'getTypeSP']);
     Route::get('hubKel', [Api\CodeMasterController::class, 'getHubKel']);
     Route::get('status', [Api\CodeMasterController::class, 'getStatus']);
     Route::get('gender', [Api\CodeMasterController::class, 'getGender']);
@@ -107,6 +108,7 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('hrstatus', [Api\CodeMasterController::class, 'getStatusId']);
     Route::get('golDarah', [Api\CodeMasterController::class, 'getGolDarah']);
     Route::get('keahlian', [Api\CodeMasterController::class, 'getKeahlian']);
+    Route::get('tipePosisi', [Api\CodeMasterController::class, 'getPosType']);
     Route::get('tkahli', [APi\CodeMasterController::class, 'getTingkatAhli']);
     Route::get('getPangkat', [Api\CodeMasterController::class, 'getPangkat']);
     Route::get('tipeSakit', [Api\CodeMasterController::class, 'getTipeSakit']);
@@ -117,8 +119,6 @@ Route::middleware('jwt.verify')->group( function () {
     route::get('tipeKontrak', [Api\CodeMasterController::class, 'getTypeContract']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
-    Route::get('tipeSP', [Api\CodeMasterController::class, 'getTypeSP']);
-    Route::get('tipePosisi', [Api\CodeMasterController::class, 'getPosType']);
 
     // temporaryInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
