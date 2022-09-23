@@ -94,6 +94,8 @@ class EmployeeController extends Controller
                 'emp_status_marital' => $request->statMarital,
                 'emp_no_rek' => $request->noRek,
                 'emp_id_finger' => $request->idFinger,
+                // 'emp_gaji_pokok' => $request->gajiPokok,
+                // 'emp_t_transport' => $request->tTransport,
                 'emp_work_group' => $request->workGroup,
                 'emp_privilege_finger' => $request->privilegeFInger,
                 'emp_password_finger' => $request->passwordFinger,
