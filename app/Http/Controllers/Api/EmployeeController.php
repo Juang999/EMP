@@ -103,7 +103,7 @@ class EmployeeController extends Controller
                 'emp_hirarki' => $request->hirarki,
                 'emp_npwp' => $request->npwp,
                 'emp_email_alt' => $request->emailAlt,
-                'emp_jabatan' => $request->jabatan
+                'emp_jabatan' => $request->jabatanId
             ]);
 
             UseAset::create([
