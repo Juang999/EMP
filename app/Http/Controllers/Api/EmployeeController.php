@@ -65,6 +65,8 @@ class EmployeeController extends Controller
                 'emp_pin' => $request->pin, //done
                 // 'emp_tinggi_badan' => $request->tinggiBadan, //done
                 // 'emp_berat_badan' => $request->beratBadan, //done
+                // 'emp_penyakit' => $request->penyakit,
+                // 'emp_cacat' => $request->cacat,
                 'emp_telp_rumah' => $request->tlpRumah, //done
                 'emp_telp_alt' => $request->telp2, //done
                 'emp_hp' => $request->hp, //done
