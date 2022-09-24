@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmpMaster;
+use App\Models\HRPosisi;
 use App\Models\UseAset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,6 +77,7 @@ class EmployeeController extends Controller
                 'emp_tgl_masuk' => $request->tglMasuk,
                 'emp_hrgol_id' => $request->hrGolId,
                 'emp_hrstatus_id' => $request->hrStatusId,
+                'emp_hrpos_id' => $request->hrPosId,
                 'emp_pangkat_id' => $request->PangkatId,
                 'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
@@ -111,6 +113,30 @@ class EmployeeController extends Controller
                 'use_aset_emp_id' => $employee->emp_id,
                 'use_aset_add_by' => Auth::user()->usernama,
                 'use_aset_add_date' => Carbon::translateTimeString(now())
+            ]);
+
+            $sequence = HRPosisi::where('hrpos_emp_id', $employee->emp_id)->count();
+
+            if (!$sequence) {
+                $sequence = 1;
+            } elseif ($sequence == 5) {
+                return response()->json([
+                    'status' => 'redirected',
+                    'pesan' => 'kamu telah mencapai limit',
+                    'limit' => 5,
+                    'code' => 300
+                ], 300);
+            } else {
+                $sequence++;
+            }
+
+            HRPosisi::create([
+                'hrpos_oid' => Str::uuid(),
+                'hrpos_emp_id' => $request->emp_id,
+                'hrpos_seq' => $sequence,
+                'hrpos_posisi' => $request->posisiPosisi,
+                'hrpos_start' => Carbon::now()->format('Y-m-d'),
+                'hrpos_remarks' => $request->keteranganPosisi
             ]);
 
         DB::commit();
