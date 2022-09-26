@@ -16,8 +16,7 @@ class TemporaryInputController extends Controller
         try {
             $beforeCodeId = CodeMaster::orderBy('code_id', 'DESC')->first('code_id');
 
-
-            $codeId = $beforeCodeId->code_id + 1;
+            $codeId = $beforeCodeId->code_id += 1;
 
             $sequence = CodeMaster::where('code_field', $request->field)->count();
 

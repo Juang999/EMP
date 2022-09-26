@@ -33,8 +33,9 @@ class UserController extends Controller
             $token = JWTAuth::fromUser($user);
 
             return response()->json([
-                'token' => $token, 200
-            ]);
+                'token' => $token,
+                'code' => 200
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'failed',

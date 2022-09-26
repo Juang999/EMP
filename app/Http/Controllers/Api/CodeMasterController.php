@@ -584,4 +584,26 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getHobby()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'hobby')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data hobi',
+                'daata' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data hobi',
+                'galat' => $th->getMessage(),
+                'baris' => $th->getLine(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

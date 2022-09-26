@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\EmpMaster;
 use App\Models\HRPosisi;
+use App\Models\HRPosMaster;
 use App\Models\UseAset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -130,11 +131,13 @@ class EmployeeController extends Controller
                 $sequence++;
             }
 
+            $posisi = HRPosMaster::where('hrpos_id', $request->hrPosId)->first();
+
             HRPosisi::create([
                 'hrpos_oid' => Str::uuid(),
-                'hrpos_emp_id' => $request->emp_id,
+                'hrpos_emp_id' => $employee->emp_id,
                 'hrpos_seq' => $sequence,
-                'hrpos_posisi' => $request->posisiPosisi,
+                'hrpos_posisi' => $posisi->hrpos_name,
                 'hrpos_start' => Carbon::now()->format('Y-m-d'),
                 'hrpos_remarks' => $request->keteranganPosisi
             ]);
