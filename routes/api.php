@@ -94,6 +94,7 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     // masterRoute
+    Route::get('hobby', [Api\CodeMasterController::class, 'getHobby']);
     Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
     Route::get('area', [Api\CodeMasterController::class, 'getAreaId']);
@@ -120,6 +121,6 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
 
-    // temporaryInput
+    // codeMasterInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
 });
