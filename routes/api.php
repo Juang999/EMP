@@ -30,7 +30,10 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     // firstScreen
-    Route::post('daftarkanKaryawan', [Api\EmployeeController::class, 'store']);
+    Route::prefix('daftarkanKaryawan')->group( function () {
+        Route::get('/', [Api\EmployeeController::class, 'index']);
+        Route::post('/', [Api\EmployeeController::class, 'store']);
+    } );
 
     // secondScreen
     Route::prefix('anggotaKeluarga')->group( function () {
