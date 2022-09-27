@@ -606,4 +606,25 @@ class CodeMasterController extends Controller
             ], 400);
         }
     }
+
+    public function getPersonality()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'personalityType')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine()
+            ], 400);
+        }
+    }
 }

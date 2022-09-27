@@ -94,6 +94,7 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     // masterRoute
+    Route::get('personality', [Api\CodeMasterController::class, 'getPersonality']);
     Route::get('hobby', [Api\CodeMasterController::class, 'getHobby']);
     Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
