@@ -37,14 +37,14 @@ class PeriodeController extends Controller
             $data = HRPeriodeMaster::create([
                 'hrperiode_add_by' => Auth::user()->usernama,
                 'hrperiode_add_date' => Carbon::translateTimeString(now()),
-                'hrperiode_code' => $request->periodeCode,
-                'hrperiode_start_date' => $request->startDate,
-                'hrperiode_end_date' => $request->endDate,
-                'hrperiode_status' => $request->status,
+                'hrperiode_code' => $request->codePeriode,
+                'hrperiode_start_date' => $request->startDatePeriode,
+                'hrperiode_end_date' => $request->endDatePeriode,
+                'hrperiode_status' => $request->statusPeriode,
                 'hrperiode_dt' => Carbon::translateTimeString(now()),
-                'hrperiode_bulan_code' => $request->bulanCode,
-                'tahun' => $request->tahun,
-                'hrperiode_active' => $request->active
+                'hrperiode_bulan_code' => $request->monthCodePeriode,
+                'tahun' => $request->yearPeriode,
+                'hrperiode_active' => $request->activePeriode
             ]);
 
             return response()->json([
