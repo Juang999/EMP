@@ -22,7 +22,29 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            // $data = EmpMaster::get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id', 'emp_hrstatus_id', 'emp_gender', 'emp_jabatan', 'emp_en_id', 'emp_hp']);
+            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_hrstatus_id, public.emp_mstr.emp_gender, public.emp_mstr.emp_jabatan, public.emp_mstr.emp_en_id, public.emp_mstr.emp_hp, public.code_mstr.code_id, public.code_mstr.code_name, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name, public.en_mstr.en_id, public.en_mstr.en_desc'))
+            ->leftJoin('public.code_mstr', 'public.emp_mstr.emp_hrstatus_id', '=', 'public.code_mstr.code_id')
+            ->leftJoin('hris.hrjabatan_mstr', 'public.emp_mstr.emp_jabatan', '=', 'hris.hrjabatan_mstr.hrjbt_id')
+            ->leftJoin('public.en_mstr', 'public.emp_mstr.emp_en_id', '=', 'public.en_mstr.en_id')
+            ->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambii data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'code' => 400
+            ], 400);
+        }
     }
 
     /**
@@ -77,16 +99,16 @@ class EmployeeController extends Controller
                 'emp_inisial' => $request->inisial, //done
                 'emp_tgl_masuk' => $request->tglMasuk,
                 'emp_hrgol_id' => $request->hrGolId,
-                'emp_hrstatus_id' => $request->hrStatusId,
                 'emp_hrpos_id' => $request->hrPosId,
                 'emp_pangkat_id' => $request->PangkatId,
                 'emp_status_koperasi' => $request->statKoperasi,
                 'emp_active' => $request->active,
                 'emp_finger' => $request->finger,
+                'emp_nik_old' => $request->nikOld,
                 'emp_nik_new' => $request->nikNew,
+                'emp_hrstatus_id' => $request->hrStatusId,
                 'emp_tgl_keluar' => $request->tglKeluar,
                 'emp_alasan_keluar' => $request->alasanKeluar,
-                'emp_nik_old' => $request->nikOld,
                 'emp_address' => $request->address,
                 'emp_photo' => $request->photo,
                 // 'emp_type' => $request->type,
@@ -170,7 +192,24 @@ class EmployeeController extends Controller
      */
     public function show($emp_id)
     {
-        //
+        try {
+            $data = EmpMaster::where('emp_id', $emp_id)->first();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data karyawan',
+                'data' => $data,
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'code' => 400
+            ], 400);
+        }
     }
 
     /**
@@ -180,9 +219,15 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $emp_id)
     {
-        //
+        try {
+            EmpMaster::where('emp_id', $emp_id)->update([
+                ''
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

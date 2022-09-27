@@ -23,4 +23,9 @@ class EmpMaster extends Model
     {
         return $this->belongsTo(PangkatMaster::class, 'emp_pangkat_id', 'pangkat_id');
     }
+
+    public function Jabatan()
+    {
+        
+    }
 }
