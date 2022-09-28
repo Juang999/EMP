@@ -56,7 +56,6 @@ class EmployeeController extends Controller
             ->leftJoin('hris.hr_masa_sp', 'hris.hr_masa_sp.hrsp_emp_id', '=', 'public.emp_mstr.emp_id')
             ->leftJoin('hris.hr_sakit', 'hris.hr_sakit.hrsakit_emp_id', '=', 'public.emp_mstr.emp_id')
             ->groupBy('public.emp_mstr.emp_fname', 'public.emp_mstr.emp_mname', 'public.emp_mstr.emp_lname', 'public.emp_mstr.emp_id', 'public.emp_mstr.emp_hrstatus_id', 'public.emp_mstr.emp_gender', 'public.emp_mstr.emp_jabatan', 'public.emp_mstr.emp_en_id', 'public.emp_mstr.emp_hp', 'public.code_mstr.code_id', 'public.code_mstr.code_name', 'hris.hrjabatan_mstr.hrjbt_id', 'hris.hrjabatan_mstr.hrjbt_name', 'public.en_mstr.en_id', 'public.en_mstr.en_desc')
-            ->where('public.emp_mstr.emp_id', 1)
             ->get();
 
             return response()->json([
