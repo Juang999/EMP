@@ -24,10 +24,17 @@ class EmployeeController extends Controller
     {
         try {
             // $data = EmpMaster::get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id', 'emp_hrstatus_id', 'emp_gender', 'emp_jabatan', 'emp_en_id', 'emp_hp']);
-            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_hrstatus_id, public.emp_mstr.emp_gender, public.emp_mstr.emp_jabatan, public.emp_mstr.emp_en_id, public.emp_mstr.emp_hp, public.code_mstr.code_id, public.code_mstr.code_name, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name, public.en_mstr.en_id, public.en_mstr.en_desc'))
+            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_hrstatus_id, public.emp_mstr.emp_gender, public.emp_mstr.emp_jabatan, public.emp_mstr.emp_en_id, public.emp_mstr.emp_hp, public.code_mstr.code_id, public.code_mstr.code_name, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name, public.en_mstr.en_id, public.en_mstr.en_desc, COUNT(hris.hr_keluarga.hrkel_emp_id) AS total_keluarga, COUNT(hris.hr_organisasi.hrorg_emp_id) AS total_organisasi, COUNT(hris.hr_prestasi.hrpres_emp_id) AS total_prestasi, COUNT(hris.hr_keahlian.hrahli_emp_id) AS total_keahlian, COUNT(hris.hr_masa_sp.hrsp_emp_id) AS total_SP, COUNT(hris.hr_sakit.hrsakit_emp_id) AS total_sakit'))
             ->leftJoin('public.code_mstr', 'public.emp_mstr.emp_hrstatus_id', '=', 'public.code_mstr.code_id')
             ->leftJoin('hris.hrjabatan_mstr', 'public.emp_mstr.emp_jabatan', '=', 'hris.hrjabatan_mstr.hrjbt_id')
             ->leftJoin('public.en_mstr', 'public.emp_mstr.emp_en_id', '=', 'public.en_mstr.en_id')
+            ->leftJoin('hris.hr_keluarga', 'hris.hr_keluarga.hrkel_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->leftJoin('hris.hr_organisasi', 'hris.hr_organisasi.hrorg_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->leftJoin('hris.hr_prestasi', 'hris.hr_prestasi.hrpres_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->leftJoin('hris.hr_keahlian', 'hris.hr_keahlian.hrahli_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->leftJoin('hris.hr_masa_sp', 'hris.hr_masa_sp.hrsp_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->leftJoin('hris.hr_sakit', 'hris.hr_sakit.hrsakit_emp_id', '=', 'public.emp_mstr.emp_id')
+            ->groupBy('public.emp_mstr.emp_fname', 'public.emp_mstr.emp_mname', 'public.emp_mstr.emp_lname', 'public.emp_mstr.emp_id', 'public.emp_mstr.emp_hrstatus_id', 'public.emp_mstr.emp_gender', 'public.emp_mstr.emp_jabatan', 'public.emp_mstr.emp_en_id', 'public.emp_mstr.emp_hp', 'public.code_mstr.code_id', 'public.code_mstr.code_name', 'hris.hrjabatan_mstr.hrjbt_id', 'hris.hrjabatan_mstr.hrjbt_name', 'public.en_mstr.en_id', 'public.en_mstr.en_desc')
             ->get();
 
             return response()->json([
@@ -193,11 +200,15 @@ class EmployeeController extends Controller
     public function show($emp_id)
     {
         try {
-            $data = EmpMaster::where('emp_id', $emp_id)->first();
+            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.*, public.en_mstr.en_desc, public.hrjabatan_mstr.hrjbt_name, hris.hrgol_mstr.*, public.pangkat_mstr.*, public'))
+            ->leftJoin('public.code_mstr', 'public.emp_mstr.emp_hrstatus_id', '=', 'public.code_mstr.code_id')
+            ->leftJoin('hris.hrjabatan_mstr', 'public.emp_mstr.emp_jabatan', '=', 'hris.hrjabatan_mstr.hrjbt_id')
+            ->leftJoin('public.en_mstr', 'public.emp_mstr.emp_en_id', '=', 'public.en_mstr.en_id')
+            ->where('emp_id', $emp_id)->first();
 
             return response()->json([
                 'status' => 'berhasil',
-                'pesan' => 'berhasil mengambil data karyawan',
+                'pesan' => 'berhasil mengambil data',
                 'data' => $data,
                 'code' => 200
             ], 200);
