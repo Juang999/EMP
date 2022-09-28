@@ -54,6 +54,14 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('/{emp_id}', [Api\DiseaseController::class, 'show']);
         Route::post('/', [Api\DiseaseController::class, 'store']);
     });
+    Route::prefix('personality')->group( function () {
+        Route::get('/{emp_id}', [Api\PersonalityController::class, 'show']);
+        Route::post('/', [Api\PersonalityController::class, 'store']);
+    });
+    Route::prefix('hobbies')->group( function () {
+        Route::get('/{emp_id}', [Api\HobbiesController::class, 'show']);
+        Route::post('/', [Api\HobbiesController::class, 'store']);
+    });
 
     // thirdScreen
     Route::prefix('pengalamanKerja')->group( function () {

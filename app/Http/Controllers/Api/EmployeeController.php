@@ -3,9 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CodeMaster;
 use App\Models\EmpMaster;
+use App\Models\EnMaster;
+use App\Models\HrJabatanMaster;
+use App\Models\HRKeahlian;
+use App\Models\HRKeluarga;
+use App\Models\HRMasaSP;
+use App\Models\HROrganisasi;
 use App\Models\HRPosisi;
 use App\Models\HRPosMaster;
+use App\Models\HRPrestasi;
+use App\Models\HRSakit;
 use App\Models\UseAset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +32,20 @@ class EmployeeController extends Controller
     public function index()
     {
         try {
-            // $data = EmpMaster::get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id', 'emp_hrstatus_id', 'emp_gender', 'emp_jabatan', 'emp_en_id', 'emp_hp']);
-            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_hrstatus_id, public.emp_mstr.emp_gender, public.emp_mstr.emp_jabatan, public.emp_mstr.emp_en_id, public.emp_mstr.emp_hp, public.code_mstr.code_id, public.code_mstr.code_name, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name, public.en_mstr.en_id, public.en_mstr.en_desc, COUNT(hris.hr_keluarga.hrkel_emp_id) AS total_keluarga, COUNT(hris.hr_organisasi.hrorg_emp_id) AS total_organisasi, COUNT(hris.hr_prestasi.hrpres_emp_id) AS total_prestasi, COUNT(hris.hr_keahlian.hrahli_emp_id) AS total_keahlian, COUNT(hris.hr_masa_sp.hrsp_emp_id) AS total_SP, COUNT(hris.hr_sakit.hrsakit_emp_id) AS total_sakit'))
+            // $theData = EmpMaster::where('emp_id', 1)->get(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id', 'emp_hrstatus_id', 'emp_gender', 'emp_jabatan', 'emp_en_id', 'emp_hp']);
+
+            // foreach ($theData as $data) {
+            //     $data['status'] = CodeMaster::where('code_id', $data->emp_hrstatus_id)->get();
+            //     $data['jabatan'] = HrJabatanMaster::where('hrjbt_id', $data->emp_jabatan)->get();
+            //     $data['entity'] = EnMaster::where('en_id', $data->emp_en_id)->get();
+            //     $data['total_keluarga'] = HRKeluarga::where('hrkel_emp_id', $data->emp_id)->count();
+            //     $data['total_organisasi'] = HROrganisasi::where('hrorg_emp_id', $data->emp_id)->count();
+            //     $data['total_prestasi'] = HRPrestasi::where('hrpres_emp_id', $data->emp_id)->count();
+            //     $data['total_keahlian'] = HRKeahlian::where('hrahli_emp_id', $data->emp_id)->count();
+            //     $data['total_SP'] = HRMasaSP::where('hrsp_emp_id', $data->emp_id)->count();
+            //     $data['total_sakit'] = HRSakit::where('hrsakit_emp_id', $data->emp_id)->count();
+            // }
+            $theData = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_hrstatus_id, public.emp_mstr.emp_gender, public.emp_mstr.emp_jabatan, public.emp_mstr.emp_en_id, public.emp_mstr.emp_hp, public.code_mstr.code_id, public.code_mstr.code_name, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name, public.en_mstr.en_id, public.en_mstr.en_desc, COUNT(hris.hr_keluarga.hrkel_emp_id) AS total_keluarga, COUNT(hris.hr_organisasi.hrorg_emp_id) AS total_organisasi, COUNT(hris.hr_prestasi.hrpres_emp_id) AS total_prestasi, COUNT(hris.hr_keahlian.hrahli_emp_id) AS total_keahlian, COUNT(hris.hr_masa_sp.hrsp_emp_id) AS total_SP, COUNT(hris.hr_sakit.hrsakit_emp_id) AS total_sakit'))
             ->leftJoin('public.code_mstr', 'public.emp_mstr.emp_hrstatus_id', '=', 'public.code_mstr.code_id')
             ->leftJoin('hris.hrjabatan_mstr', 'public.emp_mstr.emp_jabatan', '=', 'hris.hrjabatan_mstr.hrjbt_id')
             ->leftJoin('public.en_mstr', 'public.emp_mstr.emp_en_id', '=', 'public.en_mstr.en_id')
@@ -40,7 +61,7 @@ class EmployeeController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data,
+                'data' => $theData,
                 'code' => 200
             ], 200);
         } catch (\Throwable $th) {
@@ -135,7 +156,8 @@ class EmployeeController extends Controller
                 'emp_hirarki' => $request->hirarki,
                 'emp_npwp' => $request->npwp,
                 'emp_email_alt' => $request->emailAlt,
-                'emp_jabatan' => $request->jabatanId
+                'emp_jabatan' => $request->jabatanId,
+                'emp_bpjs' => $request->bpjs
             ]);
 
             UseAset::create([
