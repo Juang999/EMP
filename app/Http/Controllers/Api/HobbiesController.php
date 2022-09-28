@@ -50,13 +50,15 @@ class HobbiesController extends Controller
                     'code' => 300
                 ], 300);
             }
-
-            $data = HRHobbies::create([
-                'hr_hobbies_oid' => Str::uuid(),
-                'hr_hobbies_emp_id' => $request->emp_id,
-                'hr_hobbies_code_id' => $request->codeIdHobbies,
-                'hr_hobbies_datecreate' => Carbon::now()->format('Y-m-d')
-            ]);
+            $hobbies = json_decode($request->codeIdHobbies, true);
+            foreach ($hobbies as $hobby) {
+                $data = HRHobbies::create([
+                        'hr_hobbies_oid' => Str::uuid(),
+                    'hr_hobbies_emp_id' => $request->emp_id,
+                    'hr_hobbies_code_id' => $hobby['codeIdHobbies'],
+                    'hr_hobbies_datecreate' => Carbon::now()->format('Y-m-d')
+                ]);
+            }
 
             return response()->json([
                 'status' => 'berhasil',
