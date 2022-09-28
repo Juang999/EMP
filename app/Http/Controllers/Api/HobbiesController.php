@@ -51,9 +51,9 @@ class HobbiesController extends Controller
                 ], 300);
             }
 
-            $hobbies = json_decode($request->codeIdHobbies, true);
+            // $hobbies = json_decode($request->codeIdHobbies, true);
 
-            foreach ($hobbies as $hobby) {
+            foreach ($request->codeIdHobbies as $hobby) {
                 HRHobbies::create([
                     'hr_hobbies_oid' => Str::uuid(),
                     'hr_hobbies_emp_id' => $request->emp_id,
