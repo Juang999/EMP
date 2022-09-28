@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
 use App\Models\EmpMaster;
 use App\Models\EnMaster;
+use App\Models\HRHobbies;
 use App\Models\HrJabatanMaster;
 use App\Models\HRKeahlian;
 use App\Models\HRKeluarga;
@@ -202,6 +203,26 @@ class EmployeeController extends Controller
                 'hrpos_start' => Carbon::now()->format('Y-m-d'),
                 'hrpos_remarks' => $request->keteranganPosisi
             ]);
+
+            $count = HRHobbies::where('hr_hobbies_emp_id', $request->emp_id)->count();
+
+            if ($count == 5) {
+                return response()->json([
+                    'status' => 'gagal',
+                    'pesan' => 'input telah mencapai limit',
+                    'limit' => 5,
+                    'code' => 300
+                ], 300);
+            }
+
+            foreach ($request->codeIdHobbies as $hobby) {
+                HRHobbies::create([
+                    'hr_hobbies_oid' => Str::uuid(),
+                    'hr_hobbies_emp_id' => $request->emp_id,
+                    'hr_hobbies_code_id' => $hobby['value'],
+                    'hr_hobbies_datecreate' => Carbon::now()->format('Y-m-d')
+                ]);
+            }
 
         DB::commit();
 
