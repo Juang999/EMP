@@ -33,6 +33,8 @@ Route::middleware('jwt.verify')->group( function () {
     Route::prefix('daftarkanKaryawan')->group( function () {
         Route::get('/', [Api\EmployeeController::class, 'index']);
         Route::post('/', [Api\EmployeeController::class, 'store']);
+        Route::get('/{emp_id}', [Api\EmployeeController::class, 'show']);
+        Route::put('/{emp_id}', [Api\EmployeeController::class, 'update']);
     } );
 
     // secondScreen
@@ -73,8 +75,8 @@ Route::middleware('jwt.verify')->group( function () {
 
     // fourthScreen
     Route::prefix('pangkat')->group( function () {
-        Route::get('/{emp_id}', [Api\PangkatController::class, 'show']);
         Route::post('/', [Api\PangkatController::class, 'store']);
+        Route::get('/{emp_id}', [Api\PangkatController::class, 'show']);
     });
     Route::prefix('sejarahKontrak')->group( function () {
         Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'show']);
@@ -97,7 +99,6 @@ Route::middleware('jwt.verify')->group( function () {
     });
 
     // masterRoute
-    Route::get('personality', [Api\CodeMasterController::class, 'getPersonality']);
     Route::get('hobby', [Api\CodeMasterController::class, 'getHobby']);
     Route::get('hrGol', [Api\CodeMasterController::class, 'getHrGol']);
     Route::get('/sp', [Api\CodeMasterController::class, 'getPeriode']);
@@ -121,6 +122,7 @@ Route::middleware('jwt.verify')->group( function () {
     Route::get('workGroup', [Api\CodeMasterController::class, 'getWorkGroup']);
     Route::get('karyawan', [Api\CodeMasterController::class, 'getAllKaryawan']);
     Route::get('pendidikan', [Api\CodeMasterController::class, 'getPendidikan']);
+    Route::get('personality', [Api\CodeMasterController::class, 'getPersonality']);
     route::get('tipeKontrak', [Api\CodeMasterController::class, 'getTypeContract']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);

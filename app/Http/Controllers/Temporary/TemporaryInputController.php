@@ -29,6 +29,7 @@ class TemporaryInputController extends Controller
             $data = CodeMaster::create([
                 'code_oid' => Str::uuid(),
                 'code_dom_id' => 1,
+                'code_en_id' => $request->enId,
                 'code_add_by' => Auth::user()->usernama,
                 'code_add_date' => Carbon::translateTimeString(now()),
                 'code_id' => $codeId,
