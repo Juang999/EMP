@@ -12,6 +12,7 @@ use App\Models\HRKeahlian;
 use App\Models\HRKeluarga;
 use App\Models\HRMasaSP;
 use App\Models\HROrganisasi;
+use App\Models\HRPersonality;
 use App\Models\HRPosisi;
 use App\Models\HRPosMaster;
 use App\Models\HRPrestasi;
@@ -218,11 +219,23 @@ class EmployeeController extends Controller
             foreach ($request->codeIdHobbies as $hobby) {
                 HRHobbies::create([
                     'hr_hobbies_oid' => Str::uuid(),
-                    'hr_hobbies_emp_id' => $request->emp_id,
+                    'hr_hobbies_emp_id' => $employee->emp_id,
                     'hr_hobbies_code_id' => $hobby['value'],
                     'hr_hobbies_datecreate' => Carbon::now()->format('Y-m-d')
                 ]);
             }
+
+            $data = HRPersonality::create([
+                'hr_persnlt_oid' => Str::uuid(),
+                'hr_persnlt_emp_id' => $employee->emp_id,
+                'hr_persnlt_code_id' => $request->codeIdPersonality,
+                'hr_persnlt_date' => Carbon::now()->format('Y-m-d'),
+                'hr_persnlt_exm' => $request->exmPersonality
+            ]);
+
+            EmpMaster::where('emp_id', $employee->emp_id)->update([
+                'emp_persnlt_code_id' => $data->hr_persnlt_code_id
+            ]);
 
         DB::commit();
 
