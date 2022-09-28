@@ -98,7 +98,17 @@ class EmployeeController extends Controller
                 $emp_id_and_finger->emp_id++;
             }
 
-            // $photo = base64_encode(file_get_contents($request->file('photo')));
+            $rawNIK = EmpMaster::count();
+            if (!$rawNIK) {
+                $rawNIK = 1;
+            } else {
+                $rawNIK++;
+            }
+
+            $base = "0000";
+
+            $func = array_slice(str_split($base), 0, -strlen($rawNIK));
+            $NIK = implode($func).$rawNIK;
 
             $employee = EmpMaster::create([
                 'emp_oid' => Str::uuid(),
@@ -133,7 +143,7 @@ class EmployeeController extends Controller
                 'emp_active' => $request->active,
                 'emp_finger' => $request->finger,
                 'emp_nik_old' => $request->nikOld,
-                'emp_nik_new' => $request->nikNew,
+                'emp_nik_new' => $NIK.'.'.Carbon::now()->format('m.y'),
                 'emp_hrstatus_id' => $request->hrStatusId,
                 'emp_tgl_keluar' => $request->tglKeluar,
                 'emp_alasan_keluar' => $request->alasanKeluar,
