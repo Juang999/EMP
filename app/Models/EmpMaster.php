@@ -19,6 +19,8 @@ class EmpMaster extends Model
 
     public $timestamps = false;
 
+    protected $hidden = ['emp_photo'];
+
     public function PangkatMaster()
     {
         return $this->belongsTo(PangkatMaster::class, 'emp_pangkat_id', 'pangkat_id');
@@ -26,6 +28,6 @@ class EmpMaster extends Model
 
     public function Jabatan()
     {
-        
+
     }
 }
