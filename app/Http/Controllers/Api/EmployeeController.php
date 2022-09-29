@@ -256,11 +256,69 @@ class EmployeeController extends Controller
     public function show($emp_id)
     {
         try {
-            $data = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.*, public.en_mstr.en_desc, public.hrjabatan_mstr.hrjbt_name, hris.hrgol_mstr.*, public.pangkat_mstr.*, public'))
-            ->leftJoin('public.code_mstr', 'public.emp_mstr.emp_hrstatus_id', '=', 'public.code_mstr.code_id')
-            ->leftJoin('hris.hrjabatan_mstr', 'public.emp_mstr.emp_jabatan', '=', 'hris.hrjabatan_mstr.hrjbt_id')
-            ->leftJoin('public.en_mstr', 'public.emp_mstr.emp_en_id', '=', 'public.en_mstr.en_id')
-            ->where('emp_id', $emp_id)->first();
+            $data = DB::table('public.emp_mstr')->select(DB::raw("
+            public.emp_mstr.emp_fname,
+            public.emp_mstr.emp_mname,
+            public.emp_mstr.emp_lname,
+            public.emp_mstr.emp_orgs_id,
+            public.emp_mstr.emp_orgs_aprv,
+            public.emp_mstr.emp_gender,
+            public.emp_mstr.emp_pos_id,
+            public.emp_mstr.emp_dt,
+            public.emp_mstr.emp_birth_date,
+            public.emp_mstr.emp_birth_place,
+            public.emp_mstr.emp_relation,
+            public.emp_mstr.emp_area_id,
+            public.emp_mstr.emp_no_ktp,
+            public.emp_mstr.emp_tinggi_badan,
+            public.emp_mstr.emp_berat_badan,
+            public.emp_mstr.emp_penyakit,
+            public.emp_mstr.emp_cacat,
+            public.emp_mstr.emp_telp_rumah,
+            public.emp_mstr.emp_telp_alt,
+            public.emp_mstr.emp_hp,
+            public.emp_mstr.emp_email,
+            public.emp_mstr.emp_website,
+            public.emp_mstr.emp_inisial,
+            public.emp_mstr.emp_tgl_masuk,
+            public.emp_mstr.emp_hrgol_id,
+            public.emp_mstr.emp_hrstatus_id,
+            public.emp_mstr.emp_hrpos_id,
+            public.emp_mstr.emp_pangkat_id,
+            public.emp_mstr.emp_status_koperasi,
+            public.emp_mstr.emp_active,
+            public.emp_mstr.emp_nik_new,
+            public.emp_mstr.emp_tgl_keluar,
+            public.emp_mstr.emp_alasan_keluar,
+            public.emp_mstr.emp_nik_old,
+            public.emp_mstr.emp_address,
+            encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo,
+            public.emp_mstr.emp_type,
+            public.emp_mstr.emp_kota,
+            public.emp_mstr.emp_propinsi,
+            public.emp_mstr.emp_kd_pos,
+            public.emp_mstr.emp_en_id,
+            public.emp_mstr.emp_status_marital,
+            public.emp_mstr.emp_no_rek,
+            public.emp_mstr.emp_id_finger,
+            public.emp_mstr.emp_work_group,
+            public.emp_mstr.emp_hirarki,
+            public.emp_mstr.emp_npwp,
+            public.emp_mstr.emp_nama_klrg_dekat,
+            public.emp_mstr.emp_klrg_dekat_hub,
+            public.emp_mstr.emp_telp_klrg_dekat,
+            public.emp_mstr.emp_email_alt,
+            public.emp_mstr.emp_jabatan,
+            public.emp_mstr.emp_pot_makan,
+            public.emp_mstr.emp_bank,
+            public.emp_mstr.emp_t_jabatan,
+            public.emp_mstr.emp_bpjs,
+            public.en_mstr.*,
+            hris.hrjabatan_mstr.*
+            "))
+            ->leftJoin('public.en_mstr', 'public.en_mstr.en_id', '=', 'public.emp_mstr.emp_en_id')
+            ->leftJoin('hris.hrjabatan_mstr', 'hris.hrjabatan_mstr.hrjbt_id', '=', 'public.emp_mstr.emp_jabatan')
+            ->where('public.emp_mstr.emp_id', '=', $emp_id)->first();
 
             return response()->json([
                 'status' => 'berhasil',
