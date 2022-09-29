@@ -57,7 +57,7 @@ class PersonalityController extends Controller
                     'hr_persnlt_oid' => Str::uuid(),
                     'hr_persnlt_emp_id' => $request->emp_id,
                     'hr_persnlt_code_id' => $request->codeIdPersonality,
-                    'hr_persnlt_date' => Carbon::now()->format('Y-m-d'),
+                    'hr_persnlt_date' => $request->datePersonality,
                     'hr_persnlt_exm' => $request->exmPersonality
                 ]);
 
