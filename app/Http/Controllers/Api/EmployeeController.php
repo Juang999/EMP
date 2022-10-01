@@ -211,7 +211,7 @@ class EmployeeController extends Controller
                     'hr_hobbies_oid' => Str::uuid(),
                     'hr_hobbies_emp_id' => $employee->emp_id,
                     'hr_hobbies_code_id' => $hobby['value'],
-                    'hr_hobbies_datecreate' => Carbon::now()->format('Y-m-d')
+                    'hr_hobbies_datecreate' => Carbon::translateTimeString(now())
                 ]);
             }
 
