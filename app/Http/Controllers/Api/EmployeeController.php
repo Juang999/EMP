@@ -347,11 +347,81 @@ class EmployeeController extends Controller
     public function update(Request $request, $emp_id)
     {
         try {
+            $name = explode(' ', $request->namaLengkap);
+
+            $count = count($name) - 1;
+
+            $employee = EmpMaster::where('emp_id', $emp_id)->first();
+
             EmpMaster::where('emp_id', $emp_id)->update([
-                ''
+                'emp_upd_by' => Auth::user()->usernama, //done
+                'emp_upd_date' => Carbon::translateTimeString(now()), //done //done
+                'emp_fname' => ($name[0]) ? $name[0] : $employee->emp_fname, //done
+                'emp_mname' => ($request->namaPanggilan) ? $request->namaPanggilan : $employee->emp_mname, //done
+                'emp_lname' => ($count > 0) ? $name[$count] : $employee->emp_lname, //done
+                'emp_gender' => ($request->gender) ? $request->gender : $employee->emp_gender, //done
+                'emp_birth_date' => ($request->tglLahir) ? $request->tglLahir : $employee->emp_birth_date, //done
+                'emp_birth_place' => ($request->tmptLahir) ? $request->tmptLahir : $employee->emp_birth_place, //done
+                'emp_area_id' => ($request->areaId) ? $request->areaId : $employee->emp_area_id, //done
+                'emp_no_ktp' => ($request->noKtp) ? $request->noKtp : $employee->emp_no_ktp, //done
+                'emp_pin' => ($request->pin) ? $request->pin : $employee->emp_pin, //done
+                // 'emp_tinggi_badan' => $request->tinggiBadan, //done
+                // 'emp_berat_badan' => $request->beratBadan, //done
+                // 'emp_penyakit' => $request->penyakit,
+                // 'emp_cacat' => $request->cacat,
+                'emp_telp_rumah' => ($request->tlpRumah) ? $request->telpRumah : $employee->emp_telp_rumah, //done
+                'emp_telp_alt' => ($request->telp2) ? $request->telp2 : $employee->emp_telp_alt, //done
+                'emp_hp' => ($request->hp) ? $request->hp : $employee->emp_hp, //done
+                'emp_email' => ($request->email) ? $request->email : $employee->emp_email, //done
+                // 'emp_website' => $request->web, //done
+                'emp_inisial' => ($request->inisial) ? $request->inisial : $employee->emp_inisial, //done
+                'emp_tgl_masuk' => ($request->tglMasuk) ? $request->thlMasuk : $employee->emp_tgl_masuk,
+                'emp_hrgol_id' => ($request->hrGolId) ? $request->hrGolId : $employee->emp_hrgol_id,
+                'emp_hrpos_id' => ($request->hrPosId) ? $request->hrPosId : $employee->emp_hrpos_id,
+                'emp_pangkat_id' => ($request->PangkatId) ? $request->PangkatId : $employee->emp_pangkat_id,
+                'emp_status_koperasi' => ($request->statKoperasi) ? $request->statKoperasi : $employee->emp_status_koperasi,
+                'emp_active' => ($request->active) ? $request->active : $employee->emp_active,
+                'emp_finger' => ($request->finger) ? $request->finger : $employee->emp_finger,
+                'emp_hrstatus_id' => ($request->hrStatusId) ? $request->hrStatusId : $employee->emp_hrstatus_id,
+                'emp_tgl_keluar' => ($request->tglKeluar) ? $request->tglKeluar : $employee->emp_tgl_keluar,
+                'emp_alasan_keluar' => ($request->alasanKeluar) ? $request->alasanKeluar : $employee->emp_alasan_keluar,
+                'emp_address' => ($request->address) ? $request->address : $employee->emp_address,
+                'emp_photo' => ($request->photo) ? $request->photo : $employee->emp_photo,
+                // 'emp_type' => $request->type,
+                'emp_kota' => ($request->kota) ? $request->kota : $employee->emp_kota,
+                'emp_propinsi' => ($request->propinsi) ? $request->propinsi : $employee->emp_propinsi,
+                'emp_kd_pos' => ($request->kodePos) ? $request->kodePos : $employee->emp_kd_pos,
+                'emp_en_id' => ($request->enId) ? $request->enId : $employee->emp_en_id,
+                'emp_status_marital' => ($request->statMarital) ? $request->statMarital : $employee->emp_status_marital,
+                'emp_no_rek' => ($request->noRek) ? $request->noRek : $employee->emp_no_rek,
+                'emp_id_finger' => ($request->idFinger) ? $request->idFinger : $employee->emp_id_finger,
+                // 'emp_gaji_pokok' => $request->gajiPokok,
+                // 'emp_t_transport' => $request->tTransport,
+                'emp_work_group' => ($request->workGroup) ? $request->workGroup : $employee->emp_work_group,
+                'emp_privilege_finger' => ($request->privilegeFinger) ? $request->privilegeFinger : $employee->emp_privilege_finger,
+                'emp_password_finger' => ($request->passwordFinger) ? $request->passwordFinger : $employee->emp_password_finger,
+                'emp_no_urut' => ($request->noUrut) ? $request->noUrut : $employee->emp_no_urut,
+                'emp_hirarki' => ($request->hirarki) ? $request->hirarki : $employee->emp_hirarki,
+                'emp_npwp' => ($request->npwp) ? $request->npwp : $employee->emp_npwp,
+                'emp_email_alt' => ($request->emailAlt) ? $request->emailAlt : $employee->emp_email_alt,
+                'emp_jabatan' => ($request->jabatanId) ? $request->jabatanId : $employee->emp_jabatan,
+                'emp_bpjs' => ($request->bpjs) ? $request->bpjs : $employee->emp_bpjs
             ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengupdate data',
+                'code' => 200
+            ], 200);
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengupdate data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'path' => $th->getFile(),
+                'code' => 400
+            ], 400);
         }
     }
 
