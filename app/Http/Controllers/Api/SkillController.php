@@ -67,4 +67,30 @@ class SkillController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRKeahlian::where('hrahli_oid', $oid)->first();
+
+            HRKeahlian::where('hrahli_oid', $oid)->update([
+                'hrahli_jenis_keahlian' => ($request->jenisKeahlian) ? $request->jenisKeahlian : $employee->hrahli_jenis_keahlian,
+                'hrahli_tingkat' => ($request->tingkatKeahlian) ? $request->tingkatKeahlian : $employee->hrahli_tingkat,
+                'hrahli_prestasi' => ($request->prestasiKeahlian) ? $request->prestasiKeahlian : $employee->hrahli_prestasi
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

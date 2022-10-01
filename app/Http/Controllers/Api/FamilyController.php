@@ -88,4 +88,34 @@ class FamilyController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $hrkel_oid)
+    {
+        try {
+            $employee = HRKeluarga::where('hrkel_oid', $hrkel_oid)->first();
+
+            HRKeluarga::where('hrkel_oid', $hrkel_oid)->update([
+                'hrkel_hub_id' => ($request->jenisHubunganHubungan) ? $request->jenisHubunganHubungan : $employee->hrkel_hub_id,
+                'hrkel_nama' => ($request->namaHubungan) ? $request->namaHubungan : $employee->hrkel_nama,
+                'hrkel_tgl_lahir' => ($request->tglLahirHubungan) ? $request->tglLahirHubungan : $employee->hrkel_tgl_lahir,
+                'hrkel_tempat_lahir' => ($request->tmptLahirHubungan) ? $request->tmptLahirHubungan : $employee->hrkel_tempat_lahir,
+                'hrkel_remarks' => ($request->keteranganHubungan) ? $request->keteranganHubungan : $employee->hrkel_remarks
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

@@ -75,4 +75,30 @@ class WarningLetterController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRMasaSP::where('hrsp_oid', $oid)->first();
+
+            HRMasaSP::where('hrsp_oid', $oid)->update([
+                'hrsp_sp' => ($request->suratPeringatanSP) ? $request->suratPeringatanSP : $employee->hrsp_sp,
+                'hrsp_desc' => ($request->descSP) ? $request->descSP : $employee->hrsp_desc,
+                'hrsp_start_periode' => ($request->periodeSP) ? $request->periodeSP : $employee->hrsp_start_periode
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

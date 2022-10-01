@@ -74,4 +74,31 @@ class JobHistoryController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRPosisi::where('hrpos_oid', $oid)->first();
+
+            HRPosisi::where('hrpos_oid', $oid)->update([
+                'hrpos_posisi' => ($request->posisiPosisi) ? $request->posisiPosisi : $employee->hrpos_posisi,
+                'hrpos_start' => ($request->tglAwalPosisi) ? $request->tglAwalPosisi : $employee->hrpos_start,
+                'hrpos_end' => ($request->tglAkhirPosisi) ? $request->tglAkhirPosisi : $employee->hrpos_end,
+                'hrpos_remarks' => ($request->keteranganPosisi) ? $request->keteranganPosisi : $employee->hrpos_remarks
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil udpate data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

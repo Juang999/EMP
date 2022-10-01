@@ -76,4 +76,36 @@ class OrganizationController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $hrorg_oid)
+    {
+        try {
+            $employee = HROrganisasi::where('hrorg_oid', $hrorg_oid)->first();
+
+            HROrganisasi::where('hrorg_oid', $hrorg_oid)->update([
+                'hrorg_organisasi' => ($request->organisasiOrganisasi) ? $request->organisasiOrganisasi : $employee->hrorg_organisasi,
+                'hrorg_jabatan' => ($request->jabatanOrganisasi) ? $request->jabatanOrgasisai : $employee->hrorg_jabatan,
+                'hrorg_status' => ($request->statusOrganisasi) ? $request->statusOrgasisai : $employee->hrorg_status,
+                'hrorg_jns_organisasi' => ($request->jenisOrganisasi) ? $request->jenisOrganisasi : $employee->hrorg_jns_organisasi,
+                'hrorg_masa_jabatan' => ($request->masaJabatanOrganisasi) ? $request->masaJabatanOrganisasi : $employee->hrorg_masa_jabatan,
+                'hrorg_start' => ($request->tglAwalOrganisasi) ? $request->tglAwalOrganisasi : $employee->hrorg_start,
+                'hrorg_end' => ($request->tglAkhirOrganisasi) ? $request->tglAkhirOrganisasi : $employee->hrorg_end
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'file' => $th->getFile(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

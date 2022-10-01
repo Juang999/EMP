@@ -72,4 +72,33 @@ class DiseaseController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $hrsakti_oid)
+    {
+        try {
+            $employee = HRSakit::where('hrsakit_oid', $hrsakti_oid)->first();
+
+            HRSakit::where('hrsakit_oid', $hrsakti_oid)->update([
+                'hrsakit_jenis' => ($request->jenisSakit) ? $request->jenisSakit : $employee->hrsakit_jenis,
+                'hrsakit_lama' => ($request->lamaSakit) ? $request->lamaSakit : $employee->hrsakit_lama,
+                'hrsakit_tahun' => ($request->tahunSakit) ? $request->$request->tahunSakit : $employee->hrsakit_tahun,
+                'hrsakit_kondisi' => ($request->kondisiSaatIniSakit) ? $request->kondisiSaatIniSakit : $employee->hrsakit_kondisi,
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine(),
+                'path' => $th->getFile(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

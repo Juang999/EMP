@@ -76,4 +76,32 @@ class MasterHistoricalContractController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRKontrak::where('hrkontrak_oid', $oid)->first();
+
+            HRKontrak::where('hrkontrak_oid', $oid)->update([
+                'hrkontrak_start' => ($request->tglAwalKontrak) ? $request->tglAwalKontrak : $employee->hrkontrak_start,
+                'hrkontrak_end' => ($request->tglAkhirKontrak) ? $request->tglAkhirKontrak : $employee->hrkontrak_end,
+                'hrkontrak_remarks' => ($request->remarksKontrak) ? $request->remarksKontrak : $employee->hrkontrak_remarks,
+                'hrkontrak_number' => ($request->kontrakKeKontrak) ? $request->kontrakKeKontrak : $employee->hrkontrak_number,
+                'hrkontrak_name' => ($request->tipeKontrak) ? $request->tipeKontrak : $employee->hrkontrak_name
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
