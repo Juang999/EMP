@@ -314,10 +314,12 @@ class EmployeeController extends Controller
             public.emp_mstr.emp_t_jabatan,
             public.emp_mstr.emp_bpjs,
             public.en_mstr.*,
-            hris.hrjabatan_mstr.*
+            hris.hrjabatan_mstr.*,
+            public.code_mstr.*
             "))
             ->leftJoin('public.en_mstr', 'public.en_mstr.en_id', '=', 'public.emp_mstr.emp_en_id')
             ->leftJoin('hris.hrjabatan_mstr', 'hris.hrjabatan_mstr.hrjbt_id', '=', 'public.emp_mstr.emp_jabatan')
+            ->leftJoin('public.code_mstr', 'public.code_mstr.code_id', '=', 'public.emp_mstr.emp_status_marital')
             ->where('public.emp_mstr.emp_id', '=', $emp_id)->first();
 
             return response()->json([
