@@ -82,4 +82,30 @@ class PersonalityController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $hr_persnlt_oid)
+    {
+        try {
+            $employee = HRPersonality::where('hr_persnlt_oid', $hr_persnlt_oid)->first();
+
+            HRPersonality::where('hr_persnlt_oid', $hr_persnlt_oid)->udpate([
+                'hr_persnlt_code_id' => ($request->codeIdPersonality) ? $request->codeIdPersonality : $employee->hr_perslt_code_id,
+                'hr_persnlt_date' => ($request->datePersonality) ? $request->datePersonality : $employee->hr_persnlt_date,
+                'hr_persnlt_exm' => ($request->exmPersonality) ? $request->exmPersonality : $employee->hr_persnlt_exm
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

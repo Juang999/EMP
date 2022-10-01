@@ -77,4 +77,28 @@ class HobbiesController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $hr_hobbies_oid)
+    {
+        try {
+            $employee = HRHobbies::where('hr_hobbies_oid', $hr_hobbies_oid)->first();
+
+            HRHobbies::where('hr_hobbies_oid', $hr_hobbies_oid)->update([
+                'hr_hobbies_code_id' => ($request->codeIdHobbies) ? $request->codeIdHobbies : $employee->hr_hobbies_code_id
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

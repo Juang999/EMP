@@ -41,44 +41,54 @@ Route::middleware('jwt.verify')->group( function () {
     Route::prefix('anggotaKeluarga')->group( function () {
         Route::get('/{emp_id}', [Api\FamilyController::class, 'show']);
         Route::post('/', [Api\FamilyController::class, 'store']);
+        Route::put('/{hrkel_oid}', [Api\FamilyController::class, 'update']);
     });
     Route::prefix('organisasi')->group( function () {
         Route::get('/{emp_id}', [Api\OrganizationController::class, 'show']);
         Route::post('/', [Api\OrganizationController::class, 'store']);
+        Route::put('/{hrorg_iod}', [Api\OrganizationController::class, 'update']);
     });
     Route::prefix('prestasi')->group( function () {
         Route::get('/{emp_id}', [Api\AchievmentController::class, 'show']);
         Route::post('/', [Api\AchievmentController::class, 'store']);
+        Route::put('/{hrpres_oid}', [Api\AchievmentController::class, 'update']);
     });
     Route::prefix('disease')->group( function () {
         Route::get('/{emp_id}', [Api\DiseaseController::class, 'show']);
         Route::post('/', [Api\DiseaseController::class, 'store']);
+        Route::put('/{hrsakit_oid}', [Api\DiseaseController::class, 'update']);
     });
     Route::prefix('personality')->group( function () {
         Route::get('/{emp_id}', [Api\PersonalityController::class, 'show']);
         Route::post('/', [Api\PersonalityController::class, 'store']);
+        Route::put('/{hr_presnlt_oid}', [Api\PersonalityController::class, 'update']);
     });
     Route::prefix('hobbies')->group( function () {
         Route::get('/{emp_id}', [Api\HobbiesController::class, 'show']);
         Route::post('/', [Api\HobbiesController::class, 'store']);
+        Route::put('/{hr_hobbies_oid}', [Api\HobbiesController::class, 'update']);
     });
 
     // thirdScreen
     Route::prefix('pengalamanKerja')->group( function () {
         Route::get('/{emp_id}', [Api\ExperienceController::class, 'show']);
         Route::post('/', [Api\ExperienceController::class, 'store']);
+        Route::put('/{oid}', [Api\ExperienceController::class, 'update']);
     });
     Route::prefix('pendidikanFormal')->group( function () {
         Route::get('/{emp_id}', [Api\FormalEducationController::class, 'show']);
         Route::post('/', [Api\FormalEducationController::class, 'store']);
+        Route::put('/{oid}', [Api\FormalEducationController::class, 'update']);
     });
     Route::prefix('pendidikanNonFormal')->group( function () {
         Route::get('/{emp_id}', [Api\NonFormalEducationController::class, 'show']);
         Route::post('/', [Api\NonFormalEducationController::class, 'store']);
+        Route::put('/{oid}', [Api\NonFormalEducationController::class, 'update']);
     });
     Route::prefix('keahlian')->group( function () {
         Route::get('/{emp_id}', [Api\SkillController::class, 'show']);
         Route::post('/', [Api\SkillController::class, 'store']);
+        Route::put('/{oid}', [Api\SkillController::class, 'update']);
     });
 
     // fourthScreen
@@ -89,14 +99,17 @@ Route::middleware('jwt.verify')->group( function () {
     Route::prefix('sejarahKontrak')->group( function () {
         Route::get('/{emp_id}', [Api\MasterHistoricalContractController::class, 'show']);
         Route::post('/', [Api\MasterHistoricalContractController::class, 'store']);
+        Route::put('/{oid}', [Api\MasterHistoricalContractController::class, 'update']);
     });
     Route::prefix('posisi')->group( function () {
         Route::get('/{emp_id}', [Api\JobHistoryController::class, 'show']);
         Route::post('/', [Api\JobHistoryController::class, 'store']);
+        Route::put('/{oid}', [Api\JobHistoryController::class, 'update']);
     });
     Route::prefix('suratPeringatan')->group( function () {
         Route::get('/{emp_id}', [Api\WarningLetterController::class, 'show']);
         Route::post('/', [Api\WarningLetterController::class, 'store']);
+        Route::put('/{oid}', [Api\WarningLetterController::class, 'update']);
     });
 
 
@@ -134,6 +147,9 @@ Route::middleware('jwt.verify')->group( function () {
     route::get('tipeKontrak', [Api\CodeMasterController::class, 'getTypeContract']);
     Route::get('statusMarital', [Api\CodeMasterController::class, 'getStatusMarital']);
     Route::get('tipePerusahaan', [Api\CodeMasterController::class, 'getStatusPerusahaan']);
+
+    // updateCenterAPI
+    Route::put('/{mode}/{emp_id}', Api\UpdateCenter::class);
 
     // codeMasterInput
     Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);

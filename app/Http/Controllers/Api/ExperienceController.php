@@ -78,4 +78,32 @@ class ExperienceController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRPengalaman::where('hrpeng_oid', $oid)->first();
+
+            HRPengalaman::where('hrpeng_oid', $oid)->update([
+                'hrpeng_perusahaan' => ($request->namaPerusahaanPengalamanKerja) ? $request->namaPerusahaanPengalamanKerja : $employee->hrpeng_perusahaan,
+                'hrpeng_jabatan' => ($request->jabatanPerusahaanPengalamanKerja) ? $request->jabatanPerusahaanPengalamanKerja : $employee->hrpeng_jabatan,
+                'hrpeng_start' => ($request->thnAwalPerusahaanPengalamanKerja) ? $request->thnAwalPerusahaanPengalamanKerja : $employee->hrpeng_start,
+                'hrpeng_end' => ($request->thnAkhirPerusahaanPengalamanKerja) ? $request->thnAkhirPerusahaanPengalamanKerja : $employee->hrpeng_end,
+                'hrpeng_jns_bisnis' => ($request->jenisPerusahaanPengalamanKerja) ? $request->jenisPerusahaanPengalamanKerja : $employee->hrpeng_jns_bisnis,
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }

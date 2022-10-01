@@ -75,4 +75,33 @@ class NonFormalEducationController extends Controller
             ], 400);
         }
     }
+
+    public function update(Request $request, $oid)
+    {
+        try {
+            $employee = HRPendidikanNon::where('hrpendn_oid', $oid)->first();
+
+            HRPendidikanNon::where('hrpendn_oid', $oid)->update([
+                'hrpendn_lembaga' => ($request->lembagaPendidikanNonFormal) ? $request->lembagaPendidikanNonFormal : $employee->hrpendn_lembaga,
+                'hrpendn_keterangan' => ($request->keteranganPendidikanNonFormal) ? $request->keteranganPendidikanNonFormal : $employee->hrpendn_keterangan,
+                'hrpendn_start' => ($request->thnAwalPendidikanNonFormal) ? $request->thnAwalPendidikanNonFormal : $employee->hrpendn_start,
+                'hrpendn_end' => ($request->thnAkhirPendidikanNonFormal) ? $request->thnAkhirPendidikanNonFormal : $employee->hrpendn_end,
+                'hrpendn_jns_pendidikan' => ($request->jnsPendidikanNonFormal) ? $request->jnsPendidikanNonFormal : $employee->hrpendn_jns_pendidikan,
+                'hrpendn_prestasi' => ($request->prestasiPendidikanNonFormal) ? $request->prestasiPendidikanNonFormal : $employee->hrpendn_prestasi
+            ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil update data',
+                'code' => 200
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal update data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
+        }
+    }
 }
