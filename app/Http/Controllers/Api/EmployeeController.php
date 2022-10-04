@@ -292,7 +292,6 @@ class EmployeeController extends Controller
             public.emp_mstr.emp_alasan_keluar,
             public.emp_mstr.emp_nik_old,
             public.emp_mstr.emp_address,
-            encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo,
             public.emp_mstr.emp_type,
             public.emp_mstr.emp_kota,
             public.emp_mstr.emp_propinsi,
@@ -323,10 +322,17 @@ class EmployeeController extends Controller
             ->leftJoin('public.code_mstr', 'public.code_mstr.code_id', '=', 'public.emp_mstr.emp_status_marital')
             ->where('public.emp_mstr.emp_id', '=', $emp_id)->first();
 
+            $rawPhoto = DB::table('public.emp_mstr')->select(DB::raw("encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo"))
+            ->where('public.emp_mstr.emp_id', '=', $emp_id)
+            ->first();
+
+            $photo = base64_decode($rawPhoto->emp_photo);
+
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
                 'data' => $data,
+                'photo' => $photo,
                 'code' => 200
             ], 200);
         } catch (\Throwable $th) {
