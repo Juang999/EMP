@@ -88,7 +88,7 @@ class PersonalityController extends Controller
         try {
             $employee = HRPersonality::where('hr_persnlt_oid', $hr_persnlt_oid)->first();
 
-            HRPersonality::where('hr_persnlt_oid', $hr_persnlt_oid)->udpate([
+            HRPersonality::where('hr_persnlt_oid', $hr_persnlt_oid)->update([
                 'hr_persnlt_code_id' => ($request->codeIdPersonality) ? $request->codeIdPersonality : $employee->hr_perslt_code_id,
                 'hr_persnlt_date' => ($request->datePersonality) ? $request->datePersonality : $employee->hr_persnlt_date,
                 'hr_persnlt_exm' => ($request->exmPersonality) ? $request->exmPersonality : $employee->hr_persnlt_exm
