@@ -197,39 +197,43 @@ class EmployeeController extends Controller
                 'hrpos_remarks' => $request->keteranganPosisi
             ]);
 
-            $count = HRHobbies::where('hr_hobbies_emp_id', $request->emp_id)->count();
+            if ($request->codeIdHobbies) {
+                $count = HRHobbies::where('hr_hobbies_emp_id', $request->emp_id)->count();
 
-            if ($count == 5) {
-                return response()->json([
-                    'status' => 'gagal',
-                    'pesan' => 'input telah mencapai limit',
-                    'limit' => 5,
-                    'code' => 300
-                ], 300);
+                if ($count == 5) {
+                    return response()->json([
+                        'status' => 'gagal',
+                        'pesan' => 'input telah mencapai limit',
+                        'limit' => 5,
+                        'code' => 300
+                    ], 300);
+                }
+
+                // $hobbies = json_decode($request->codeIdHobbies, true);
+
+                foreach ($request->codeIdHobbies as $hobby) {
+                    HRHobbies::create([
+                        'hr_hobbies_oid' => Str::uuid(),
+                        'hr_hobbies_emp_id' => $employee->emp_id,
+                        'hr_hobbies_code_id' => $hobby['value'],
+                        'hr_hobbies_datecreate' => Carbon::translateTimeString(now())
+                    ]);
+                }
             }
 
-            // $hobbies = json_decode($request->codeIdHobbies, true);
+            if ($request->codeIdPersonality) {
+                $data = HRPersonality::create([
+                    'hr_persnlt_oid' => Str::uuid(),
+                    'hr_persnlt_emp_id' => $employee->emp_id,
+                    'hr_persnlt_code_id' => $request->codeIdPersonality,
+                    'hr_persnlt_date' => $request->datePersonality,
+                    'hr_persnlt_exm' => $request->exmPersonality
+                ]);
 
-            foreach ($request->codeIdHobbies as $hobby) {
-                HRHobbies::create([
-                    'hr_hobbies_oid' => Str::uuid(),
-                    'hr_hobbies_emp_id' => $employee->emp_id,
-                    'hr_hobbies_code_id' => $hobby['value'],
-                    'hr_hobbies_datecreate' => Carbon::translateTimeString(now())
+                EmpMaster::where('emp_id', $employee->emp_id)->update([
+                    'emp_persnlt_code_id' => $data->hr_persnlt_code_id
                 ]);
             }
-
-            $data = HRPersonality::create([
-                'hr_persnlt_oid' => Str::uuid(),
-                'hr_persnlt_emp_id' => $employee->emp_id,
-                'hr_persnlt_code_id' => $request->codeIdPersonality,
-                'hr_persnlt_date' => $request->datePersonality,
-                'hr_persnlt_exm' => $request->exmPersonality
-            ]);
-
-            EmpMaster::where('emp_id', $employee->emp_id)->update([
-                'emp_persnlt_code_id' => $data->hr_persnlt_code_id
-            ]);
 
         DB::commit();
 
