@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
 use App\Models\EmpMaster;
 use App\Models\EnMaster;
+use App\Models\HRGolMaster;
 use App\Models\HRHobbies;
 use App\Models\HrJabatanMaster;
 use App\Models\HRKeahlian;
@@ -17,6 +18,7 @@ use App\Models\HRPosisi;
 use App\Models\HRPosMaster;
 use App\Models\HRPrestasi;
 use App\Models\HRSakit;
+use App\Models\PangkatMaster;
 use App\Models\UseAset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -206,6 +208,8 @@ class EmployeeController extends Controller
                 ], 300);
             }
 
+            // $hobbies = json_decode($request->codeIdHobbies, true);
+
             foreach ($request->codeIdHobbies as $hobby) {
                 HRHobbies::create([
                     'hr_hobbies_oid' => Str::uuid(),
@@ -311,6 +315,7 @@ class EmployeeController extends Controller
             public.emp_mstr.emp_pot_makan,
             public.emp_mstr.emp_bank,
             public.emp_mstr.emp_t_jabatan,
+            public.emp_mstr.emp_persnlt_code_id,
             public.emp_mstr.emp_bpjs,
             public.en_mstr.*,
             hris.hrjabatan_mstr.*,
@@ -321,6 +326,12 @@ class EmployeeController extends Controller
             ->leftJoin('hris.hrjabatan_mstr', 'hris.hrjabatan_mstr.hrjbt_id', '=', 'public.emp_mstr.emp_jabatan')
             ->leftJoin('public.code_mstr', 'public.code_mstr.code_id', '=', 'public.emp_mstr.emp_status_marital')
             ->where('public.emp_mstr.emp_id', '=', $emp_id)->first();
+
+            $data->hirarki = DB::table('public.emp_mstr')->where('emp_id', $data->emp_hirarki)->first(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id']);
+            $data->hrGol = DB::table('hris.hrgol_mstr')->where('hrgol_id', $data->emp_hrgol_id)->first(['hrgol_name', 'hrgol_id', 'hrgol_active']);
+            $data->hrPos = DB::table('hris.hrpos_mstr')->where('hrpos_id', $data->emp_hrpos_id)->first(['hrpos_id', 'hrpos_name', 'hrpos_code', 'hrpos_active']);
+            $data->pangkat = DB::table('hris.pangkat_mstr')->where('pangkat_id', $data->emp_pangkat_id)->first(['pangkat_id', 'pangkat_code', 'pangkat_name', 'pangkat_active']);
+            $data->personality = DB::table('public.code_mstr')->where('code_id', $data->emp_persnlt_code_id)->first(['code_id', 'code_name', 'code_code', 'code_desc']);
 
             $rawPhoto = DB::table('public.emp_mstr')->select(DB::raw("encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo"))
             ->where('public.emp_mstr.emp_id', '=', $emp_id)
