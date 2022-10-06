@@ -337,6 +337,7 @@ class EmployeeController extends Controller
             $data->pangkat = DB::table('hris.pangkat_mstr')->where('pangkat_id', $data->emp_pangkat_id)->first(['pangkat_id', 'pangkat_code', 'pangkat_name', 'pangkat_active']);
             $data->personality = DB::table('public.code_mstr')->where('code_id', $data->emp_persnlt_code_id)->first(['code_id', 'code_name', 'code_code', 'code_desc']);
             $data->hrStatus = DB::table('public.code_mstr')->where('code_id', $data->emp_hrstatus_id)->first(['code_id', 'code_name', 'code_field']);
+            $data->workGroup = db::table('hris.hr_work_group')->where('wg_id', $data->emp_work_group)->first();
 
             $rawPhoto = DB::table('public.emp_mstr')->select(DB::raw("encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo"))
             ->where('public.emp_mstr.emp_id', '=', $emp_id)
