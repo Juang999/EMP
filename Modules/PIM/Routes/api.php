@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Module\PIM\Http\Controllers\Api as Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +15,13 @@ use Module\PIM\Http\Controllers\Api as Api;
 */
 
 Route::prefix('pim')->middleware('jwt.verify')->group( function () {
+    // firstScreen
+    Route::apiResource('daftarkanKaryawan', Api\EmployeeController::class)
+        ->parameters(['daftarkanKaryawan' => 'emp_id'])
+        ->except('destroy');
+
+    Route::apiResources([
+        'anggotaKeluarga' => Api\FamilyController::class
+    ]);
 
 });
