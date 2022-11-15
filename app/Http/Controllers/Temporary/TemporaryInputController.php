@@ -14,6 +14,7 @@ class TemporaryInputController extends Controller
     public function inputCodeMaster(Request $request)
     {
         try {
+            // dd($request->all());
             $beforeCodeId = CodeMaster::orderBy('code_id', 'DESC')->first('code_id');
 
             $codeId = $beforeCodeId->code_id += 1;
