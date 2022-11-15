@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CodeMaster;
+use App\Models\DptMstr;
 use App\Models\EmpMaster;
 use App\Models\EnMaster;
 use App\Models\HRGolMaster;
@@ -624,6 +625,65 @@ class CodeMasterController extends Controller
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage(),
                 'line' => $th->getLine()
+            ], 400);
+        }
+    }
+
+    public function getDepartement()
+    {
+        try {
+            $departement = DptMstr::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'message' => 'berhasil mengambil data',
+                'data' => $departement
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine()
+            ], 400);
+        }
+    }
+
+    public function getRecruitmentType()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'recruitment_type')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'line' => $th->getLine()
+            ], 400);
+        }
+    }
+
+    public function getStatusPengajuan()
+    {
+        try {
+            $data = CodeMaster::where('code_field', 'status_pengajuan')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil pesan',
+                'galat' => $th->getMessage()
             ], 400);
         }
     }
