@@ -43,14 +43,33 @@ class PengajuanController extends Controller
         dd($pengajuan_code);
 
         try {
-            RekrutPengajuan::create([
+            $data = RekrutPengajuan::create([
                 'pgj_code' => $pengajuan_code,
                 'pgj_date' => Carbon::translateTimeString(now()),
                 'pgj_alasan' => $request->alasan,
-                ''
+                'pgj_en_id' => $request->en_id,
+                'pgj_status_karyawan' => $request->status,
+                'pgj_jumlah' => $request->jumlah,
+                'pgj_pendidikan' => $request->tingkat_pendidikan,
+                'pgj_jurusan' => $request->jurusan,
+                'pengalaman' => $request->pengalaman,
+                'pgj_tgl_terpenuhi' => $request->ekspetasi_join,
+                'pgj_level' => $request->level,
+                'pgj_hirarki' => $request->atasan_id,
+                'pgj_jenis_kelamin' => 'L'
             ]);
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengajukan SDM baru',
+                'data' => $data
+            ], 200);
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengajukan SDM baru',
+                'galat' => $th->getMessage()
+            ], 400);
         }
     }
 

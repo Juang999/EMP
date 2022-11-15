@@ -25,9 +25,10 @@ class PengajuanRequest extends FormRequest
     {
         return [
             'dpt_id' => 'required',
-            'nomor_telepon' => 'required',
-            'kode_user' => 'required',
+            'nomor_telepon' => 'nullable',
+            'kode_user' => 'nullable',
             'alasan' => 'required',
+            'en_id' => 'required',
             'tipe_rekrutmen' => 'required',
             'status' => 'required',
             'posisi' => 'required',
@@ -37,7 +38,11 @@ class PengajuanRequest extends FormRequest
             'pengalaman' => 'required',
             'pengetahuan_tentang_keahlian' => 'required',
             'deskripsi_pekerjaan' => 'required',
-            'ekspetasi_join' => 'required'
+            'ekspetasi_join' => 'required',
+            'lokasi' => 'required',
+            'level' => 'required',
+            'jabatan' => 'required',
+            'atasan_id' => 'required'
             // 'pgj_en_id' => 'required',
             // 'pgj_alasan' => 'required',
             // 'pgj_jumlah' => 'required',
