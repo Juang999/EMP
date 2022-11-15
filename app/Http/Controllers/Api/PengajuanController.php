@@ -8,6 +8,8 @@ use App\Http\Requests\PengajuanRequest;
 use App\Models\{RekrutPengajuan, DptMstr};
 use Carbon\Carbon;
 
+use function PHPSTORM_META\map;
+
 class PengajuanController extends Controller
 {
     /**
@@ -17,7 +19,21 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $data = RekrutPengajuan::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -81,7 +97,11 @@ class PengajuanController extends Controller
      */
     public function show(RekrutPengajuan $rekrutPengajuan)
     {
-        //
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
