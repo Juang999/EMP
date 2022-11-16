@@ -6,10 +6,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\PIM\Entities\HRKeluarga;
-use Modules\PIM\Http\Requests\FamilyRequest;
+use Modules\PIM\Entities\HRPrestasi;
 
-class FamilyController extends Controller
+class AchievmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,17 +24,17 @@ class FamilyController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(FamilyRequest $request)
+    public function store(Request $request)
     {
         try {
-            $sequence = HRKeluarga::where('hrkel_emp_id', $request->emp_id)->count();
+            $sequence = HRPrestasi::where('hrpres_emp_id', $request->emp_id)->count();
 
             if (!$sequence) {
                 $sequence = 1;
             } elseif ($sequence == 5) {
                 return response()->json([
-                    'status' => 'redirected',
-                    'pesan' => 'input sudah melebihi limit!',
+                    'status' => 'gagal',
+                    'pesan' => 'jumlah input telah mencapai limit',
                     'limit' => 5,
                     'code' => 300
                 ], 300);
@@ -43,27 +42,26 @@ class FamilyController extends Controller
                 $sequence++;
             }
 
-            $family = HRKeluarga::create([
-                'hrkel_oid' => Str::uuid(),
-                'hrkel_emp_id' => $request->emp_id,
-                'hrkel_seq' => $sequence,
-                'hrkel_hub_id' => $request->jenisHubunganHubungan,
-                'hrkel_nama' => $request->namaHubungan,
-                'hrkel_tgl_lahir' => $request->tglLahirHubungan,
-                'hrkel_tempat_lahir' => $request->tmptLahirHubungan,
-                'hrkel_remarks' => $request->keteranganHubungan
+            $prestasi = HRPrestasi::create([
+                'hrpres_oid' => Str::uuid(),
+                'hrpres_emp_id' => $request->emp_id,
+                'hrpres_seq' => $sequence,
+                'hrpres_prestasi' => $request->prestasiPrestasi,
+                'hrpres_lembaga' => $request->lembagaPrestasi,
+                'hrpres_ket' => $request->keteranganPrestasi,
+                'hrpres_tahun' => $request->tahunPrestasi
             ]);
 
             return response()->json([
                 'status' => 'berhasil',
-                'pesan' => 'berhasil membuat data keluarga',
-                'data' => $family,
+                'pesan' => 'berhasil menginputkan data prestasi',
+                'data' => $prestasi,
                 'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
-                'pesan' => 'gagal membuat data keluarga',
+                'pesan' => 'gagal menginputkan data prestasi',
                 'galat' => $th->getMessage(),
                 'code' => 400
             ], 400);
@@ -78,19 +76,19 @@ class FamilyController extends Controller
     public function show($emp_id)
     {
         try {
-            $data = HRKeluarga::where('hrkel_emp_id', $emp_id)->orderBy('hrkel_seq', 'ASC')->with('HRHubKel')->get();
+            $data = HRPrestasi::where('hrpres_emp_id', $emp_id)->get();
 
             return response()->json([
-                'status' => 'success',
-                'message' => 'success to get data',
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data prestasi',
                 'data' => $data,
                 'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => 'failed',
-                'message' => 'failed to get data',
-                'error' => $th->getMessage(),
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data prestasi',
+                'galat' => $th->getMessage(),
                 'code' => 400
             ], 400);
         }
@@ -102,17 +100,16 @@ class FamilyController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(FamilyRequest $request, $hrkel_oid)
+    public function update(Request $request, $hrpres_oid)
     {
         try {
-            $employee = HRKeluarga::where('hrkel_oid', $hrkel_oid)->first();
+            $employee = HRPrestasi::where('hrpres_oid', $hrpres_oid)->first();
 
-            HRKeluarga::where('hrkel_oid', $hrkel_oid)->update([
-                'hrkel_hub_id' => ($request->jenisHubunganHubungan) ? $request->jenisHubunganHubungan : $employee->hrkel_hub_id,
-                'hrkel_nama' => ($request->namaHubungan) ? $request->namaHubungan : $employee->hrkel_nama,
-                'hrkel_tgl_lahir' => ($request->tglLahirHubungan) ? $request->tglLahirHubungan : $employee->hrkel_tgl_lahir,
-                'hrkel_tempat_lahir' => ($request->tmptLahirHubungan) ? $request->tmptLahirHubungan : $employee->hrkel_tempat_lahir,
-                'hrkel_remarks' => ($request->keteranganHubungan) ? $request->keteranganHubungan : $employee->hrkel_remarks
+            HRPrestasi::where('hrpres_oid', $hrpres_oid)->update([
+                'hrpres_prestasi' => ($request->prestasiPrestasi) ? $request->prestasiPrestasi : $employee->hrpres_prestasi,
+                'hrpres_lembaga' => ($request->lembagaPrestasi) ? $request->lembagaPrestasi : $employee->hrpres_lembaga,
+                'hrpres_ket' => ($request->keteranganPrestasi) ? $request->keteranganPrestasi : $employee->hrpres_ket,
+                'hrpres_tahun' => ($request->tahunPrestasi) ? $request->tahunPrestasi : $employee->hrpres_tahun
             ]);
 
             return response()->json([
