@@ -151,6 +151,7 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('departement', [Api\CodeMasterController::class, 'getDepartement']);
         Route::get('tipe_rekrutmen', [Api\CodeMasterController::class, 'getRecruitmentType']);
         Route::get('status_pengajuan', [Api\CodeMasterController::class, 'getStatusPengajuan']);
+        Route::get('atasan', [Api\CodeMasterController::class, 'getAtasan']);
 
         // updateCenterAPI
         Route::put('/{mode}/{emp_id}', Api\UpdateCenter::class);

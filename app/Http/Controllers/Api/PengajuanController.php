@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PengajuanRequest;
 use App\Models\{RekrutPengajuan, DptMstr};
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
+use function PHPSTORM_META\map;
 
 class PengajuanController extends Controller
 {
@@ -17,7 +20,21 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $data = RekrutPengajuan::get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -40,24 +57,64 @@ class PengajuanController extends Controller
         $departement = implode($funcDept).$request->dpt_id;
 
         $pengajuan_code = 'PGJ-'.Carbon::now()->format('ym').$departement.$totalAttachement;
-        dd($pengajuan_code);
+        // dd($request->all());
 
         try {
-            $data = RekrutPengajuan::create([
-                'pgj_code' => $pengajuan_code,
-                'pgj_date' => Carbon::translateTimeString(now()),
-                'pgj_alasan' => $request->alasan,
-                'pgj_en_id' => $request->en_id,
-                'pgj_status_karyawan' => $request->status,
-                'pgj_jumlah' => $request->jumlah,
-                'pgj_pendidikan' => $request->tingkat_pendidikan,
-                'pgj_jurusan' => $request->jurusan,
-                'pengalaman' => $request->pengalaman,
-                'pgj_tgl_terpenuhi' => $request->ekspetasi_join,
-                'pgj_level' => $request->level,
-                'pgj_hirarki' => $request->atasan_id,
-                'pgj_jenis_kelamin' => 'L'
-            ]);
+            DB::beginTransaction();
+
+            if ($request->jumlah_pria != NULL) {
+                $data['pria'] = RekrutPengajuan::create([
+                    'pgj_code' => $pengajuan_code,
+                    'pgj_date' => Carbon::translateTimeString(now()),
+                    'pgj_nomor_telepon' => $request->nomor_telepon,
+                    'pgj_alasan' => $request->alasan,
+                    'pgj_tipe_alasan' => $request->tipe_alasan,
+                    'pgj_en_id' => $request->en_id,
+                    'pgj_status_karyawan' => $request->status,
+                    'pgj_tipe_rekrutmen' => $request->tipe_rekrutmen,
+                    'pgj_pangkat' => $request->level,
+                    'pgj_jabatan' => $request->jabatan,
+                    'pgj_posisi' => $request->posisi,
+                    'pgj_jumlah' => $request->jumlah_pria,
+                    'pgj_jenis_kelamin' => 'L',
+                    'pgj_lokasi' => $request->lokasi,
+                    'pgj_hirarki' => $request->atasan_id,
+                    'pgj_pendidikan' => $request->tingkat_pendidikan,
+                    'pgj_jurusan' => $request->jurusan,
+                    'pgj_pengalaman' => $request->pengalaman,
+                    'pgj_pengetahuan_dan_keahlian' => $request->pengetahuan_dan_keahlian,
+                    'pgj_deskripsi_pekerjaan' => $request->deksripsi_pekerjaan,
+                    'pgj_tgl_terpenuhi' => $request->ekspetasi_join
+                ]);
+            }
+
+            if ($request->jumlah_wanita != NULL) {
+                $data['wanita'] = RekrutPengajuan::create([
+                    'pgj_code' => $pengajuan_code,
+                    'pgj_date' => Carbon::translateTimeString(now()),
+                    'pgj_nomor_telepon' => $request->nomor_telepon,
+                    'pgj_alasan' => $request->alasan,
+                    'pgj_tipe_alasan' => $request->tipe_alasan,
+                    'pgj_en_id' => $request->en_id,
+                    'pgj_status_karyawan' => $request->status,
+                    'pgj_tipe_rekrutmen' => $request->tipe_rekrutmen,
+                    'pgj_pangkat' => $request->level,
+                    'pgj_jabatan' => $request->jabatan,
+                    'pgj_posisi' => $request->posisi,
+                    'pgj_jumlah' => $request->jumlah_wanita,
+                    'pgj_jenis_kelamin' => 'P',
+                    'pgj_lokasi' => $request->lokasi,
+                    'pgj_hirarki' => $request->atasan_id,
+                    'pgj_pendidikan' => $request->tingkat_pendidikan,
+                    'pgj_jurusan' => $request->jurusan,
+                    'pgj_pengalaman' => $request->pengalaman,
+                    'pgj_pengetahuan_dan_keahlian' => $request->pengetahuan_dan_keahlian,
+                    'pgj_deskripsi_pekerjaan' => $request->deksripsi_pekerjaan,
+                    'pgj_tgl_terpenuhi' => $request->ekspetasi_join
+                ]);
+            }
+
+        DB::commit();
 
             return response()->json([
                 'status' => 'berhasil',
@@ -65,6 +122,7 @@ class PengajuanController extends Controller
                 'data' => $data
             ], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengajukan SDM baru',
@@ -81,7 +139,11 @@ class PengajuanController extends Controller
      */
     public function show(RekrutPengajuan $rekrutPengajuan)
     {
-        //
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
