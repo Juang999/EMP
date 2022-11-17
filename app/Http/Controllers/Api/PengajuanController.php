@@ -53,8 +53,8 @@ class PengajuanController extends Controller
         $funcAttachement = array_slice(str_split($base), 0, -strlen($count));
         $totalAttachement = implode($funcAttachement).$count;
 
-        $funcDept = array_slice(str_split($base), 0, -strlen($request->dpt_id));
-        $departement = implode($funcDept).$request->dpt_id;
+        $funcDept = array_slice(str_split($base), 0, -strlen($request->recruitementDivisi));
+        $departement = implode($funcDept).$request->recruitementDivisi;
 
         $pengajuan_code = 'PGJ-'.Carbon::now()->format('ym').$departement.$totalAttachement;
         // dd($request->all());
@@ -62,55 +62,55 @@ class PengajuanController extends Controller
         try {
             DB::beginTransaction();
 
-            if ($request->jumlah_pria != NULL) {
+            if ($request->recruitmentJmlPria != NULL) {
                 $data['pria'] = RekrutPengajuan::create([
                     'pgj_code' => $pengajuan_code,
                     'pgj_date' => Carbon::translateTimeString(now()),
-                    'pgj_nomor_telepon' => $request->nomor_telepon,
-                    'pgj_alasan' => $request->alasan,
-                    'pgj_tipe_alasan' => $request->tipe_alasan,
-                    'pgj_en_id' => $request->en_id,
-                    'pgj_status_karyawan' => $request->status,
-                    'pgj_tipe_rekrutmen' => $request->tipe_rekrutmen,
-                    'pgj_pangkat' => $request->level,
-                    'pgj_jabatan' => $request->jabatan,
-                    'pgj_posisi' => $request->posisi,
-                    'pgj_jumlah' => $request->jumlah_pria,
+                    'pgj_nomor_telepon' => $request->recruitmentNoWhatsapp,
+                    'pgj_alasan' => $request->recruitmentAlasan,
+                    'pgj_tipe_alasan' => $request->recruitmentTypeAlasan,
+                    'pgj_en_id' => $request->recruitmentEntitas,
+                    'pgj_status_karyawan' => $request->recruitmentStatus,
+                    'pgj_tipe_rekrutmen' => $request->recruitmentType,
+                    'pgj_pangkat' => $request->recruitmentLevel,
+                    'pgj_jabatan' => $request->recruitmentJabatan,
+                    'pgj_posisi' => $request->recruitmentPosisi,
+                    'pgj_jumlah' => $request->recruitmentJmlPria,
                     'pgj_jenis_kelamin' => 'L',
-                    'pgj_lokasi' => $request->lokasi,
-                    'pgj_hirarki' => $request->atasan_id,
-                    'pgj_pendidikan' => $request->tingkat_pendidikan,
-                    'pgj_jurusan' => $request->jurusan,
-                    'pgj_pengalaman' => $request->pengalaman,
-                    'pgj_pengetahuan_dan_keahlian' => $request->pengetahuan_dan_keahlian,
-                    'pgj_deskripsi_pekerjaan' => $request->deksripsi_pekerjaan,
-                    'pgj_tgl_terpenuhi' => $request->ekspetasi_join
+                    'pgj_lokasi' => $request->recruitmentLokasi,
+                    // 'pgj_hirarki' => $request->atasan_id,
+                    'pgj_pendidikan' => $request->recruitmentTingkatPendidikan,
+                    'pgj_jurusan' => $request->recruitmentJurusan,
+                    'pgj_pengalaman' => $request->recruitmentPengalaman,
+                    'pgj_pengetahuan_dan_keahlian' => $request->recruitmentPengetahuanDanKeahlian,
+                    'pgj_deskripsi_pekerjaan' => $request->recruitmentDeskripsi,
+                    'pgj_tgl_terpenuhi' => $request->recruitmentEkspektasiJoin
                 ]);
             }
 
-            if ($request->jumlah_wanita != NULL) {
+            if ($request->recruitmentJmlWanita != NULL) {
                 $data['wanita'] = RekrutPengajuan::create([
                     'pgj_code' => $pengajuan_code,
                     'pgj_date' => Carbon::translateTimeString(now()),
-                    'pgj_nomor_telepon' => $request->nomor_telepon,
-                    'pgj_alasan' => $request->alasan,
-                    'pgj_tipe_alasan' => $request->tipe_alasan,
-                    'pgj_en_id' => $request->en_id,
-                    'pgj_status_karyawan' => $request->status,
-                    'pgj_tipe_rekrutmen' => $request->tipe_rekrutmen,
-                    'pgj_pangkat' => $request->level,
-                    'pgj_jabatan' => $request->jabatan,
-                    'pgj_posisi' => $request->posisi,
-                    'pgj_jumlah' => $request->jumlah_wanita,
+                    'pgj_nomor_telepon' => $request->recruitmentNoWhatsapp,
+                    'pgj_alasan' => $request->recruitmentAlasan,
+                    'pgj_tipe_alasan' => $request->recruitmentTypeAlasan,
+                    'pgj_en_id' => $request->recruitmentEntitas,
+                    'pgj_status_karyawan' => $request->recruitmentStatus,
+                    'pgj_tipe_rekrutmen' => $request->recruitmentType,
+                    'pgj_pangkat' => $request->recruitmentLevel,
+                    'pgj_jabatan' => $request->recruitmentJabatan,
+                    'pgj_posisi' => $request->recruitmentPosisi,
+                    'pgj_jumlah' => $request->recruitmentJmlWanita,
                     'pgj_jenis_kelamin' => 'P',
-                    'pgj_lokasi' => $request->lokasi,
-                    'pgj_hirarki' => $request->atasan_id,
-                    'pgj_pendidikan' => $request->tingkat_pendidikan,
-                    'pgj_jurusan' => $request->jurusan,
-                    'pgj_pengalaman' => $request->pengalaman,
-                    'pgj_pengetahuan_dan_keahlian' => $request->pengetahuan_dan_keahlian,
-                    'pgj_deskripsi_pekerjaan' => $request->deksripsi_pekerjaan,
-                    'pgj_tgl_terpenuhi' => $request->ekspetasi_join
+                    'pgj_lokasi' => $request->recruitmentLokasi,
+                    // 'pgj_hirarki' => $request->atasan_id,
+                    'pgj_pendidikan' => $request->recruitmentTingkatPendidikan,
+                    'pgj_jurusan' => $request->recruitmentJurusan,
+                    'pgj_pengalaman' => $request->recruitmentPengalaman,
+                    'pgj_pengetahuan_dan_keahlian' => $request->recruitmentPengetahuanDanKeahlian,
+                    'pgj_deskripsi_pekerjaan' => $request->recruitmentDeskripsi,
+                    'pgj_tgl_terpenuhi' => $request->recruitmentEkspektasiJoin
                 ]);
             }
 
