@@ -625,7 +625,8 @@ class CodeMasterController extends Controller
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage(),
-                'line' => $th->getLine()
+                'line' => $th->getLine(),
+                'code' => 400
             ], 400);
         }
     }
@@ -638,14 +639,16 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'message' => 'berhasil mengambil data',
-                'data' => $departement
+                'data' => $departement,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'message' => 'gagal mengambil data',
                 'galat' => $th->getMessage(),
-                'line' => $th->getLine()
+                'line' => $th->getLine(),
+                'code' => 400
             ], 400);
         }
     }
@@ -658,14 +661,16 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil data',
                 'galat' => $th->getMessage(),
-                'line' => $th->getLine()
+                'line' => $th->getLine(),
+                'code' => 400
             ], 400);
         }
     }
@@ -678,13 +683,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil pesan',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
@@ -697,13 +704,15 @@ class CodeMasterController extends Controller
             return response()->json([
                 'status' => 'berhasil',
                 'pesan' => 'berhasil mengambil data',
-                'data' => $data
+                'data' => $data,
+                'code' => 200
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'gagal',
                 'pesan' => 'gagal mengambil pesan',
-                'galat' => $th->getMessage()
+                'galat' => $th->getMessage(),
+                'code' => 400
             ], 400);
         }
     }
