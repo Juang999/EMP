@@ -22,6 +22,7 @@ use App\Models\HrWorkGroup;
 use App\Models\MntMaster;
 use App\Models\PangkatMaster;
 use App\Models\PosMaster;
+use App\Models\RekrutGenProses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -673,6 +674,25 @@ class CodeMasterController extends Controller
     {
         try {
             $data = CodeMaster::where('code_field', 'status_pengajuan')->get();
+
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil pesan',
+                'galat' => $th->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getProses()
+    {
+        try {
+            $data = RekrutGenProses::get();
 
             return response()->json([
                 'status' => 'berhasil',
