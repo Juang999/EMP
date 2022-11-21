@@ -39,6 +39,14 @@ Route::prefix('pim')->middleware('jwt.verify')->group( function () {
         Route::post('/', 'store');
         Route::put('/{hrpres_oid}', 'update');
     });
-    
-
+    Route::controller(Api\DiseaseController::class)->prefix('disease')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrSakit}', 'update');
+    });
+    Route::controller(Api\PersonalityController::class)->prefix('personality')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('{hrKepribadian}', 'update');
+    });
 });
