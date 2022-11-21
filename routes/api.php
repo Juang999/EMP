@@ -166,6 +166,8 @@ Route::middleware('jwt.verify')->group( function () {
         Route::prefix('rekrut')->group( function () {
             Route::post('pengajuan', [Api\PengajuanController::class, 'store']);
             Route::get('pengajuan', [Api\PengajuanController::class, 'index']);
+            Route::get('pengajuan/{rekrutPengajuan}', [Api\PengajuanController::class, 'show']);
+            Route::put('pengajuan/{code}', [Api\PengajuanController::class, 'update']);
         });
 
         Route::controller(Api\HierarchyController::class)->prefix('hirarki')->group(function () {
