@@ -48,24 +48,23 @@ class PengajuanController extends Controller
      */
     public function store(PengajuanRequest $request)
     {
-        $count = RekrutPengajuan::count();
-        ($count >= 1) ? $count++ : $count = 1;
-
-        $base = '000';
-
-        $funcAttachement = array_slice(str_split($base), 0, -strlen($count));
-        $totalAttachement = implode($funcAttachement).$count;
-
-        $funcDept = array_slice(str_split($base), 0, -strlen($request->recruitementDivisi));
-        $departement = implode($funcDept).$request->recruitementDivisi;
-
-        $pengajuan_code = 'PGJ-'.Carbon::now()->format('ym').$departement.$totalAttachement;
-        // dd($request->all());
-
         try {
             DB::beginTransaction();
 
             if ($request->recruitmentJmlPria != NULL) {
+                $count = RekrutPengajuan::count();
+                ($count >= 1) ? $count++ : $count = 1;
+
+                $base = '000';
+
+                $funcAttachement = array_slice(str_split($base), 0, -strlen($count));
+                $totalAttachement = implode($funcAttachement).$count;
+
+                $funcDept = array_slice(str_split($base), 0, -strlen($request->recruitementDivisi));
+                $departement = implode($funcDept).$request->recruitementDivisi;
+
+                $pengajuan_code = 'PGJ-'.Carbon::now()->format('ym').$departement.$totalAttachement;
+
                 $data['pria'] = RekrutPengajuan::create([
                     'pgj_code' => $pengajuan_code,
                     'pgj_date' => Carbon::translateTimeString(now()),
@@ -94,6 +93,19 @@ class PengajuanController extends Controller
             }
 
             if ($request->recruitmentJmlWanita != NULL) {
+                $count = RekrutPengajuan::count();
+                ($count >= 1) ? $count++ : $count = 1;
+
+                $base = '000';
+
+                $funcAttachement = array_slice(str_split($base), 0, -strlen($count));
+                $totalAttachement = implode($funcAttachement).$count;
+
+                $funcDept = array_slice(str_split($base), 0, -strlen($request->recruitementDivisi));
+                $departement = implode($funcDept).$request->recruitementDivisi;
+
+                $pengajuan_code = 'PGJ-'.Carbon::now()->format('ym').$departement.$totalAttachement;
+
                 $data['wanita'] = RekrutPengajuan::create([
                     'pgj_code' => $pengajuan_code,
                     'pgj_date' => Carbon::translateTimeString(now()),
