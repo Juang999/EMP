@@ -149,9 +149,19 @@ class PengajuanController extends Controller
     public function show(RekrutPengajuan $rekrutPengajuan)
     {
         try {
-            //code...
+            return response()->json([
+                'status' => 'berhasil',
+                'pesan' => 'berhasil mengambil data',
+                'data' => $rekrutPengajuan,
+                'code' => 200
+            ], 200);
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                'status' => 'gagal',
+                'pesan' => 'gagal mengambil data',
+                'galat' => $th->getMessage(),
+                'code' => 400
+            ], 400);
         }
     }
 
