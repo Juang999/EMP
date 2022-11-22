@@ -108,7 +108,7 @@ class EmployeeController extends Controller
                 'emp_oid' => Str::uuid(),
                 'emp_add_by' => Auth::user()->usernama, //done
                 'emp_add_date' => Carbon::now(), //done
-                'emp_id' => $emp_id_and_finger->emp_id, //done
+                'emp_id' => $emp_id_and_finger, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
                 'emp_lname' => ($count > 0) ? $name[$count] : NULL, //done
@@ -209,9 +209,9 @@ class EmployeeController extends Controller
                     ], 300);
                 }
 
-                // $hobbies = json_decode($request->codeIdHobbies, true);
+                $hobbies = json_decode($request->codeIdHobbies, true);
 
-                foreach ($request->codeIdHobbies as $hobby) {
+                foreach ($hobbies as $hobby) {
                     HRHobbies::create([
                         'hr_hobbies_oid' => Str::uuid(),
                         'hr_hobbies_emp_id' => $employee->emp_id,
@@ -231,7 +231,7 @@ class EmployeeController extends Controller
                 ]);
 
                 EmpMaster::where('emp_id', $employee->emp_id)->update([
-                    'emp_persnlt_code_id' => $data->hr_persnlt_code_id
+                    'emp_persnlt_code_id' => $data->codeIdPersonality
                 ]);
             }
 
