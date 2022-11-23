@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/recruitment', function (Request $request) {
-    return $request->user();
+Route::prefix('recruitment')->middleware('jwt.verify')->group(function () {
+    Route::controller(Api\SubmissionController::class)->prefix('submission')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{rekrutPengajuan}', 'show');
+        Route::put('/{rekrutPengajuan}', 'update');
+    });
 });
+
