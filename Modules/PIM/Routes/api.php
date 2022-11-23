@@ -49,4 +49,53 @@ Route::prefix('pim')->middleware('jwt.verify')->group( function () {
         Route::post('/', 'store');
         Route::put('{hrKepribadian}', 'update');
     });
+    Route::controller(Api\HobbiesController::class)->prefix('hobbies')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrHobbies}', 'update');
+    });
+
+    // thirdScreen
+    Route::controller(Api\ExperienceController::class)->prefix('pengalamanKerja')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrPengalaman}', 'update');
+    });
+    Route::controller(Api\FormalEducationController::class)->prefix('pendidikanFormal')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrPendidikan}', 'update');
+    });
+    Route::controller(Api\NonFormalEducationController::class)->prefix('pendidikanNonFormal')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrPendidikanNon}', 'update');
+    });
+    Route::controller(Api\SkillController::class)->prefix('keahlian')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrKeahlian}', 'update');
+    });
+
+    // fourthScreeen
+    Route::controller(Api\RankController::class)->prefix('pangkat')->group(function () {
+        Route::post('/', 'store');
+        Route::get('/{emp_id}', 'show');
+    });
+    Route::controller(Api\ContractHistoryController::class)->prefix('sejarahKontrak')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrKontrak}', 'update');
+    });
+    Route::controller(Api\PositionController::class)->prefix('posisi')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrPosisi}', 'update');
+    });
+    Route::controller(Api\WarningLetterController::class)->prefix('suratPeringatan')->group(function () {
+        Route::get('/{emp_id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{hrMasaSP}', 'update');
+    });
 });
+
