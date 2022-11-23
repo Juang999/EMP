@@ -86,12 +86,6 @@ class EmployeeController extends Controller
 
             $emp_id_and_finger = EmpMaster::orderBy('emp_add_date', 'DESC')->first('emp_id');
 
-            if (!$emp_id_and_finger) {
-                $emp_id_and_finger = 1;
-            } else {
-                $emp_id_and_finger->emp_id++;
-            }
-
             $rawNIK = EmpMaster::count();
             if (!$rawNIK) {
                 $rawNIK = 1;
@@ -108,7 +102,7 @@ class EmployeeController extends Controller
                 'emp_oid' => Str::uuid(),
                 'emp_add_by' => Auth::user()->usernama, //done
                 'emp_add_date' => Carbon::now(), //done
-                'emp_id' => $emp_id_and_finger, //done
+                'emp_id' => ($emp_id_and_finger == NULL) ? 1 : $emp_id_and_finger->emp_id++, //done
                 'emp_fname' => $name[0], //done
                 'emp_mname' => $request->namaPanggilan, //done
                 'emp_lname' => ($count > 0) ? $name[$count] : NULL, //done
