@@ -151,17 +151,15 @@ Route::middleware('jwt.verify')->group( function () {
         Route::get('departement', [Api\CodeMasterController::class, 'getDepartement']);
         Route::get('tipe_rekrutmen', [Api\CodeMasterController::class, 'getRecruitmentType']);
         Route::get('status_pengajuan', [Api\CodeMasterController::class, 'getStatusPengajuan']);
+        Route::get('atasan', [Api\CodeMasterController::class, 'getAtasan']);
+        Route::get('proses', [Api\CodeMasterController::class, 'getProses']);
+        Route::get('/jabatan/{jabatan_id}/pangkat/{pangkat_id}', Api\Master\Superior::class);
+        Route::get('recruitment', Api\Master\RecruitmentType::class);
+        Route::get('recruitment', Api\Master\Area::class);
 
         // updateCenterAPI
         Route::put('/{mode}/{emp_id}', Api\UpdateCenter::class);
 
         // codeMasterInput
         Route::post('inputCode', [Temporary\TemporaryInputController::class, 'inputCodeMaster']);
-
-
-    // rekrutmen
-        // pengajuan
-        Route::prefix('rekrut')->group( function () {
-            Route::post('pengajuan', [Api\PengajuanController::class, 'store']);
-        });
 });
