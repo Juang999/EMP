@@ -34,17 +34,17 @@ class FamilyController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'emp_id' => 'required',
-            'hubId' => 'required',
-            'nama' => 'required',
-            'tglLahir' => 'required',
-            'tmptLahir' => 'required'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'emp_id' => 'required',
+        //     'hubId' => 'required',
+        //     'nama' => 'required',
+        //     'tglLahir' => 'required',
+        //     'tmptLahir' => 'required'
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors()->toJson(), 400);
+        // }
 
         try {
             $sequence = HRKeluarga::where('hrkel_emp_id', $request->emp_id)->count();
