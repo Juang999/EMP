@@ -15,4 +15,8 @@ class HrJabatanMaster extends Model
 
     protected $primaryKey = 'hrjbt_oid';
 
+    public function EmpMaster()
+    {
+        return $this->hasMany(EmpMaster::class, 'hrjbt_id', 'emp_jabatan');
+    }
 }

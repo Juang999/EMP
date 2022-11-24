@@ -2,6 +2,8 @@
 
 namespace Modules\PIM\Http\Controllers\Api;
 
+use App\Models\EnMaster;
+use App\Models\HrJabatanMaster;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
@@ -19,20 +21,24 @@ class EmployeeController extends Controller
     public function index()
     {
         try {
+
             $theData = DB::table('public.emp_mstr')->select(DB::raw('public.emp_mstr.emp_oid, public.emp_mstr.emp_fname, public.emp_mstr.emp_mname, public.emp_mstr.emp_lname, public.emp_mstr.emp_id, public.emp_mstr.emp_en_id, public.emp_mstr.emp_jabatan, public.en_mstr.en_id, public.en_mstr.en_desc, hris.hrjabatan_mstr.hrjbt_id, hris.hrjabatan_mstr.hrjbt_name'))
             ->leftJoin('public.en_mstr', 'public.en_mstr.en_id', '=', 'public.emp_mstr.emp_en_id')
             ->leftJoin('hris.hrjabatan_mstr', 'hris.hrjabatan_mstr.hrjbt_id', '=', 'public.emp_mstr.emp_jabatan')
             ->orderBy('public.emp_mstr.emp_fname')
             ->get();
 
-            foreach ($theData as $data) {
-                $data->total_keluarga = DB::table('hris.hr_keluarga')->where('hrkel_emp_id', $data->emp_id)->count();
-                $data->total_organisasi = DB::table('hris.hr_organisasi')->where('hrorg_emp_id', $data->emp_id)->count();
-                $data->total_prestasi = DB::table('hris.hr_prestasi')->where('hrpres_emp_id', $data->emp_id)->count();
-                $data->total_keahlian = DB::table('hris.hr_keahlian')->where('hrahli_emp_id', $data->emp_id)->count();
-                $data->total_SP = DB::table('hris.hr_masa_sp')->where('hrsp_emp_id', $data->emp_id)->count();
-                $data->total_riwayat_penyakit = DB::table('hris.hr_sakit')->where('hrsakit_emp_id', $data->emp_id)->count();
-            }
+            // $theData = EmpMaster::get(['emp_oid', 'emp_fname', 'emp_mname', 'emp_lname', 'emp_id', 'emp_en_id', 'emp_jabatan']);
+
+            $collection = collect($theData);
+            $collection->each(function ($item, $key) {
+                $item->total_keluarga = DB::table('hris.hr_keluarga')->where('hrkel_emp_id', $item->emp_id)->count();
+                $item->total_organisasi = DB::table('hris.hr_organisasi')->where('hrorg_emp_id', $item->emp_id)->count();
+                $item->total_prestasi = DB::table('hris.hr_prestasi')->where('hrpres_emp_id', $item->emp_id)->count();
+                $item->total_keahlian = DB::table('hris.hr_keahlian')->where('hrahli_emp_id', $item->emp_id)->count();
+                $item->total_SP = DB::table('hris.hr_masa_sp')->where('hrsp_emp_id', $item->emp_id)->count();
+                $item->total_riwayat_penyakit = DB::table('hris.hr_sakit')->where('hrsakit_emp_id', $item->emp_id)->count();
+            });
 
             return response()->json([
                 'status' => 'berhasil',
@@ -191,9 +197,9 @@ class EmployeeController extends Controller
                     ], 300);
                 }
 
-                // $hobbies = json_decode($request->codeIdHobbies, true);
+                $hobbies = json_decode($request->codeIdHobbies, true);
 
-                foreach ($request->codeIdHobbies as $hobby) {
+                foreach ($hobbies as $hobby) {
                     HRHobbies::create([
                         'hr_hobbies_oid' => Str::uuid(),
                         'hr_hobbies_emp_id' => $employee->emp_id,

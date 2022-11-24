@@ -23,4 +23,9 @@ class HRKeluarga extends Model
     {
         return $this->belongsTo(HRHubKel::class, 'hrkel_hub_id', 'hrhub_id');
     }
+
+    public function Karyawan()
+    {
+        return $this->belongsTo(EmpMaster::class, 'emp_id',  'hrkel_emp_id');
+    }
 }
