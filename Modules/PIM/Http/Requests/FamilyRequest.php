@@ -15,10 +15,11 @@ class FamilyRequest extends FormRequest
     {
         return [
             'emp_id' => 'required',
-            'hubId' => 'required',
-            'nama' => 'required',
-            'tgllahir' => 'required',
-            'tmptLahir' => 'required'
+            'jenisHubunganHubungan' => 'required',
+            'namaHubungan' => 'required',
+            'tglLahirHubungan' => 'required',
+            'tmptLahirHubungan' => 'required',
+            'keteranganHubungan' => 'nullable'
         ];
     }
 
