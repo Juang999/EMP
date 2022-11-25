@@ -80,10 +80,8 @@ class FormalEducationController extends Controller
     {
         try {
             $data = DB::table('hris.hr_pendidikan')
-            ->select(DB::raw('hris.hr_pendidikan.*, hris.hr_pddk_mstr.*'))
-            ->join('hris.hr_pddk_mstr', 'hris.hr_pendidikan.hrpend_jenjang', '=', 'hris.hr_pddk_mstr.hrpddk_id')
-            ->where('hrpend_emp_id', '=', $emp_id)->orderBy('hrpend_seq', 'ASC')
-            ->get();
+            ->select(DB::raw('hris.hr_pendidikan.*'))
+            ->where('hrpend_emp_id', '=', $emp_id)->orderBy('hrpend_seq', 'ASC')->get();
 
             return response()->json([
                 'status' => 'berhasil',

@@ -102,7 +102,7 @@ class FamilyController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(FamilyRequest $request, $hrkel_oid)
+    public function update(Request $request, $hrkel_oid)
     {
         try {
             $employee = HRKeluarga::where('hrkel_oid', $hrkel_oid)->first();
