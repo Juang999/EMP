@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Recruitment\Http\Controllers\Api;
+namespace Modules\Recruitment\Http\Controllers\Api\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -72,7 +72,7 @@ class SubmissionController extends Controller
                 'pgj_jabatan' => $request->recruitmentJabatan,
                 'pgj_posisi' => $request->recruitmentPosisi,
                 'pgj_lokasi' => $request->recruitmentLokasi,
-                'pgj_atasan' => $request->atasan_id,
+                'pgj_atasan' => $request->recruitmentAtasan,
                 'pgj_pendidikan' => $request->recruitmentTingkatPendidikan,
                 'pgj_jurusan' => $request->recruitmentJurusan,
                 'pgj_pengalaman' => $request->recruitmentPengalaman,
@@ -83,7 +83,8 @@ class SubmissionController extends Controller
                 'pgj_add_date' => Carbon::translateTimeString(now()),
                 'pgj_male' => ($request->recruitmentJmlPria) ? $request->recruitmentJmlPria : 0,
                 'pgj_female' => ($request->recruitmentJmlWanita) ? $request->recruitmentJmlWanita : 0,
-                'pgj_nama_pengaju' => $request->recruitmentNamaPengaju
+                'pgj_nama_pengaju' => $request->recruitmentNamaPengaju,
+                'pgj_dept_id' => $request->recruitmentDivisi
             ]);
 
             return response()->json([
