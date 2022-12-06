@@ -149,7 +149,14 @@ class EmployeeController extends Controller
                 'emp_npwp' => $request->npwp,
                 'emp_email_alt' => $request->emailAlt,
                 'emp_jabatan' => $request->jabatanId,
-                'emp_bpjs' => $request->bpjs
+                'emp_bpjs' => $request->bpjs,
+                'emp_dir_id' => $request->direktur,
+                'emp_div_id' => $request->divisi,
+                'emp_dpt_id' => $request->departemen,
+                'emp_sect_id' => $request->seksi,
+                'emp_ssect_id' => $request->subseksi,
+                'emp_usect_id' => $request->unitseksi,
+                'emp_is_special' => $request->spesial
             ]);
 
             UseAset::create([
@@ -308,14 +315,23 @@ class EmployeeController extends Controller
             public.emp_mstr.emp_t_jabatan,
             public.emp_mstr.emp_persnlt_code_id,
             public.emp_mstr.emp_bpjs,
-            public.en_mstr.*,
-            hris.hrjabatan_mstr.*,
+            public.emp_mstr.emp_dir_id,
+            public.orgdir_mstr.dir_id,
+            public.orgdir_mstr.dir_desc,
+            public.emp_mstr.emp_div_id,
+            public.emp_mstr.emp_dpt_id,
+            public.emp_mstr.emp_sect_id,
+            public.emp_mstr.emp_ssect_id,
+            public.emp_mstr.emp_usect_id,
+            public.en_mstr.en_desc,
+            hris.hrjabatan_mstr.hrjbt_name,
             public.code_mstr.code_name,
             public.code_mstr.code_code
             "))
             ->leftJoin('public.en_mstr', 'public.en_mstr.en_id', '=', 'public.emp_mstr.emp_en_id')
             ->leftJoin('hris.hrjabatan_mstr', 'hris.hrjabatan_mstr.hrjbt_id', '=', 'public.emp_mstr.emp_jabatan')
             ->leftJoin('public.code_mstr', 'public.code_mstr.code_id', '=', 'public.emp_mstr.emp_status_marital')
+            ->leftJoin('public.orgdir_mstr', 'public.orgdir_mstr.dir_id', '=', 'public.emp_mstr.emp_dir_id')
             ->where('public.emp_mstr.emp_id', '=', $emp_id)->first();
 
             $data->hirarki = DB::table('public.emp_mstr')->where('emp_id', $data->emp_hirarki)->first(['emp_fname', 'emp_mname', 'emp_lname', 'emp_id']);
@@ -324,7 +340,44 @@ class EmployeeController extends Controller
             $data->pangkat = DB::table('hris.pangkat_mstr')->where('pangkat_id', $data->emp_pangkat_id)->first(['pangkat_id', 'pangkat_code', 'pangkat_name', 'pangkat_active']);
             $data->personality = DB::table('public.code_mstr')->where('code_id', $data->emp_persnlt_code_id)->first(['code_id', 'code_name', 'code_code', 'code_desc']);
             $data->hrStatus = DB::table('public.code_mstr')->where('code_id', $data->emp_hrstatus_id)->first(['code_id', 'code_name', 'code_field']);
-            $data->workGroup = db::table('hris.hr_work_group')->where('wg_id', $data->emp_work_group)->first();
+            $data->workGroup = DB::table('hris.hr_work_group')->where('wg_id', $data->emp_work_group)->first();
+            $data->direktur = DB::table('public.orgdir_mstr')->select(DB::raw('
+            public.orgdir_mstr.dir_id,
+            public.orgdir_mstr.dir_desc,
+            public.emp_mstr.emp_dir_id,
+            public.emp_mstr.emp_fname'))
+            ->leftJoin('public.emp_mstr', 'public.emp_mstr.emp_dir_id', '=', 'public.orgdir_mstr.dir_id')
+            ->where('dir_id', $data->emp_dir_id)->first();
+            $data->divisi = DB::table('public.orgdiv_mstr')->select(DB::raw('
+            public.orgdiv_mstr.div_id,
+            public.orgdiv_mstr.div_desc,
+            public.emp_mstr.emp_div_id,
+            public.emp_mstr.emp_fname'))
+            ->leftJoin('public.emp_mstr', 'public.emp_mstr.emp_div_id', '=', 'public.orgdiv_mstr.div_id')
+            ->where('div_id', $data->emp_div_id)->first();
+            $data->departemen = DB::table('public.orgdpt_mstr')->select(DB::raw('
+            public.orgdpt_mstr.dpt_id,
+            public.orgdpt_mstr.dpt_desc,
+            public.emp_mstr.emp_dpt_id,
+            public.emp_mstr.emp_fname'))
+            ->leftJoin('public.emp_mstr', 'public.emp_mstr.emp_dpt_id', '=', 'public.orgdpt_mstr.dpt_id')
+            ->where('dpt_id', $data->emp_dpt_id)->first();
+            $data->seksi = DB::table('public.orgsect_mstr')->select(DB::raw('
+            public.orgsect_mstr.sect_id,
+            public.orgsect_mstr.sect_desc,
+            public.emp_mstr.emp_sect_id,
+            public.emp_mstr.emp_fname'))
+            ->leftJoin('public.emp_mstr', 'public.emp_mstr.emp_sect_id', '=', 'public.orgsect_mstr.sect_id')
+            ->where('sect_id', $data->emp_sect_id)->first();
+            $data->subseksi = DB::table('public.orgssect_mstr')->select(DB::raw('
+            public.orgssect_mstr.ssect_id,
+            public.orgssect_mstr.ssect_desc,
+            public.emp_mstr.emp_ssect_id,
+            public.emp_mstr.emp_fname'))
+            ->leftJoin('public.emp_mstr', 'public.emp_mstr.emp_ssect_id', '=', 'public.orgssect_mstr.ssect_id')
+            ->where('ssect_id', $data->emp_ssect_id)->first();
+            $data->unitseksi = DB::table('public.orgusect_mstr')->where('usect_id', $data->emp_usect_id)->first(['usect_id', 'usect_desc']);
+
 
             $rawPhoto = DB::table('public.emp_mstr')->select(DB::raw("encode(public.emp_mstr.emp_photo, 'base64') AS emp_photo"))
             ->where('public.emp_mstr.emp_id', '=', $emp_id)
@@ -417,7 +470,13 @@ class EmployeeController extends Controller
                 'emp_npwp' => ($request->npwp) ? $request->npwp : $employee->emp_npwp,
                 'emp_email_alt' => ($request->emailAlt) ? $request->emailAlt : $employee->emp_email_alt,
                 'emp_jabatan' => ($request->jabatanId) ? $request->jabatanId : $employee->emp_jabatan,
-                'emp_bpjs' => ($request->bpjs) ? $request->bpjs : $employee->emp_bpjs
+                'emp_bpjs' => ($request->bpjs) ? $request->bpjs : $employee->emp_bpjs,
+                'emp_dir_id' => ($request->direktur) ? $request->direktur : $employee->emp_dir_id,
+                'emp_div_id' => ($request->divisi) ? $request->divisi : $employee->emp_div_id,
+                'emp_dpt_id' => ($request->departemen) ? $request->departemen : $employee->emp_dpt_id,
+                'emp_sect_id' => ($request->seksi) ? $request->seksi : $employee->emp_sect_id,
+                'emp_ssect_id' => ($request->subseksi) ? $request->subseksi : $employee->emp_sect_id,
+                'emp_usect_id' => ($request->unitseksi) ? $request->unitseksi : $employee->emp_usect_id
             ]);
 
             return response()->json([
