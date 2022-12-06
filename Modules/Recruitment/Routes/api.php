@@ -22,12 +22,14 @@ Route::prefix('recruitment')->group(function () {
         Route::put('submission/{rekrutPengajuan}', 'update');
     });
 
-    Route::controller(Api\Client\SubmissionController::class)->prefix('client')->group(function () {
-        Route::get('submission/', 'index');
-        Route::get('submission/filterPangkat/{pangkat_id}', 'filterPangkat');
-        Route::get('submission/filterDept/{dept_id}', 'filterDept');
-        Route::get('submission/filterLokasi/{lokasi}', 'filterLokasi');
-        Route::get('submission/searchRecruitment/{query}', 'search');
+    Route::prefix('client')->group(function () {
+        Route::get('/submission', 'Api\Client\SubmissionController@index');
+
+        Route::prefix('master')->group(function () {
+            Route::get('getRank', 'Api\Client\GetRankController@index');
+            Route::get('getDept', 'Api\Client\GetDepartementController@index');
+            Route::get('getLoc', 'Api\Client\GetLocationController@index');
+        });
     });
 });
 
