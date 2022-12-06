@@ -106,21 +106,31 @@ Route::prefix('pim')->middleware('jwt.verify')->group( function () {
     Route::controller(Api\DivisionController::class)->prefix('divisi') ->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/{divOid}', 'update');
     });
     Route::controller(Api\DepartementController::class)->prefix('departemen')->group(function () {
         Route::post('/', 'store');
         Route::get('/', 'index');
+        Route::put('/{dptOid}', 'update');
+        Route::patch('delete-division-hierarchy/{dptOid}', 'deleteDivision');
     });
     Route::controller(Api\SectionController::class)->prefix('section')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/{sectOid}', 'update');
     });
     Route::controller(Api\SubSectionController::class)->prefix('sub-section')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/{ssectOid}', 'update');
+        Route::patch('delete-division-hierarchy/{sectOid}', 'deleteDivision');
     });
     Route::controller(Api\UnitSubSectionController::class)->prefix('unit-sub-section')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/{usectOid}', 'update');
     });
+
+    // getOrganization
+    Route::get('get-organization', 'Api\GetOrganizationController@index');
 });
