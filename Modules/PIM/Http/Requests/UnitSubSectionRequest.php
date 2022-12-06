@@ -14,7 +14,15 @@ class UnitSubSectionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'usect_dom_id' => 'required',
+            'usect_en_id' => 'required',
+            'usect_code' => 'required',
+            'usect_desc' => 'required',
+            'usect_ssect_id' => 'nullable',
+            'usect_sect_id' => 'nullable',
+            'usect_dpt_id' => 'nullable',
+            'usect_div_id' => 'nullable',
+            'usect_dir_id' => 'nullable',
         ];
     }
 

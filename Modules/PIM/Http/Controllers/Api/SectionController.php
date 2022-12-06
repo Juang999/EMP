@@ -68,7 +68,7 @@ class SectionController extends Controller
                 'sect_dt' => Carbon::now(),
                 'sect_div_id' => ($request->sect_div_id) ? $request->sect_div_id : NULL,
                 'sect_dir_id' => ($request->sect_dir_id) ? $request->sect_dir_id : NULL,
-                'sec_dpt_id' => ($request->sect_dpt_id) ? $request->sect_dpt_id : NULL
+                'sect_dpt_id' => ($request->sect_dpt_id) ? $request->sect_dpt_id : NULL
             ]);
 
             return $this->response('berhasil', 'berhasil membuat data section', $data, 200);
@@ -93,9 +93,27 @@ class SectionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OrgSecMstr $sectOid)
     {
-        //
+        try {
+            $sectOid->update([
+                'sect_dom_id' => ($request->sect_dom_id) ? $request->sect_dom_id : $sectOid->sect_dom_id,
+                'sect_en_id' => ($request->sect_en_id) ? $request->sect_en_id : $sectOid->sect_en_id,
+                'sect_upd_by' => Auth::user()->usernama,
+                'sect_upd_date' => Carbon::now(),
+                'sect_code' => ($request->sect_code) ? $request->sect_code : $sectOid->sect_code,
+                'sect_desc' => ($request->sect_desc) ? $request->sect_desc : $sectOid->sect_desc,
+                'sect_lbr_cap' => ($request->sect_lbr_cap) ? $request->sect_lbr_cap : $sectOid->sect_lbr_cap,
+                'sect_active' => ($request->sect_active) ? $request->sect_active : $sectOid->sect_active,
+                'sect_dir_id' => ($request->sect_dir_id) ? $request->sect_dir_id : $sectOid->sect_dir_id,
+                'sect_div_id' => ($request->sect_div_id) ? $request->sect_div_id : $sectOid->sect_div_id,
+                'sect_dpt_id' => ($request->sect_dpt_id) ? $request->sect_dpt_id : $sectOid->sect_dpt_id
+            ]);
+
+            return $this->response('berhaisl', 'berhasil update data supervisor', true, 200);
+        } catch (\Throwable $th) {
+            return $this->response('gagal', 'gagal update data supervisor', $th->getMessage(), 400);
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\Tools;
 use Illuminate\Http\{Request, Response};
 use Modules\PIM\Entities\OrgSubSectMstr;
 use Illuminate\Support\{Str, Facades\Auth};
+use Modules\PIM\Entities\OrgSecMstr;
 use Modules\PIM\Http\Requests\SubSectionRequest;
 
 class SubSectionController extends Controller
@@ -58,6 +59,7 @@ class SubSectionController extends Controller
                 'ssect_dom_id' => $request->ssect_dom_id,
                 'ssect_en_id' => $request->ssect_en_id,
                 'ssect_add_by' => Auth::user()->usernama,
+                'ssect_add_date' => Carbon::now(),
                 'ssect_id' => $ssect_id,
                 'ssect_code' => $request->ssect_code,
                 'ssect_desc' => $request->ssect_desc,
@@ -105,5 +107,18 @@ class SubSectionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteDivision(OrgSubSectMstr $ssectOid)
+    {
+        try {
+            $ssectOid->update([
+                'ssect_div_id' => NULL
+            ]);
+
+            return $this->response('berhasil', 'berhasil menghapus hirarki divisi', true, 200);
+        } catch (\Throwable $th) {
+            return $this->response('gagal', 'gagal menghapus hirarki divisi', $th->getMessage(), 400);
+        }
     }
 }

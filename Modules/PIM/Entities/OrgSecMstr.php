@@ -9,11 +9,11 @@ class OrgSecMstr extends Model
 {
     use HasFactory;
 
-    protected $table = 'public.orgsec_mstr';
+    protected $table = 'public.orgsect_mstr';
 
     protected $keyType = 'string';
 
-    protected $primaryKey = 'sec_oid';
+    protected $primaryKey = 'sect_oid';
 
     protected $guarded = [];
 

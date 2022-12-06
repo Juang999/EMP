@@ -84,9 +84,25 @@ class DivisionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OrgDivMstr $divOid)
     {
-        //
+        try {
+        $divOid->update([
+            'div_dom_id' => ($request->div_dom_id) ? $request->div_dom_id : $divOid->div_dom_id,
+            'div_en_id' => ($request->div_en_id) ? $request->div_en_id : $divOid->div_en_id,
+            'div_upd_by' => Auth::user()->usernama,
+            'div_upd_date' => Carbon::now(),
+            'div_code' => ($request->div_code) ? $request->div_code : $divOid->div_code,
+            'div_desc' => ($request->div_desc) ? $request->div_desc : $divOid->div_desc,
+            'div_lbr_cap' => ($request->div_lbr_cap) ? $request->div_lbr_cap : $divOid->div_lbr_cap,
+            'div_active' => ($request->div_active) ? $request->div_active : $divOid->div_active,
+            'div_dir_id' => ($request->div_dir_id) ? $request->div_dir_id : $divOid->div_dir_id,
+        ]);
+
+        return $this->response('berhasil', 'berhasil update data divisi', true, 200);
+        } catch (\Throwable $th) {
+            return $this->response('gagal', 'gagal update data divisi', $th->getMessage(), 400);
+        }
     }
 
     /**

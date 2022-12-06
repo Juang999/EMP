@@ -89,9 +89,26 @@ class DepartementController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OrgDptMstr $dptOid)
     {
-        //
+        try {
+            $dptOid->update([
+                'dpt_dom_id' => ($request->dpt_dom_id) ? $request->dpt_dom_id : $dptOid->dpt_dom_id,
+                'dpt_en_id' => ($request->dpt_en_id) ? $request->dpt_en_id : $dptOid->dpt_en_id,
+                'dpt_upd_by' => Auth::user()->usernama,
+                'dpt_upd_date' => Carbon::now(),
+                'dpt_code' => ($request->dpt_code) ? $request->dpt_code : $dptOid->dpt_code,
+                'dpt_desc' => ($request->dpt_desc) ? $request->dpt_desc : $dptOid->dpt_desc,
+                'dpt_lbr_cap' => ($request->dpt_lbr_cap) ? $request->dpt_lbr_cap : $dptOid->dpt_lbr_cap,
+                'dpt_active' => ($request->dpt_active) ? $request->dpt_active : $dptOid->dpt_active,
+                'dpt_dir_id' => ($request->dpt_dir_id) ? $request->dpt_dir_id : $dptOid->dpt_dir_id,
+                'dpt_div_id' => ($request->dpt_div_id) ? $request->dpt_div_id : $dptOid->dpt_div_id
+            ]);
+
+            return $this->response('berhasil', 'berhasil update data departemen', true, 200);
+        } catch (\Throwable $th) {
+            return $this->response('gagal', 'gagal update data departemen', $th->getMessage(), 400);
+        }
     }
 
     /**
@@ -102,5 +119,18 @@ class DepartementController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteDivision(OrgDptMstr $dptOid)
+    {
+        try {
+            $dptOid->update([
+                'dpt_div_id' => NULL
+            ]);
+
+            return $this->response('berhasil', 'berhasil menghapus hirarki ke divisi', true, 200);
+        } catch (\Throwable $th) {
+            return $this->response('gagal', 'gagal menghapus hirarki ke divisi', $th->getMessage(), 400);
+        }
     }
 }
